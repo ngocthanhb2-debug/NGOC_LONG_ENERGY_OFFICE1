@@ -84,6 +84,7 @@
   .paper .sign tr,.paper .sign td{page-break-inside:avoid;break-inside:avoid;}
   .paper .sign td{border:none;text-align:center;vertical-align:top;}
   .paper .sign .role{font-style:italic;font-size:11pt;}
+  .paper .sign .sig-title{margin-top:2px;}
   .paper .sign .sp{height:80px;}
   .paper .appendix{page-break-before:always;break-before:page;}
   .paper .appendix img{max-width:100%;margin:6px 0;}
@@ -1361,6 +1362,10 @@ function renderContract(){
   const partyAhtml=role==='A'?partyNL:partyCP, partyBhtml=role==='A'?partyCP:partyNL;
   const sigA=role==='A'?sigNL:sigCP, sigB=role==='A'?sigCP:sigNL;
   const stkB=role==='A'?val("a_stk"):val("b_stk");
+  // Chức danh chỗ ký: lấy theo ô "Chức vụ" đã nhập (doanh nghiệp); cá nhân giữ "(Ký & ghi rõ họ tên)"
+  const sigTitle=t=>{t=String(t||'').trim();return t?`<div class="sig-title"><b>${esc(t.toLocaleUpperCase('vi'))}</b></div>`:'<div class="role">(Ký & ghi rõ họ tên)</div>';};
+  const titCP=val("a_loai")==="doanhnghiep"?val("a_chucvu"):'', titNL=val("b_chucvu");
+  const sigTitleA=sigTitle(role==='A'?titNL:titCP), sigTitleB=sigTitle(role==='A'?titCP:titNL);
   // payment rows
   let payRows="",acc=0;const sp=paySum();pays.forEach((p,k)=>{let tt=Math.round(total*(Number(p.pct)||0)/100);if(k===pays.length-1&&sp===100)tt=total-acc;acc+=tt;
     payRows+=`<tr><td class="c">${esc(p.moc)}</td><td>${noOrphan(p.noidung)}</td><td class="c">${p.pct||0}%</td><td class="n">${fmt(tt)}</td></tr>`;});
@@ -1443,8 +1448,8 @@ function renderContract(){
   ${closing}
 
   <table class="sign"><tr>
-    <td><b>ĐẠI DIỆN BÊN A</b><div class="role">(Ký & ghi rõ họ tên)</div><div class="sp"></div><div><b>${esc(sigA)}</b></div></td>
-    <td><b>ĐẠI DIỆN BÊN B</b><div class="role">(Ký & ghi rõ họ tên)</div><div class="sp"></div><div><b>${esc(sigB)}</b></div></td>
+    <td><b>ĐẠI DIỆN BÊN A</b>${sigTitleA}<div class="sp"></div><div><b>${esc(sigA)}</b></div></td>
+    <td><b>ĐẠI DIỆN BÊN B</b>${sigTitleB}<div class="sp"></div><div><b>${esc(sigB)}</b></div></td>
   </tr></table>
   </div>
 
@@ -2841,9 +2846,9 @@ function hsNameSync(){const e=document.getElementById('hsName');if(!e)return;con
 
 
 /* ================= ỨNG DỤNG: CÀI ĐẶT, CHIA SẺ, CẬP NHẬT ================= */
-const APP_VERSION='2.3.0';
+const APP_VERSION='2.3.1';
 const APP_BUILD='14/10/2026';
-const APP_NOTES=['Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
+const APP_NOTES=['Chỗ ký cuối hợp đồng ghi chức danh (VD: TỔNG GIÁM ĐỐC) theo ô Chức vụ đã nhập; khách cá nhân giữ “(Ký & ghi rõ họ tên)”','Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
   'Chia sẻ ứng dụng qua Zalo bằng 1 nút','Mở được khi mất mạng; tự báo khi có phiên bản mới',
   'Giao diện đồng bộ NL Office; thanh nút Xem trước / Gửi Zalo / PDF / Word','Tự lưu & danh sách hồ sơ, sao lưu, tự cấp số hợp đồng, kiểm tra chặn trước khi in/gửi'];
 const UA=navigator.userAgent||'';
