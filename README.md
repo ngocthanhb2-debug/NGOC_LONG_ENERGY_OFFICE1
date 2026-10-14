@@ -31,5 +31,19 @@ Mở link GitHub Pages bằng Chrome/Safari. Trên điện thoại: “Thêm và
 - **PDF tạo ngay trong app** (không cần mạng); **👁 Xem trước** hiển thị đúng trang A4.
 - **🔢 Cấp số** hợp đồng theo quy tắc cấu hình được; chặn trùng số giữa các hồ sơ.
 
-## Cập nhật
-Thay file `index.html` trong repo (Add file → Upload files → Commit).
+## Cài lên màn hình · Chia sẻ · Cập nhật
+- **Cài lên màn hình**: nút xanh ở màn hình chính (Android/máy tính hiện hộp cài; iPhone: Safari → Chia sẻ → Thêm vào MH chính).
+- **Chia sẻ**: nút ở đầu trang, gửi link app qua Zalo.
+- **Cập nhật**: app tự kiểm tra bản mới (so `APP_VERSION` trong `index.html`) khi mở và mỗi giờ; có bản mới thì hiện thanh “Có phiên bản mới — Cập nhật”. Dữ liệu hồ sơ giữ nguyên.
+- **Mất mạng**: `sw.js` lưu sẵn ứng dụng nên vẫn mở được.
+
+## Các file trong repo
+| File | Vai trò |
+|---|---|
+| `index.html` | Ứng dụng |
+| `sw.js` | Chạy offline + lấy bản mới |
+| `manifest.webmanifest` | Thông tin cài app |
+| `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` | Biểu tượng app |
+
+## Phát hành bản mới
+Chỉ cần thay `index.html` (Add file → Upload files → Commit). Mỗi bản mới phải tăng `APP_VERSION` thì máy người dùng mới hiện thông báo cập nhật.
