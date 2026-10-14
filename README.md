@@ -27,6 +27,8 @@ Mở link GitHub Pages bằng Chrome/Safari. Trên điện thoại: “Thêm và
 - **🗄 Sao lưu** tạo 1 file .json (hồ sơ + mẫu + file đính kèm) — gửi vào Zalo “Cloud của tôi”; đổi máy thì **Khôi phục**.
 
 ## Văn bản
+- **Ngọc Long là Bên A hoặc Bên B**: chọn ở mục “Hình thức hợp đồng” (Bên B: cung cấp, lắp đặt — thông thường; Bên A: thuê thầu phụ, mua thiết bị). Thông tin hai bên, chữ ký, tài khoản nhận tiền tự đổi chỗ.
+- **Nhập mẫu từ Word (.docx)**: tab Hợp đồng → Mẫu hợp đồng → “Nhập mẫu từ hợp đồng Word”. App tự tách tên HĐ, căn cứ, Bên B, các điều, đợt thanh toán; có bảng đối chiếu để sửa trước khi lưu thành mẫu.
 - **Kiểm tra chặn**: còn thiếu/sai thông tin thì không In, Tải Word, Gửi Zalo, Copy hay Đóng gói được.
 - **PDF tạo ngay trong app** (không cần mạng); **👁 Xem trước** hiển thị đúng trang A4.
 - **🔢 Cấp số** hợp đồng theo quy tắc cấu hình được; chặn trùng số giữa các hồ sơ.
