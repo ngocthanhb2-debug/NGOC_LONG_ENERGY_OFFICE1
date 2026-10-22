@@ -527,7 +527,7 @@
       <button type="button" class="tab" data-tab="vv" onclick="switchTab('vv')"><i class="fa-solid fa-hand-holding-dollar"></i>Vay vốn</button>
       <button type="button" class="tab" data-tab="dh" onclick="switchTab('dh')"><i class="fa-solid fa-cart-flatbed"></i>Đặt hàng</button>
       <button type="button" class="tab" data-tab="bq" onclick="switchTab('bq')"><i class="fa-solid fa-file-invoice-dollar"></i>Báo giá</button>
-      <button type="button" class="tab" data-tab="mh" onclick="switchTab('mh')"><i class="fa-solid fa-file-circle-plus"></i>Mẫu HĐ</button>
+      <button type="button" class="tab" data-tab="mh" style="display:none" onclick="switchTab('mh')"><i class="fa-solid fa-file-circle-plus"></i>Mẫu HĐ</button>
       <button type="button" class="tab" data-tab="bg" onclick="switchTab('bg')"><i class="fa-solid fa-tags"></i>Bảng giá</button>
       <button type="button" class="tab" data-tab="pack" onclick="switchTab('pack')"><i class="fa-solid fa-box-archive"></i>Đóng gói</button>
       <button type="button" class="tab" data-tab="guide" onclick="switchTab('guide')"><i class="fa-solid fa-book"></i>Hướng dẫn</button>
@@ -622,7 +622,7 @@
         <div style="font-size:.88rem;margin-bottom:6px">✏️ Đang sửa mẫu <b id="mhNLBarName"></b> — sửa các ô điều khoản bên dưới rồi bấm cập nhật.</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" class="zl-big" style="width:auto;flex:1 1 160px;margin:0" onclick="mhNLUpdate()">💾 Cập nhật mẫu</button><button type="button" class="secondary" style="width:auto;flex:0 0 auto;margin:0" onclick="mhNLStop()">Thoát</button></div>
       </div>
-      <div class="pane-title"><div class="pi"><i class="fa-solid fa-file-signature"></i></div><div><h2>Hợp đồng cung cấp &amp; lắp đặt</h2><p class="sub">Nhập thông tin — văn bản tự cập nhật, xem bằng nút “Xem trước”.</p></div></div>
+      <div class="pane-title"><div class="pi"><i class="fa-solid fa-file-signature"></i></div><div><h2 id="hdKindTitle">Hợp đồng cung cấp &amp; lắp đặt</h2><p class="sub">Nhập thông tin — văn bản tự cập nhật, xem bằng nút “Xem trước”.</p></div></div>
     <fieldset>
       <legend>Hình thức hợp đồng</legend>
       <div class="seg-ht no-print">
@@ -651,6 +651,16 @@
       </div>
     </fieldset>
 
+
+    <fieldset class="only-td">
+      <legend>Loại hợp đồng</legend>
+      <div class="seg-ht seg-kind no-print">
+        <button type="button" data-v="ld" class="on" onclick="setKind('ld')"><i class="fa-solid fa-solar-panel"></i>Cung cấp &amp; lắp đặt</button>
+        <button type="button" data-v="tm" onclick="setKind('tm')"><i class="fa-solid fa-boxes-stacked"></i>Thương mại (mua bán)</button>
+      </div>
+      <input type="hidden" data-f="hd_kind" value="ld">
+      <p class="hint" id="kindHint"></p>
+    </fieldset>
 
     <fieldset class="only-td">
       <legend>Mẫu hợp đồng (template)</legend>
@@ -800,10 +810,10 @@ Căn cứ nhu cầu thực tế và sự thỏa thuận của hai bên.</textare
     </fieldset>
 
     <fieldset class="only-td">
-      <legend>Điều 2 — Tiến độ</legend>
+      <legend id="lgD2">Điều 2 — Tiến độ</legend>
       <div class="row2">
-        <div><label>Ngày khởi công</label><input data-f="ngayKhoiCong"></div>
-        <div><label>Ngày bàn giao</label><input data-f="ngayBanGiao"></div>
+        <div id="wrapKhoiCong"><label>Ngày khởi công</label><input data-f="ngayKhoiCong"></div>
+        <div><label id="lbBanGiao">Ngày bàn giao</label><input data-f="ngayBanGiao"></div>
       </div>
     </fieldset>
 
@@ -876,7 +886,7 @@ Hao mòn tự nhiên; yếu tố môi trường phát sinh sau lắp đặt (bó
       <label>Tên dự án</label><input data-f="pl_duan">
       <div class="row2">
         <div><label>Công suất (kWp)</label><input data-f="pl_congsuat"></div>
-        <div><label>Địa điểm công trình</label><input data-f="pl_diadiem"></div>
+        <div><label id="lbDiaDiem">Địa điểm công trình</label><input data-f="pl_diadiem"></div>
       </div>
       <label>Danh mục thiết bị</label>
       <div id="plBox"></div>
@@ -975,7 +985,7 @@ Hao mòn tự nhiên; yếu tố môi trường phát sinh sau lắp đặt (bó
 
     <!-- ============ TAB: BIÊN BẢN NGHIỆM THU ============ -->
     <div class="tabpane" data-tab="bb">
-<div class="pane-title"><div class="pi"><i class="fa-solid fa-clipboard-check"></i></div><div><h2>Biên bản nghiệm thu</h2><p class="sub">Nghiệm thu vật tư trước lắp đặt · Nghiệm thu hoàn thành</p></div></div>
+<div class="pane-title"><div class="pi"><i class="fa-solid fa-clipboard-check"></i></div><div><h2 id="bbTitle">Biên bản nghiệm thu</h2><p class="sub" id="bbSub">Nghiệm thu vật tư trước lắp đặt · Nghiệm thu hoàn thành</p></div></div>
       <label>Loại biên bản</label>
       <select data-f="bb_loai" onchange="toggleBBType()">
         <option value="vt">Nghiệm thu vật tư trước khi lắp đặt (Phụ lục 001)</option>
@@ -1558,7 +1568,7 @@ function renderContract(){
     beforeSign = h;
   }
 
-  document.getElementById("paper").innerHTML=`
+  let __hd=`
   <div class="center natl">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
   <div class="center qh-motto"><span class="motto-underline">Độc lập – Tự do – Hạnh phúc</span></div>
   <h1>${esc(val("hd_tieude"))}</h1>
@@ -1625,6 +1635,9 @@ function renderContract(){
     <p class="just">Giá trị hợp đồng trên đã bao gồm tất cả các khoản thuế, phí, lệ phí theo quy định của pháp luật Việt Nam hiện hành.</p>
     ${imgHtml}
   </div>`;
+  __hd=__hd.replace(/<p class="sub-art">4\.3\. Bảo trì:<\/p>\s*<p class="just"><\/p>/,'');
+  if(isTM())__hd=hdTM(__hd);
+  document.getElementById("paper").innerHTML=__hd;
 }
 
 /* ---------- CSS margins ---------- */
@@ -1758,7 +1771,7 @@ function importTemplateFile(inp){const f=inp.files[0];if(!f)return;const r=new F
 
 /* ---------- xuất / chia sẻ file ---------- */
 function slug(s){return (s||"HopDong").toString().trim().replace(/[\/\\:*?"<>|]+/g,'-').replace(/\s+/g,' ').slice(0,120)||"HopDong";}
-function fileBase(){const t=(val("tenFile")||"").trim();return slug(t||("Hop dong - "+projStem()));}
+function fileBase(){const t=(val("tenFile")||"").trim();return slug(t||((isTM()?"Hop dong mua ban - ":"Hop dong - ")+projStem()));}
 function buildDocHtml(){
   const g=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const jt=document.getElementById("justifyToggle").checked?'justify':'left';
@@ -1792,7 +1805,7 @@ async function fontsReady(){try{if(document.fonts){await document.fonts.ready;
 function docSource(key){
   render();
   if(key==='hd'){const pp=document.getElementById('paper');return {html:pp.innerHTML,cls:'paper'+(pp.classList.contains('no-justify')?' no-justify':'')};}
-  const m={m01:buildMau01Body,bb_vt:buildBienBanBody,bb_ht:buildBBhtBody,vv:buildVayVonBody,bq:buildBaoGiaBody};
+  const m={m01:buildMau01Body,bb_vt:()=>bbBodyFor('vt'),bb_ht:buildBBhtBody,vv:buildVayVonBody,bq:buildBaoGiaBody};
   if(key==='mh')return {html:buildMauHDBody(),cls:'paper'};
   if(m[key])return {html:m[key](),cls:'paper m-doc'};
   if(/^dh_\d+$/.test(key))return {html:buildDatHangBody(+key.slice(3)),cls:'paper m-doc'};
@@ -2179,10 +2192,10 @@ function packFiles(){
   const stem=projStem();
   const files=[];
   if(isTG()){ if(hdDtFile) files.push({name:safeFn('HD doi tac - '+stem)+extOf(hdDtFile.name), blob:hdDtFile, dir:DIR_HD}); }
-  else files.push({name:safeFn('Hop dong - '+stem)+'.doc', blob:docBlob(), doc:'hd', dir:DIR_HD});
-  files.push({name:m01Name(), blob:m01Blob(), doc:'m01', dir:'03 Khai bao dien luc'});
-  files.push({name:bbNameFor('vt'), blob:bbBlobFor('vt'), doc:'bb_vt', dir:'04 Nghiem thu'});
-  files.push({name:bbNameFor('ht'), blob:bbBlobFor('ht'), doc:'bb_ht', dir:'04 Nghiem thu'});
+  else files.push({name:safeFn((isTM()?'Hop dong mua ban - ':'Hop dong - ')+stem)+'.doc', blob:docBlob(), doc:'hd', dir:DIR_HD});
+  if(!isTM())files.push({name:m01Name(), blob:m01Blob(), doc:'m01', dir:'03 Khai bao dien luc'});
+  files.push({name:bbNameFor('vt'), blob:bbBlobFor('vt'), doc:'bb_vt', dir:isTM()?'04 Bien ban giao nhan':'04 Nghiem thu'});
+  if(!isTM())files.push({name:bbNameFor('ht'), blob:bbBlobFor('ht'), doc:'bb_ht', dir:'04 Nghiem thu'});
   if(vvHas()) files.push({name:vvName(), blob:vvBlob(), doc:'vv', dir:'05 Vay von'});
   if(bqHas()) files.push({name:bqName(), blob:bqBlob(), doc:'bq', dir:'01 Bao gia'});
   if(mhHas()) files.push({name:mhName(), blob:mhBlob(), doc:'mh', dir:DIR_HD});
@@ -2361,9 +2374,9 @@ function buildBBhtBody(){
 }
 function curBBType(){return val('bb_loai')||'vt';}
 function toggleBBType(){const t=curBBType();const v=document.getElementById('bbFieldsVT'),hh=document.getElementById('bbFieldsHT');if(v)v.style.display=(t==='vt')?'':'none';if(hh)hh.style.display=(t==='ht')?'':'none';renderBBPreview();}
-function bbBodyFor(loai){return loai==='ht'?buildBBhtBody():buildBienBanBody();}
+function bbBodyFor(loai){return loai==='ht'?buildBBhtBody():(isTM()?bbToGiaoNhan(buildBienBanBody()):buildBienBanBody());}
 function bbBlobFor(loai){return new Blob(['\ufeff'+wordWrap(bbBodyFor(loai))],{type:'application/msword'});}
-function bbNameFor(loai){return safeFn((loai==='ht'?'Bien ban nghiem thu hoan thanh':'Bien ban nghiem thu vat tu')+' - '+projStem())+'.doc';}
+function bbNameFor(loai){return safeFn((loai==='ht'?'Bien ban nghiem thu hoan thanh':isTM()?'Bien ban giao nhan hang hoa':'Bien ban nghiem thu vat tu')+' - '+projStem())+'.doc';}
 function exportBB(){const t=curBBType();const a=document.createElement('a');a.href=URL.createObjectURL(bbBlobFor(t));a.download=bbNameFor(t);a.click();URL.revokeObjectURL(a.href);}
 function renderBBPreview(){const el=document.getElementById('paperBB');if(el)el.innerHTML=bbBodyFor(curBBType());}
 
@@ -2697,7 +2710,7 @@ function applyHinhThuc(){
   if(quy&&dtEl){ if(quy.value!=='khac'&&!(dtEl.value||'').trim())dtEl.value='Stride';
     const w=document.getElementById('dtTenQuyWrap'); if(w)w.style.display=(quy.value==='khac')?'':'none'; }
   const pane=document.querySelector('.tabpane[data-tab="hd"]'); if(pane)pane.classList.toggle('tg',tg);
-  document.querySelectorAll('.seg-ht button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='tra_gop')===tg));
+  document.querySelectorAll('.seg-ht:not(.seg-kind) button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='tra_gop')===tg));
   const tb=document.querySelector('.tab[data-tab="hd"]'); if(tb)tb.textContent=tg?'📄 Dự án (trả góp)':'📄 Hợp đồng';
   if(typeof dhRefreshMode==='function')dhRefreshMode();
 }
@@ -2727,7 +2740,7 @@ function renderTGSummary(){
     :'<p class="muted" style="text-indent:0">[chưa nhập thiết bị]</p>';
   document.getElementById('paper').innerHTML=h;
 }
-function render(){ if(isTG())renderTGSummary(); else renderContract(); }
+function render(){ try{kindSync();}catch(e){} if(isTG())renderTGSummary(); else renderContract(); }
 function cancuTG(soHD,tcCty,khTen){
   const dt=(val('dt_doitac')||'').trim()||'…';
   return 'Hợp đồng số '+soHD+' ký ngày '+fmtDate(val('ngayKy'))+' giữa '+dt+' và '+tcCty+'; chủ đầu tư là Quý khách hàng '+khTen+'.';
@@ -2776,7 +2789,7 @@ async function hsSave(force){
     if(!curId)curId=newHsId();
     const now=Date.now();
     const meta={id:curId,ten:khTenNow().trim()||'(chưa có tên khách)',soHD:String(val('soHD')||'').trim(),kwp:String(val('pl_congsuat')||'').trim(),
-      diadiem:String(val('pl_diadiem')||'').trim(),ht:val('hinhthuc')||'truc_tiep',created:(curMeta&&curMeta.created)||now,updated:now};
+      diadiem:String(val('pl_diadiem')||'').trim(),ht:val('hinhthuc')||'truc_tiep',kind:val('hd_kind')||'ld',created:(curMeta&&curMeta.created)||now,updated:now};
     let note='';
     try{await hsPut(meta,{id:curId,data:o,files:curFiles()});}
     catch(e){try{await hsPut(meta,{id:curId,data:o,files:null});note=' (chưa lưu được file đính kèm)';}
@@ -2798,7 +2811,7 @@ function setFileLabels(){
 }
 function hsApply(o,files){
   hsSilent=true;
-  try{const d0=JSON.parse(JSON.stringify(o));if(!("_bqs" in d0))d0._bqs=[];if(!("_mhv" in d0))d0._mhv={};if(d0.mh_id===undefined)d0.mh_id="";if(DEFAULT_SNAP)Object.keys(DEFAULT_SNAP).forEach(k=>{if(/^bq_/.test(k)&&d0[k]===undefined)d0[k]=DEFAULT_SNAP[k];});applyData(d0);
+  try{const d0=JSON.parse(JSON.stringify(o));if(!("_bqs" in d0))d0._bqs=[];if(!("_mhv" in d0))d0._mhv={};if(d0.mh_id===undefined)d0.mh_id="";if(d0.hd_kind===undefined)d0.hd_kind="ld";if(DEFAULT_SNAP)Object.keys(DEFAULT_SNAP).forEach(k=>{if(/^bq_/.test(k)&&d0[k]===undefined)d0[k]=DEFAULT_SNAP[k];});applyData(d0);
     coFile=files&&files.co||null;cqFile=files&&files.cq||null;sodoFile=files&&files.sodo||null;hdDtFile=files&&files.hdDt||null;refFiles=(files&&files.refs||[]).filter(Boolean);
     setFileLabels();render();}
   finally{hsSilent=false;hsDirty=false;clearTimeout(hsTimer);}
@@ -2838,7 +2851,7 @@ async function hsList(){
     ov.querySelector('#hsN').textContent=hsMetas.length;
     ov.querySelector('#hsItems').innerHTML=list.length?list.map(m=>{const cur=m.id===curId;
       return '<div class="hs-it'+(cur?' cur':'')+'"><div><b>'+esc(m.ten)+'</b>'+(cur?'<span class="hs-tag">đang mở</span>':'')+'</div>'
-        +'<div class="hs-s">'+[m.soHD?'Số HĐ: '+esc(m.soHD):'Chưa có số HĐ',m.kwp?esc(m.kwp)+' kWp':'',m.diadiem?esc(m.diadiem):'',m.ht==='tra_gop'?'Trả góp':'Trực tiếp'].filter(Boolean).join(' · ')
+        +'<div class="hs-s">'+[m.soHD?'Số HĐ: '+esc(m.soHD):'Chưa có số HĐ',m.kwp?esc(m.kwp)+' kWp':'',m.diadiem?esc(m.diadiem):'',m.ht==='tra_gop'?'Trả góp':(m.kind==='tm'?'Thương mại':'Lắp đặt')].filter(Boolean).join(' · ')
         +'<br>Cập nhật '+hhmm(m.updated)+' '+dmy(m.updated)+'</div>'
         +'<div class="hs-b">'+(cur?'':'<button data-a="open" data-id="'+m.id+'">📂 Mở</button>')+'<button class="ghost" data-a="dup" data-id="'+m.id+'">⧉ Nhân bản</button><button class="secondary" data-a="del" data-id="'+m.id+'">🗑 Xoá</button></div></div>';}).join('')
       :'<p class="zl-note">'+(hsMetas.length?'Không có hồ sơ khớp.':'Chưa có hồ sơ nào. Hồ sơ được tự lưu khi bạn nhập tên khách hoặc số hợp đồng.')+'</p>';};
@@ -3013,9 +3026,9 @@ function hsNameSync(){const e=document.getElementById('hsName');if(!e)return;con
 
 
 /* ================= ỨNG DỤNG: CÀI ĐẶT, CHIA SẺ, CẬP NHẬT ================= */
-const APP_VERSION='2.6.0';
+const APP_VERSION='2.7.0';
 const APP_BUILD='22/10/2026';
-const APP_NOTES=['Mẫu HĐ chia 2 loại: mẫu Ngọc Long (tạo từ hợp đồng hiện tại, giữ nguyên điều khoản, định dạng, tính năng) và mẫu từ Word (giữ căn lề, thụt dòng, đậm/nghiêng/gạch chân, bảng); trình sửa mẫu có B/I/U và căn lề','Sửa lỗi: số hợp đồng bị lặp đuôi trong mẫu Word, nút trình sửa mẫu hiển thị sai trên điện thoại','Mẫu HĐ: tạo mẫu từ hợp đồng hiện tại và sửa nội dung mẫu ngay trong app (đoạn, bảng, chèn trường điền)','Tab Mẫu HĐ: nhập hợp đồng Word (.docx) làm mẫu mới, giữ nguyên văn, app tự nhận chỗ điền để bạn xác nhận','Tab Bảng giá: nhập file Excel giá bán theo nhóm, kiểm tra lỗi, xem giá thay đổi, lưu lịch sử, tải file mẫu cho giám đốc','Tab Báo giá: chọn thiết bị từ bảng giá, xuất A4/PDF/Word/Zalo, giữ giá đã báo khi bảng giá đổi, gói vào hồ sơ','Logo trên bản in (phiếu đặt hàng) nhỏ gọn hơn','Logo mới Ngọc Long Energy (màn hình chính, đầu trang, phiếu đặt hàng)','Chỗ ký cuối hợp đồng ghi chức danh (VD: TỔNG GIÁM ĐỐC) theo ô Chức vụ đã nhập; khách cá nhân giữ “(Ký & ghi rõ họ tên)”','Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
+const APP_NOTES=['Chọn loại hợp đồng ngay đầu tab Hợp đồng: Cung cấp & lắp đặt hoặc Thương mại (mua bán hàng hóa) — tự nạp điều khoản chuẩn, giữ đủ tính năng; HĐ thương mại đi kèm biên bản giao nhận hàng hóa. Gỡ tab Mẫu HĐ cho gọn','Mẫu HĐ chia 2 loại: mẫu Ngọc Long (tạo từ hợp đồng hiện tại, giữ nguyên điều khoản, định dạng, tính năng) và mẫu từ Word (giữ căn lề, thụt dòng, đậm/nghiêng/gạch chân, bảng); trình sửa mẫu có B/I/U và căn lề','Sửa lỗi: số hợp đồng bị lặp đuôi trong mẫu Word, nút trình sửa mẫu hiển thị sai trên điện thoại','Mẫu HĐ: tạo mẫu từ hợp đồng hiện tại và sửa nội dung mẫu ngay trong app (đoạn, bảng, chèn trường điền)','Tab Mẫu HĐ: nhập hợp đồng Word (.docx) làm mẫu mới, giữ nguyên văn, app tự nhận chỗ điền để bạn xác nhận','Tab Bảng giá: nhập file Excel giá bán theo nhóm, kiểm tra lỗi, xem giá thay đổi, lưu lịch sử, tải file mẫu cho giám đốc','Tab Báo giá: chọn thiết bị từ bảng giá, xuất A4/PDF/Word/Zalo, giữ giá đã báo khi bảng giá đổi, gói vào hồ sơ','Logo trên bản in (phiếu đặt hàng) nhỏ gọn hơn','Logo mới Ngọc Long Energy (màn hình chính, đầu trang, phiếu đặt hàng)','Chỗ ký cuối hợp đồng ghi chức danh (VD: TỔNG GIÁM ĐỐC) theo ô Chức vụ đã nhập; khách cá nhân giữ “(Ký & ghi rõ họ tên)”','Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
   'Chia sẻ ứng dụng qua Zalo bằng 1 nút','Mở được khi mất mạng; tự báo khi có phiên bản mới',
   'Giao diện đồng bộ NL Office; thanh nút Xem trước / Gửi Zalo / PDF / Word','Tự lưu & danh sách hồ sơ, sao lưu, tự cấp số hợp đồng, kiểm tra chặn trước khi in/gửi'];
 const UA=navigator.userAgent||'';
@@ -3603,8 +3616,8 @@ function checkDoc(key){
     if(!(numVN(val('tongGT'))>0))r.e('Thiếu tổng giá trị hợp đồng','tongGT');
     const sp=paySum();if(sp!==100)r.e('Tổng % các đợt thanh toán đang là '+sp+'% — phải bằng 100%','#payBox');
     pays.forEach((x,k)=>{if(!(Number(x.pct)>0))r.e('Đợt thanh toán '+(k+1)+' chưa có %','#payBox');if(!String(x.noidung||'').trim())r.e('Đợt thanh toán '+(k+1)+' chưa có nội dung mốc','#payBox');});
-    need(r,'pl_diadiem','địa điểm công trình');ckCongSuat(r);need(r,'pl_duan','tên dự án (Phụ lục)',true);
-    need(r,'ngayKhoiCong','ngày khởi công');need(r,'ngayBanGiao','ngày bàn giao');
+    if(isTM())need(r,'pl_diadiem','địa điểm giao hàng');else{need(r,'pl_diadiem','địa điểm công trình');ckCongSuat(r);need(r,'pl_duan','tên dự án (Phụ lục)',true);}
+    if(isTM())need(r,'ngayBanGiao','thời gian giao hàng');else{need(r,'ngayKhoiCong','ngày khởi công');need(r,'ngayBanGiao','ngày bàn giao');}
     {const nz=x=>String(x||'').toLowerCase().replace(/\s+/g,' ').trim(),gen=x=>/hạng mục khác/i.test(x||'');
      const plN=pls.map(x=>nz(x.ten)).filter(Boolean),wsp=whs.filter(w=>nz(w.ten)&&!gen(w.ten));
      wsp.forEach(w=>{if(plN.length&&!plN.includes(nz(w.ten)))r.e('Điều 4 có thiết bị "'+String(w.ten).trim().slice(0,45)+'" không có trong Phụ lục — có thể là dữ liệu hợp đồng cũ','#whBox');
@@ -3697,7 +3710,7 @@ function checkDoc(key){
   else if(key==='pack'){
     const docs=[];
     if(!isTG())docs.push(['hd','Hợp đồng']);
-    docs.push(['m01','Khai báo điện lực'],['bb_vt','Biên bản 001'],['bb_ht','Biên bản 002']);
+    if(isTM())docs.push(['bb_vt','Biên bản giao nhận']);else docs.push(['m01','Khai báo điện lực'],['bb_vt','Biên bản 001'],['bb_ht','Biên bản 002']);
     if(vvHas())docs.push(['vv','Vay vốn']);
     if(bqHas())docs.push(['bq','Báo giá']);
     if(mhHas())docs.push(['mh','Hợp đồng theo mẫu']);
@@ -4249,7 +4262,7 @@ function mhField(k){return MH_FIELDS.find(f=>f[0]===k);}
 function mhLoad(){if(mhLib)return mhLib;try{const o=JSON.parse(localStorage.getItem(MH_KEY));mhLib=(o&&Array.isArray(o.items))?o:{v:1,items:[]};}catch(e){mhLib={v:1,items:[]};}return mhLib;}
 function mhPersist(){try{localStorage.setItem(MH_KEY,JSON.stringify(mhLib));return true;}catch(e){uiAlert('❌ Không lưu được: bộ nhớ trình duyệt đã đầy. Hãy xoá bớt mẫu cũ.');return false;}}
 function mhCur(){const id=val('mh_id');return mhLoad().items.find(t=>t.id===id)||null;}
-function mhHas(){return !!mhCur();}
+function mhHas(){return false;} /* tab Mẫu HĐ đã gỡ khỏi giao diện */
 function mhLabel(t,k){const f=mhField(k);return f?f[1]:((t&&t.custom&&t.custom[k])||k);}
 function mhValue(k){const v=mhVals[k];if(v!==undefined&&String(v).trim()!=='')return String(v);const f=mhField(k);return f?String(f[2]()||''):'';}
 /* ---- nhận diện chỗ điền ---- */
@@ -4631,6 +4644,97 @@ function mhEditSave(){
 {const _rtl=refreshTplList;refreshTplList=function(){_rtl();try{mhRender();}catch(e){}};}
 
 
+
+/* ================= LOẠI HỢP ĐỒNG: CUNG CẤP & LẮP ĐẶT / THƯƠNG MẠI ================= */
+const HD_KIND_FIELDS=['hd_tieude','cancu','gia_gom','gia_gom_items','d13','d2body','d3note','d4note','d42','baotri','dieu5','dieu6','dieu7','dieu8'];
+const HD_LD=(()=>{const o={};HD_KIND_FIELDS.forEach(f=>o[f]=val(f));o._pays=JSON.parse(JSON.stringify(pays));o._whs=JSON.parse(JSON.stringify(whs));return o;})();
+const HD_TM={
+  hd_tieude:'HỢP ĐỒNG MUA BÁN HÀNG HÓA',
+  cancu:'Căn cứ Bộ luật Dân sự số 91/2015/QH13 ngày 24/11/2015 của Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam;\nCăn cứ Văn bản hợp nhất số 113/VBHN-VPQH ngày 27/8/2025 hợp nhất Luật Thương mại;\nCăn cứ nhu cầu thực tế và sự thỏa thuận của hai bên.',
+  gia_gom:'đã bao gồm',gia_gom_items:'chi phí vận chuyển đến địa điểm giao hàng',
+  d13:'Hàng hóa mới 100%, đúng chủng loại, xuất xứ, thông số kỹ thuật theo Phụ lục 01; có đầy đủ CO, CQ (nếu có) và tài liệu hướng dẫn của nhà sản xuất.\nKhi giao hàng, hai bên cùng kiểm tra số lượng, chủng loại, tình trạng bên ngoài của hàng hóa và lập biên bản giao nhận hàng hóa.\nHàng hóa không đúng hợp đồng thì Bên A có quyền từ chối nhận phần hàng đó; Bên B có trách nhiệm đổi hàng trong vòng năm (05) ngày làm việc.',
+  d2body:'Bên B thông báo cho Bên A thời gian giao hàng trước ít nhất một (01) ngày; Bên A bố trí người và mặt bằng để nhận hàng.\nChi phí vận chuyển, bốc xếp đến địa điểm giao hàng do Bên B chịu, trừ khi hai bên có thỏa thuận khác.\nQuyền sở hữu và rủi ro đối với hàng hóa chuyển sang Bên A kể từ khi hai bên ký biên bản giao nhận.\nTrường hợp bất khả kháng, Bên B thông báo sớm lý do và thời gian giao hàng dự kiến.',
+  d3note:HD_LD.d3note,
+  d4note:'Trong thời hạn bảo hành, nếu hàng hóa hư hỏng do lỗi của nhà sản xuất, Bên A thông báo cho Bên B (điện thoại/Zalo/email); Bên B có trách nhiệm phối hợp với nhà sản xuất kiểm tra, sửa chữa hoặc đổi mới theo chính sách bảo hành.',
+  d42:'Bất khả kháng: thiên tai, sét đánh, hỏa hoạn, động đất; vật thể rơi va đập.\nHàng hóa bị lắp đặt, đấu nối, vận hành sai hướng dẫn của nhà sản xuất.\nHàng hóa bị tự ý tháo dỡ, sửa chữa, can thiệp phần mềm khi chưa được Bên B hoặc nhà sản xuất cho phép.\nHao mòn tự nhiên; tem bảo hành, số serial bị rách, tẩy xóa.',
+  baotri:'',
+  dieu5:'5.1. Trách nhiệm và quyền lợi của Bên A: bố trí người, mặt bằng nhận hàng đúng thời gian đã thông báo; kiểm tra và ký biên bản giao nhận; thanh toán đúng Điều 3; sử dụng, bảo quản hàng hóa theo hướng dẫn của nhà sản xuất.\n5.2. Trách nhiệm và quyền lợi của Bên B: giao hàng đúng chủng loại, số lượng, chất lượng, thời gian và địa điểm đã thỏa thuận; cung cấp hóa đơn, CO, CQ (nếu có) và tài liệu kỹ thuật; thực hiện bảo hành theo Điều 4.',
+  dieu6:'6.1. Một bên có thể tạm ngưng thực hiện hợp đồng nếu bên kia vi phạm nghĩa vụ và không khắc phục trong ba (03) ngày kể từ khi nhận thông báo.\n6.2. Một bên có quyền đơn phương chấm dứt hợp đồng nếu bên kia tiếp tục vi phạm sau thời hạn trên, hoặc các trường hợp khác theo quy định pháp luật.\n6.3. Bên vi phạm phải chịu phạt vi phạm và bồi thường thiệt hại theo quy định của Luật Thương mại.\n6.4. Khi chấm dứt trước hạn, hai bên đối chiếu hàng hóa đã giao nhận và số tiền đã thanh toán để thanh toán phần chênh lệch.',
+  dieu7:HD_LD.dieu7,
+  dieu8:'8.1. Hợp đồng có hiệu lực kể từ ngày hai bên ký kết và hết hiệu lực sau khi hai bên hoàn tất nghĩa vụ giao hàng, thanh toán và thanh lý hợp đồng.\n8.2. Mọi sửa đổi, bổ sung chỉ có giá trị khi được lập thành văn bản và có chữ ký của hai bên.\n8.3. Không bên nào được chuyển nhượng quyền và nghĩa vụ trong hợp đồng cho bên thứ ba nếu không có sự đồng ý bằng văn bản của bên còn lại.\n8.4. Hai bên cam kết bảo mật thông tin trong quá trình thực hiện hợp đồng.\nHợp đồng được lập thành 02 (hai) bản có giá trị pháp lý như nhau, mỗi bên giữ 01 (một) bản.',
+  _pays:[{moc:'Đợt 1',noidung:'Tạm ứng sau khi hai bên ký hợp đồng',pct:50},{moc:'Đợt 2',noidung:'Sau khi hai bên ký biên bản giao nhận hàng hóa',pct:50}],
+  _whs:[{ten:'Các hạng mục khác',noi:'Bảo hành theo chính sách của nhà sản xuất, tính từ ngày giao hàng'}]
+};
+function isTM(){return val('hd_kind')==='tm'&&!isTG();}
+async function setKind(k){
+  if((val('hd_kind')||'ld')===k)return;
+  const lb=k==='tm'?'Thương mại (mua bán hàng hóa)':'Cung cấp & lắp đặt';
+  if(!await uiConfirm('Chuyển sang hợp đồng '+lb+'?\nApp nạp bộ điều khoản chuẩn của loại này (tên hợp đồng, căn cứ, Điều 1–8, các đợt thanh toán, bảo hành).\nThông tin khách, thiết bị, giá trị, ngày tháng giữ nguyên.'))return;
+  const P=k==='tm'?HD_TM:HD_LD;
+  setF('hd_kind',k);HD_KIND_FIELDS.forEach(f=>setF(f,P[f]));
+  pays=JSON.parse(JSON.stringify(P._pays));whs=JSON.parse(JSON.stringify(P._whs));
+  renderPayForm();renderWhForm();render();hsMark();updatePackList();
+  if(k==='tm'&&curBBType()==='ht'){setF('bb_loai','vt');toggleBBType();}
+}
+function kindSync(){
+  const tm=isTM(),k=val('hd_kind')==='tm'?'tm':'ld';
+  document.querySelectorAll('.seg-kind button').forEach(b=>b.classList.toggle('on',b.dataset.v===k));
+  const T=(id,t)=>{const e=document.getElementById(id);if(e&&e.textContent!==t)e.textContent=t;};
+  T('hdKindTitle',tm?'Hợp đồng mua bán hàng hóa':'Hợp đồng cung cấp & lắp đặt');
+  T('kindHint',k==='tm'?'Mua bán thiết bị, không thi công lắp đặt. Giấy tờ đi kèm: biên bản giao nhận hàng hóa (không cần khai báo điện lực, nghiệm thu lắp đặt).':'Cung cấp và thi công lắp đặt hệ thống. Giấy tờ đi kèm: khai báo điện lực, biên bản nghiệm thu vật tư và nghiệm thu hoàn thành.');
+  T('lgD2',tm?'Điều 2 — Giao hàng':'Điều 2 — Tiến độ');
+  T('lbBanGiao',tm?'Thời gian giao hàng':'Ngày bàn giao');
+  T('lbDiaDiem',tm?'Địa điểm giao hàng':'Địa điểm công trình');
+  const kc=document.getElementById('wrapKhoiCong');if(kc)kc.style.display=tm?'none':'';
+  // giấy tờ ăn theo lắp đặt
+  const hide=(sel,h)=>document.querySelectorAll(sel).forEach(e=>{e.style.display=h?'none':'';});
+  hide('.tab[data-tab="m01"]',tm);hide('.home-tile[onclick="homeGo(\'m01\')"]',tm);
+  T('bbTitle',tm?'Biên bản giao nhận hàng hóa':'Biên bản nghiệm thu');
+  T('bbSub',tm?'Giao nhận hàng hóa theo hợp đồng mua bán':'Nghiệm thu vật tư trước lắp đặt · Nghiệm thu hoàn thành');
+  const so=document.querySelector('[data-f="bb_loai"]');
+  if(so){const ov=so.querySelector('option[value="vt"]'),oh=so.querySelector('option[value="ht"]');
+    if(ov){const t=tm?'Biên bản giao nhận hàng hóa':'Nghiệm thu vật tư trước khi lắp đặt (Phụ lục 001)';if(ov.textContent!==t)ov.textContent=t;}
+    if(oh){oh.hidden=tm;oh.disabled=tm;}
+    if(tm&&so.value==='ht'){so.value='vt';try{toggleBBType();}catch(e){}}}
+  if(tm&&curTab==='m01')setTimeout(()=>switchTab('hd'),0);
+}
+/* chuyển văn bản hợp đồng lắp đặt → mua bán */
+function hdTM(h){
+  const R=(a,b)=>{h=h.split(a).join(b);};
+  R('BÊN SỬ DỤNG DỊCH VỤ (BÊN A)','BÊN MUA (BÊN A)');R('BÊN CUNG CẤP DỊCH VỤ (BÊN B)','BÊN BÁN (BÊN B)');
+  R('<p class="art">Điều 1. Nội dung và giá trị hợp đồng</p>','<p class="art">Điều 1. Hàng hóa và giá trị hợp đồng</p>');
+  R('<p class="sub-art">1.1. Nội dung công việc:</p>','<p class="sub-art">1.1. Hàng hóa mua bán:</p>');
+  h=h.replace(/<p class="just">Bên A giao và Bên B đồng ý nhận thực hiện việc[^<]*<\/p>/,'<p class="just">'+noOrphan('Bên B đồng ý bán và Bên A đồng ý mua các hàng hóa (vật tư, thiết bị điện năng lượng mặt trời) như sau:')+'</p>');
+  R('<p class="li">– Địa điểm thi công lắp đặt:','<p class="li">– Địa điểm giao hàng:');
+  h=h.replace(/<p class="li">– Danh mục vật tư, thiết bị, thời gian bảo hành[^<]*<\/p>/,'<p class="li">– '+noOrphan('Chủng loại, số lượng, đơn giá, thời gian bảo hành của hàng hóa thể hiện theo Phụ lục 01 đính kèm.')+'</p>');
+  R('<p class="sub-art">1.3. Yêu cầu chất lượng, nghiệm thu, bàn giao:</p>','<p class="sub-art">1.3. Chất lượng hàng hóa, giao nhận:</p>');
+  R('<p class="art">Điều 2. Tiến độ thực hiện hợp đồng</p>','<p class="art">Điều 2. Giao hàng</p>');
+  h=h.replace(/<p class="li">– Ngày khởi công:[\s\S]*?— Ngày bàn giao: ([\s\S]*?)<\/p>/,'<p class="li">– Thời gian giao hàng: $1</p>');
+  const da=String(val('pl_duan')||'').trim();
+  h=h.replace(/<p class="center"><b>DỰ ÁN:[\s\S]*?<\/b><\/p>/,da?'<p class="center"><b>DỰ ÁN: '+esc(da)+'</b></p>':'');
+  R('<p class="center">Địa điểm: ','<p class="center">Địa điểm giao hàng: ');
+  return h;
+}
+/* biên bản nghiệm thu vật tư → biên bản giao nhận hàng hóa */
+function bbToGiaoNhan(h){
+  const R=(a,b)=>{h=h.split(a).join(b);};
+  R('<p class="ct b" style="font-size:14pt;margin-top:8px">BIÊN BẢN NGHIỆM THU</p>','<p class="ct b" style="font-size:14pt;margin-top:8px">BIÊN BẢN GIAO NHẬN HÀNG HÓA</p>');
+  R('<p class="ct b">THIẾT BỊ TRƯỚC KHI ĐƯA VÀO LẮP ĐẶT</p>','');
+  R('1/ Đối tượng nghiệm thu:','1/ Hàng hóa giao nhận:');
+  R('2/ Thời gian, địa điểm nghiệm thu:','2/ Thời gian, địa điểm giao nhận:');
+  R('3/ Thành phần tham gia nghiệm thu:','3/ Thành phần tham gia giao nhận:');
+  R('a/ Đại diện chủ đầu tư (khách hàng):','a/ Đại diện bên nhận hàng (khách hàng):');
+  R('b/ Đại diện đơn vị thi công:','b/ Đại diện bên giao hàng:');
+  R('4/ Các căn cứ nghiệm thu:','4/ Căn cứ giao nhận:');
+  h=h.replace(/- Kiểm tra vật tư, thiết bị do [\s\S]*?<\/p>/,m=>{const c=/do ([\s\S]*?) cung cấp/.exec(m);return noOrphan('- Kiểm tra, đếm và giao nhận hàng hóa do '+((c&&c[1])||'Bên B').replace(/&amp;/g,'&')+' cung cấp theo hợp đồng mua bán. Chi tiết hàng hóa theo phụ lục đi kèm.')+'</p>';});
+  R('6/ Đánh giá chất lượng vật tư, thiết bị đưa vào sử dụng lắp đặt tại công trình:','6/ Đánh giá hàng hóa giao nhận:');
+  h=h.replace(/Đồng ý đưa toàn bộ vật tư thiết bị theo phụ lục vào sử dụng lắp[\s\u00a0]đặt/,'Bên nhận đã nhận đủ hàng hóa theo phụ lục')
+     .replace(/Đồng ý đưa một phần vật tư thiết bị theo phụ lục vào sử dụng lắp[\s\u00a0]đặt/,'Bên nhận đã nhận một phần hàng hóa theo phụ lục')
+     .replace(/Không đồng ý đưa vật tư thiết bị theo phụ lục vào sử dụng l[^<]*/,'Bên nhận không đồng ý nhận hàng hóa');
+  h=h.replace(/- Hai bên xác nhận vật tư, thiết bị nêu tại phụ lục[\s\S]*?<\/p>/,noOrphan('- Hai bên xác nhận hàng hóa nêu tại phụ lục đúng chủng loại, số lượng, chất lượng theo hợp đồng; kèm hóa đơn, CO, CQ (nếu có).')+'</p>');
+  R('KÈM THEO BIÊN BẢN NGHIỆM THU THIẾT BỊ TRƯỚC KHI ĐƯA VÀO LẮP ĐẶT','KÈM THEO BIÊN BẢN GIAO NHẬN HÀNG HÓA');
+  return h;
+}
 
 renderPayForm();renderWhForm();renderPlForm();renderExForm();applyCss();applyJustify();toggleBenA();refreshTplList();syncLoaiHD();render();
 document.querySelector('.form-panel').addEventListener('input',()=>{if(curTab==='m01')renderM01Preview();if(curTab==='bb')renderBBPreview();if(curTab==='vv')renderVVPreview();if(curTab==='dh')renderDHPreview();if(curTab==='bq'){bqUpdTotals();renderBQPreview();}if(curTab==='pack')updatePackList();});
