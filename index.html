@@ -458,6 +458,10 @@
   .mhe-top{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:6px}
   .mhe-top input{flex:1 1 180px;min-width:120px} .mhe-top select{flex:1 1 200px} .mhe-top button{width:auto;min-height:0;padding:6px 12px}
   .mhe-body{overflow:auto;flex:1}
+  .mhe-hint{font-size:.76rem;color:#6b7c95;margin:0 0 6px}
+  .mhe-ed{border:1px solid #cbd5e1;border-radius:6px;padding:6px 8px;min-height:1.6em;font-family:Tinos,'Times New Roman',serif;font-size:.95rem;line-height:1.45;background:#fff;white-space:pre-wrap;outline:none}
+  .mhe-ed:focus{border-color:#2563eb;box-shadow:0 0 0 2px #dbeafe}
+  .mhe-bar select{width:auto!important;min-height:0!important;padding:1px 4px!important;font-size:.76rem!important;margin:0!important;flex:0 0 auto}
   .mhe-blk{border:1px solid #e3e9f2;border-radius:8px;padding:5px;margin-bottom:6px}
   .mhe-blk textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.9rem;resize:vertical}
   .mhe-bar{display:flex;gap:4px;align-items:center;margin-bottom:3px;font-size:.78rem;flex-wrap:wrap}
@@ -614,6 +618,10 @@
 
     <!-- ============ TAB: HỢP ĐỒNG ============ -->
     <div class="tabpane active" data-tab="hd">
+      <div id="mhNLBar" class="no-print" style="display:none;position:sticky;top:0;z-index:5;background:#fff7e6;border:1px solid #f5c26b;border-radius:10px;padding:8px 10px;margin-bottom:10px">
+        <div style="font-size:.88rem;margin-bottom:6px">✏️ Đang sửa mẫu <b id="mhNLBarName"></b> — sửa các ô điều khoản bên dưới rồi bấm cập nhật.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" class="zl-big" style="width:auto;flex:1 1 160px;margin:0" onclick="mhNLUpdate()">💾 Cập nhật mẫu</button><button type="button" class="secondary" style="width:auto;flex:0 0 auto;margin:0" onclick="mhNLStop()">Thoát</button></div>
+      </div>
       <div class="pane-title"><div class="pi"><i class="fa-solid fa-file-signature"></i></div><div><h2>Hợp đồng cung cấp &amp; lắp đặt</h2><p class="sub">Nhập thông tin — văn bản tự cập nhật, xem bằng nút “Xem trước”.</p></div></div>
     <fieldset>
       <legend>Hình thức hợp đồng</legend>
@@ -1177,17 +1185,20 @@ Hao mòn tự nhiên; yếu tố môi trường phát sinh sau lắp đặt (bó
 
     <!-- ============ TAB: BÁO GIÁ ============ -->
     <div class="tabpane" data-tab="mh">
-      <div class="pane-title"><div class="pi"><i class="fa-solid fa-file-circle-plus"></i></div><div><h2>Mẫu hợp đồng</h2><p class="sub">Tạo mẫu mới từ file Word — giữ nguyên văn, điền thông tin khách khi lập</p></div></div>
+      <div class="pane-title"><div class="pi"><i class="fa-solid fa-file-circle-plus"></i></div><div><h2>Mẫu hợp đồng</h2><p class="sub">Tạo, sửa, quản lý các mẫu hợp đồng</p></div></div>
       <input type="hidden" data-f="mh_id" value="">
-      <p class="hint">🔗 Thông tin khách, số HĐ, ngày ký, giá trị tự lấy từ tab Hợp đồng. Ô nào để trống sẽ in dòng chấm.</p>
       <fieldset>
-        <legend>Mẫu hợp đồng</legend>
+        <legend>Chọn mẫu</legend>
         <select id="mhSel" onchange="mhPick(this.value)"></select>
-        <div class="toolbar no-print" style="margin-top:8px">
-          <button type="button" class="wi-btn" onclick="document.getElementById('mhFile').click()"><i class="fa-solid fa-file-word"></i>Nhập mẫu từ Word (.docx)</button>
-          <input type="file" id="mhFile" accept=".docx,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" onchange="mhImport(this)" style="display:none">
-          <button type="button" class="wi-btn" onclick="mhFromContract()"><i class="fa-solid fa-copy"></i>Tạo mẫu từ hợp đồng hiện tại</button>
+        <p class="hint" id="mhInfo" style="margin-top:6px"></p>
+        <div class="toolbar no-print mh-nl" style="display:none;margin-top:4px">
+          <button type="button" class="wi-btn" onclick="mhNLUse()"><i class="fa-solid fa-file-import"></i>Dùng mẫu cho hợp đồng đang mở</button>
+          <button type="button" class="wi-btn" onclick="mhNLEdit()"><i class="fa-solid fa-pen-to-square"></i>Sửa mẫu</button>
+        </div>
+        <div class="toolbar no-print mh-w" style="display:none;margin-top:4px">
           <button type="button" class="wi-btn" onclick="mhEdit()"><i class="fa-solid fa-pen-to-square"></i>Sửa nội dung mẫu</button>
+        </div>
+        <div class="toolbar no-print" style="margin-top:6px">
           <button type="button" class="ghost" onclick="mhRename()">✏️ Đổi tên</button>
           <button type="button" class="ghost" onclick="mhDup()">📄 Nhân bản</button>
           <button type="button" class="ghost" onclick="mhDel()">🗑️ Xoá</button>
@@ -1195,10 +1206,19 @@ Hao mòn tự nhiên; yếu tố môi trường phát sinh sau lắp đặt (bó
           <button type="button" class="ghost" onclick="document.getElementById('mhJson').click()">⬇️ Nhập mẫu từ file</button>
           <input type="file" id="mhJson" accept=".json,application/json" onchange="mhImportFile(this)" style="display:none">
         </div>
-        <p class="hint">Chỉ đọc được <b>.docx</b>. Nếu file là .doc đời cũ, mở bằng Word → Lưu thành .docx. Ảnh, đầu/cuối trang, khung chữ có thể không giữ lại.</p>
       </fieldset>
       <fieldset>
+        <legend>Tạo mẫu mới</legend>
+        <div class="toolbar no-print">
+          <button type="button" class="wi-btn" onclick="mhNLCreate()"><i class="fa-solid fa-copy"></i>Tạo mẫu từ hợp đồng hiện tại</button>
+          <button type="button" class="wi-btn" onclick="document.getElementById('mhFile').click()"><i class="fa-solid fa-file-word"></i>Nhập mẫu từ Word (.docx)</button>
+          <input type="file" id="mhFile" accept=".docx,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" onchange="mhImport(this)" style="display:none">
+        </div>
+        <p class="hint"><b>Từ hợp đồng hiện tại</b> → mẫu Ngọc Long: giữ nguyên toàn bộ điều khoản, định dạng, tính năng (bảng thanh toán, bằng chữ, phụ lục, chữ ký); sửa nội dung trong các ô của tab Hợp đồng.<br><b>Từ Word</b> → mẫu nguyên văn: giữ chữ, căn lề, thụt dòng, đậm/nghiêng/gạch chân, bảng; app tự nhận chỗ điền để bạn xác nhận. Chỉ đọc <b>.docx</b>; ảnh, đầu/cuối trang, khung chữ chưa giữ được.</p>
+      </fieldset>
+      <fieldset class="mh-w" style="display:none">
         <legend>Thông tin điền vào hợp đồng</legend>
+        <p class="hint">🔗 Thông tin khách, số HĐ, ngày ký, giá trị tự lấy từ tab Hợp đồng. Ô nào để trống sẽ in dòng chấm.</p>
         <div class="row2" id="mhFields" oninput="if(event.target.dataset.k)mhInput(event.target)"></div>
       </fieldset>
     </div>
@@ -2963,7 +2983,7 @@ async function homeGo(t){homeHide();
 document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('mainTabs');if(!b)return;const f=()=>b.classList.toggle('at-end',b.scrollLeft+b.clientWidth>=b.scrollWidth-4);b.addEventListener('scroll',f,{passive:true});window.addEventListener('resize',f);setTimeout(f,300);});
 function dockSync(){
   const d=document.getElementById('dock');if(!d)return;
-  const mode=(curTab==='guide'||curTab==='bg')?'none':curTab==='pack'?'pack':(curTab==='hd'&&isTG())?'none':'doc';
+  const mode=(curTab==='guide'||curTab==='bg'||(curTab==='mh'&&mhSelNL))?'none':curTab==='pack'?'pack':(curTab==='hd'&&isTG())?'none':'doc';
   d.dataset.mode=mode;
   const z=document.getElementById('dockZl');if(z)z.textContent=mode==='pack'?'Gửi cả bộ':'Gửi Zalo';
   const t=document.querySelector('.tabs .tab.active'),bar=document.getElementById('mainTabs');
@@ -2993,9 +3013,9 @@ function hsNameSync(){const e=document.getElementById('hsName');if(!e)return;con
 
 
 /* ================= ỨNG DỤNG: CÀI ĐẶT, CHIA SẺ, CẬP NHẬT ================= */
-const APP_VERSION='2.5.2';
+const APP_VERSION='2.6.0';
 const APP_BUILD='22/10/2026';
-const APP_NOTES=['Sửa lỗi: số hợp đồng bị lặp đuôi trong mẫu Word, nút trình sửa mẫu hiển thị sai trên điện thoại','Mẫu HĐ: tạo mẫu từ hợp đồng hiện tại và sửa nội dung mẫu ngay trong app (đoạn, bảng, chèn trường điền)','Tab Mẫu HĐ: nhập hợp đồng Word (.docx) làm mẫu mới, giữ nguyên văn, app tự nhận chỗ điền để bạn xác nhận','Tab Bảng giá: nhập file Excel giá bán theo nhóm, kiểm tra lỗi, xem giá thay đổi, lưu lịch sử, tải file mẫu cho giám đốc','Tab Báo giá: chọn thiết bị từ bảng giá, xuất A4/PDF/Word/Zalo, giữ giá đã báo khi bảng giá đổi, gói vào hồ sơ','Logo trên bản in (phiếu đặt hàng) nhỏ gọn hơn','Logo mới Ngọc Long Energy (màn hình chính, đầu trang, phiếu đặt hàng)','Chỗ ký cuối hợp đồng ghi chức danh (VD: TỔNG GIÁM ĐỐC) theo ô Chức vụ đã nhập; khách cá nhân giữ “(Ký & ghi rõ họ tên)”','Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
+const APP_NOTES=['Mẫu HĐ chia 2 loại: mẫu Ngọc Long (tạo từ hợp đồng hiện tại, giữ nguyên điều khoản, định dạng, tính năng) và mẫu từ Word (giữ căn lề, thụt dòng, đậm/nghiêng/gạch chân, bảng); trình sửa mẫu có B/I/U và căn lề','Sửa lỗi: số hợp đồng bị lặp đuôi trong mẫu Word, nút trình sửa mẫu hiển thị sai trên điện thoại','Mẫu HĐ: tạo mẫu từ hợp đồng hiện tại và sửa nội dung mẫu ngay trong app (đoạn, bảng, chèn trường điền)','Tab Mẫu HĐ: nhập hợp đồng Word (.docx) làm mẫu mới, giữ nguyên văn, app tự nhận chỗ điền để bạn xác nhận','Tab Bảng giá: nhập file Excel giá bán theo nhóm, kiểm tra lỗi, xem giá thay đổi, lưu lịch sử, tải file mẫu cho giám đốc','Tab Báo giá: chọn thiết bị từ bảng giá, xuất A4/PDF/Word/Zalo, giữ giá đã báo khi bảng giá đổi, gói vào hồ sơ','Logo trên bản in (phiếu đặt hàng) nhỏ gọn hơn','Logo mới Ngọc Long Energy (màn hình chính, đầu trang, phiếu đặt hàng)','Chỗ ký cuối hợp đồng ghi chức danh (VD: TỔNG GIÁM ĐỐC) theo ô Chức vụ đã nhập; khách cá nhân giữ “(Ký & ghi rõ họ tên)”','Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
   'Chia sẻ ứng dụng qua Zalo bằng 1 nút','Mở được khi mất mạng; tự báo khi có phiên bản mới',
   'Giao diện đồng bộ NL Office; thanh nút Xem trước / Gửi Zalo / PDF / Word','Tự lưu & danh sách hồ sơ, sao lưu, tự cấp số hợp đồng, kiểm tra chặn trước khi in/gửi'];
 const UA=navigator.userAgent||'';
@@ -3239,14 +3259,17 @@ function docxBlocks(docXml,numXml,styXml){
   const d=new DOMParser().parseFromString(docXml,'application/xml');
   const NB=parseNumbering(numXml),ST=parseStylesNum(styXml),cnt={};
   const body=wq(d,'body')[0];const out=[];
-  const runText=p=>{let t='',bc=0,all=0;
+  const runText=p=>{let t='',bc=0,all=0;const R=[];let lf={};
+    const on=(rp,tag)=>{const x=rp&&wkid(rp,tag);if(!x)return false;const v=wa(x,'val');return v!=='0'&&v!=='false'&&v!=='none';};
+    const add=(s,f)=>{if(!s)return;const L=R[R.length-1];if(L&&L.b===f.b&&L.i===f.i&&L.u===f.u&&L.sz===f.sz)L.t+=s;else R.push({t:s,b:f.b,i:f.i,u:f.u,sz:f.sz});};
     const walk=n=>{for(const c of n.childNodes){const ln=c.localName;
       if(ln==='del'||ln==='instrText'||ln==='delText'||ln==='fldSimple'&&false)continue;
       if(ln==='t'){t+=c.textContent;all+=c.textContent.trim().length;
-        const r=c.parentNode,rp=r&&wkid(r,'rPr'),b=rp&&wkid(rp,'b');if(b&&wa(b,'val')!=='0'&&wa(b,'val')!=='false')bc+=c.textContent.trim().length;}
-      else if(ln==='tab')t+='\t';else if(ln==='br'||ln==='cr')t+='\n';
+        const r=c.parentNode,rp=r&&wkid(r,'rPr'),b=rp&&wkid(rp,'b');if(b&&wa(b,'val')!=='0'&&wa(b,'val')!=='false')bc+=c.textContent.trim().length;
+        const szE=rp&&wkid(rp,'sz');lf={b:on(rp,'b'),i:on(rp,'i'),u:on(rp,'u'),sz:szE?(+wa(szE,'val')||0):0};add(c.textContent,lf);}
+      else if(ln==='tab'){t+='\t';add('\t',lf);}else if(ln==='br'||ln==='cr'){t+='\n';add('\n',lf);}
       else if(ln==='pPr'||ln==='rPr')continue;else walk(c);}};
-    walk(p);return {t,bold:all>0&&bc/all>0.6};};
+    walk(p);return {t,bold:all>0&&bc/all>0.6,runs:R};};
   const numText=(p)=>{const pPr=wkid(p,'pPr');let np=pPr&&wkid(pPr,'numPr'),numId,ilvl=0;
     if(np){numId=wa(wkid(np,'numId'),'val');ilvl=+(wa(wkid(np,'ilvl'),'val')||0);}
     else{let sid=pPr&&wa(wkid(pPr,'pStyle'),'val'),g=0;while(sid&&ST[sid]&&g++<8){if(ST[sid].num){numId=ST[sid].num.numId;ilvl=ST[sid].num.ilvl;break;}sid=ST[sid].based;}}
@@ -3258,14 +3281,21 @@ function docxBlocks(docXml,numXml,styXml){
     if(L.fmt==='bullet'||L.fmt==='none')return L.fmt==='bullet'?'- ':'';
     return L.text.replace(/%(\d)/g,(m,k)=>{const i=+k-1,LL=lv[i]||L;const v=c[i]!==undefined?c[i]:(LL.start||1);return numFmt(v,LL.fmt);})+' ';};
   const styBold=p=>{const pPr=wkid(p,'pPr');let sid=pPr&&wa(wkid(pPr,'pStyle'),'val'),g=0;while(sid&&ST[sid]&&g++<8){if(ST[sid].bold)return true;if(/heading|tieude|title/i.test(sid))return true;sid=ST[sid].based;}return false;};
-  const para=p=>{const r=runText(p);const pre=numText(p);return {t:'p',text:(pre+r.t).replace(/ /g,' '),bold:r.bold||styBold(p)};};
+  const para=p=>{const r=runText(p);const pre=numText(p);const sb=styBold(p);
+    const pPr=wkid(p,'pPr'),jc=pPr&&wkid(pPr,'jc'),ind=pPr&&wkid(pPr,'ind');
+    const runs=(pre?[{t:pre,b:false,i:false,u:false,sz:0}]:[]).concat(r.runs).map(x=>Object.assign(x,{t:x.t.replace(/\u00a0/g,' ')}));
+    const al={center:'c',right:'r',end:'r',both:'j',distribute:'j'}[jc&&wa(jc,'val')]||'';
+    const tw=k=>{const v=ind&&wa(ind,k);return v?(+v||0):0;};
+    return {t:'p',text:(pre+r.t).replace(/\u00a0/g,' '),bold:r.bold||sb,runs,pb:sb,al,il:tw('left')||tw('start'),fl:tw('firstLine')-tw('hanging')};};
   for(const el of body.childNodes){
     if(el.localName==='p')out.push(para(el));
     else if(el.localName==='tbl'){const rows=[];
       for(const tr of el.childNodes){if(tr.localName!=='tr')continue;const row=[];
         for(const tc of tr.childNodes){if(tc.localName!=='tc')continue;row.push([...tc.childNodes].filter(x=>x.localName==='p').map(x=>para(x).text.trim()).filter(Boolean).join('\n'));}
         rows.push(row);}
-      out.push({t:'tbl',rows});}
+      const tp=wkid(el,'tblPr'),tb=tp&&wkid(tp,'tblBorders'),ts=tp&&wkid(tp,'tblStyle');
+      const bord=tb?[...tb.childNodes].some(x=>x.localName&&!/^(nil|none)$/.test(wa(x,'val')||'')):!!(ts&&/grid|table|luoi|lưới/i.test(wa(ts,'val')||''));
+      out.push({t:'tbl',rows,bord});}
     else if(el.localName==='sdt'){const c=wkid(el,'sdtContent');if(c)for(const x of c.childNodes)if(x.localName==='p')out.push(para(x));}
   }
   return out;
@@ -3628,7 +3658,8 @@ function checkDoc(key){
   }
   else if(key==='mh'){
     const t=mhCur();
-    if(!t)r.e('Chưa chọn mẫu hợp đồng','#mhSel');
+    if(mhSelNL&&curTab==='mh'){}
+    else if(!t)r.e('Chưa chọn mẫu hợp đồng','#mhSel');
     else{t.fields.forEach(k=>{if(!mhValue(k).trim())r.w('Chưa có "'+mhLabel(t,k)+'" (sẽ in dòng chấm để viết tay)','[data-k="'+k+'"]');});}
   }
   else if(key==='bq'){
@@ -3680,7 +3711,7 @@ function checkDoc(key){
   }
   return r;
 }
-function docKeyNow(){if(curTab==='bb')return 'bb_'+curBBType();if(curTab==='dh')return 'dh_'+dhCur;if(curTab==='hd'||curTab==='m01'||curTab==='vv'||curTab==='pack'||curTab==='bq'||curTab==='mh')return curTab;return null;}
+function docKeyNow(){if(curTab==='bb')return 'bb_'+curBBType();if(curTab==='dh')return 'dh_'+dhCur;if(curTab==='hd'||curTab==='m01'||curTab==='vv'||curTab==='pack'||curTab==='bq')return curTab;if(curTab==='mh')return mhSelNL?null:'mh';return null;}
 const DOC_NAME={hd:'hợp đồng',m01:'khai báo điện lực',bb_vt:'biên bản 001',bb_ht:'biên bản 002',vv:'đề xuất vay vốn',bq:'báo giá',mh:'hợp đồng theo mẫu',pack:'hồ sơ'};
 function docName(k){return DOC_NAME[k]||(/^dh_/.test(k)?'phiếu đặt hàng':'văn bản');}
 function jumpTo(f){
@@ -4270,8 +4301,8 @@ async function mhImport(inp){
   try{blocks=await readWordFile(f);}
   catch(e){if(e.message==='OLD_DOC')uiAlert('File “'+f.name+'” là Word đời cũ (.doc).\nHãy mở bằng Word → Tệp → Lưu thành → chọn “Word Document (*.docx)”, rồi nhập file .docx vừa lưu.');
     else uiAlert('Không đọc được file Word: '+(e.message||e));return;}
-  blocks=blocks.filter(b=>b.t==='tbl'||(b.text&&b.text.trim()));
-  if(!blocks.length){uiAlert('File Word không có nội dung văn bản.');return;}
+  if(!blocks.some(b=>b.t==='tbl'||(b.text&&b.text.trim()))){uiAlert('File Word không có nội dung văn bản.');return;}
+  const ne=b=>b.t==='tbl'||(b.text&&b.text.trim());while(blocks.length&&!ne(blocks[0]))blocks.shift();while(blocks.length&&!ne(blocks[blocks.length-1]))blocks.pop();
   const D=mhDetect(blocks);
   MHD={name:f.name.replace(/\.(docx?|html?)$/i,''),blocks,slots:D.slots,nlSide:D.nlSide};
   mhShow();
@@ -4309,6 +4340,20 @@ function mhShow(){
 }
 function mhGuessSide(s,side){return mhGuess(s.ctx,s.party,side);}
 function mhKeep(){const y=document.querySelector('#mhOv .zl-card');const t=y?y.scrollTop:0;const n=(document.getElementById('mhName')||{}).value;if(n!==undefined)MHD.name=n;mhShow();const c=document.querySelector('#mhOv .zl-card');if(c)c.scrollTop=t;}
+/* ---- đoạn chữ có định dạng (runs) ---- */
+function mhRunsOf(b){return (b.runs&&b.runs.length)?b.runs:[{t:String(b.text||''),b:!!b.bold,i:false,u:false,sz:0}];}
+function mhRunsText(R){return R.map(r=>r.t).join('');}
+function mhRunsReplace(R,at,len,str){const out=[];let pos=0,done=false;
+  R.forEach(r=>{const s=pos,e=pos+r.t.length;pos=e;
+    if(e<=at||s>=at+len){if(s>=at+len&&!done){out.push(Object.assign({},r,{t:str}));done=true;}out.push(r);return;}
+    const a=Math.max(0,at-s),z=Math.min(r.t.length,at+len-s),pre=r.t.slice(0,a),post=r.t.slice(z);
+    if(pre)out.push(Object.assign({},r,{t:pre}));
+    if(!done){out.push(Object.assign({},r,{t:str}));done=true;}
+    if(post)out.push(Object.assign({},r,{t:post}));});
+  if(!done)out.push({t:str,b:false,i:false,u:false,sz:0});
+  return out.filter(r=>r.t!=='');}
+function mhSetText(b,fn){ // áp hàm sửa chữ cho cả text và runs
+  if(b.runs){b.runs=b.runs.map(r=>Object.assign({},r,{t:fn(r.t)}));b.text=mhRunsText(b.runs);}else b.text=fn(b.text);}
 function mhSaveNew(){
   const nm=(document.getElementById('mhName').value||'').trim();
   if(!nm){uiAlert('Hãy nhập tên mẫu.');return;}
@@ -4317,69 +4362,144 @@ function mhSaveNew(){
     if(!s.key)return '';
     if(s.key==='_new'){const lb=(s.label||'').trim();if(!lb)return '';const k='c_'+mhSlug(lb);custom[k]=lb;return k;}
     return s.key;};
-  // thay từ cuối về đầu trong cùng đoạn để không lệch vị trí
   const blocks=JSON.parse(JSON.stringify(MHD.blocks));
+  // thay từ cuối về đầu trong cùng đoạn để không lệch vị trí
   const order=MHD.slots.map((s,i)=>({s,i})).sort((a,b)=>b.s.at-a.s.at);
   order.forEach(({s})=>{const k=keyOf(s);if(!k)return;if(!used.includes(k))used.push(k);
-    const put=t=>t.slice(0,s.at)+'{{'+k+'}}'+t.slice(s.at+s.len);
-    if(s.ri===undefined){blocks[s.bi].text=put(blocks[s.bi].text);}
-    else{blocks[s.bi].rows[s.ri][s.ci]=put(blocks[s.bi].rows[s.ri][s.ci]);}});
+    const tok='{{'+k+'}}',put=t=>t.slice(0,s.at)+tok+t.slice(s.at+s.len);
+    const b=blocks[s.bi];
+    if(s.ri===undefined){if(b.runs)b.runs=mhRunsReplace(b.runs,s.at,s.len,tok);b.text=put(b.text);}
+    else{b.rows[s.ri][s.ci]=put(b.rows[s.ri][s.ci]);}});
   const lib=mhLoad();let ex=lib.items.find(t=>t.name===nm);
   const doSave=()=>{
-    const it={id:ex?ex.id:('m'+Date.now().toString(36)),name:nm,at:Date.now(),blocks,fields:used,custom};
+    const it={id:ex?ex.id:('m'+Date.now().toString(36)),name:nm,at:Date.now(),v:2,blocks,fields:mhFieldsOf(blocks),custom};
     if(ex)Object.assign(ex,it);else lib.items.push(it);
     if(!mhPersist())return;
     const ov=document.getElementById('mhOv');if(ov)ov.remove();MHD=null;
-    const hid=document.querySelector('[data-f="mh_id"]');if(hid)hid.value=it.id;
-    mhVals={};mhRender();renderMHPreview();hsMark();
-    uiAlert('✅ Đã lưu mẫu “'+nm+'” với '+used.length+' trường điền.');};
+    mhSelNL='';const hid=document.querySelector('[data-f="mh_id"]');if(hid)hid.value=it.id;
+    mhVals={};mhRender();renderMHPreview();hsMark();dockSync();
+    uiAlert('✅ Đã lưu mẫu “'+nm+'” với '+it.fields.length+' trường điền.');};
   if(ex){uiConfirm('Đã có mẫu “'+nm+'”. Ghi đè?').then(ok=>{if(ok)doSave();});}else doSave();
 }
+/* ---- MẪU NGỌC LONG (đầy đủ tính năng) — dùng chung kho mẫu của tab Hợp đồng ---- */
+let mhSelNL='',mhNLEditing='';
+function mhNLSave(t){try{localStorage.setItem(TPL_KEY,JSON.stringify(t));return true;}catch(e){uiAlert('❌ Không lưu được mẫu: bộ nhớ trình duyệt đã đầy.');return false;}}
+function mhNLGet(){const t=getTemplates();return mhSelNL&&t[mhSelNL]?t[mhSelNL]:null;}
+async function mhNLCreate(){
+  const def=(val('hd_tieude')||'').trim();
+  const n=(prompt('Tên mẫu mới (vd: HĐ thương mại, HĐ bảo trì):',def?cap(def.toLocaleLowerCase('vi')):'')||'').trim();if(!n)return;
+  const t=getTemplates();
+  if(t[n]&&!await uiConfirm('Đã có mẫu “'+n+'”. Ghi đè bằng nội dung hợp đồng đang mở?'))return;
+  t[n]=tplPick(collect());if(!mhNLSave(t))return;
+  mhSelNL=n;refreshTplList();renderMHPreview();dockSync();
+  uiAlert('✅ Đã tạo mẫu “'+n+'” từ hợp đồng đang mở.\nMẫu giữ nguyên toàn bộ điều khoản, định dạng và tính năng (bảng thanh toán, bằng chữ, phụ lục, chữ ký…).\nThông tin khách, số HĐ, ngày, thiết bị không lưu vào mẫu.');
+}
+async function mhNLUse(){
+  const d=mhNLGet();if(!d){uiAlert('Chưa chọn mẫu.');return;}
+  if(!await uiConfirm('Áp mẫu “'+mhSelNL+'” vào hợp đồng đang mở?\nĐiều khoản hiện tại sẽ được thay bằng của mẫu; thông tin khách, thiết bị, ngày tháng giữ nguyên.'))return;
+  applyData(tplPick(d));render();mhNLBar();switchTab('hd');
+  uiAlert('✅ Đã áp dụng mẫu “'+mhSelNL+'”.');
+}
+async function mhNLEdit(){
+  const d=mhNLGet();if(!d){uiAlert('Chưa chọn mẫu.');return;}
+  if(!await uiConfirm('Sửa mẫu “'+mhSelNL+'”: app sẽ áp mẫu vào hợp đồng đang mở để anh/chị sửa các ô điều khoản ở tab Hợp đồng, sửa xong bấm “Cập nhật mẫu” ở đầu tab.\nThông tin khách đang mở giữ nguyên. Tiếp tục?'))return;
+  applyData(tplPick(d));render();mhNLEditing=mhSelNL;mhNLBar();switchTab('hd');
+}
+function mhNLUpdate(){
+  if(!mhNLEditing)return;const t=getTemplates();t[mhNLEditing]=tplPick(collect());
+  if(!mhNLSave(t))return;const n=mhNLEditing;mhNLEditing='';mhNLBar();refreshTplList();uiAlert('✅ Đã cập nhật mẫu “'+n+'”.');
+}
+function mhNLStop(){mhNLEditing='';mhNLBar();}
+function mhNLBar(){const b=document.getElementById('mhNLBar');if(!b)return;
+  b.style.display=mhNLEditing?'':'none';const n=document.getElementById('mhNLBarName');if(n)n.textContent=mhNLEditing;}
 /* ---- giao diện tab ---- */
 function mhRender(){
   const sel=document.getElementById('mhSel');if(!sel)return;
-  const lib=mhLoad(),cur=val('mh_id');
-  sel.innerHTML=lib.items.length?'<option value="">— Chọn mẫu —</option>'+lib.items.map(t=>'<option value="'+esc(t.id)+'"'+(t.id===cur?' selected':'')+'>'+esc(t.name)+'</option>').join(''):'<option value="">(chưa có mẫu – bấm Nhập từ Word)</option>';
-  const t=mhCur(),box=document.getElementById('mhFields');if(!box)return;
-  if(!t){box.innerHTML='<p class="hint">Chọn một mẫu, hoặc bấm <b>Nhập mẫu từ Word</b> để tạo mẫu mới.</p>';return;}
+  const lib=mhLoad(),nl=Object.keys(getTemplates()),cur=val('mh_id');
+  if(mhSelNL&&!nl.includes(mhSelNL))mhSelNL='';
+  const sv=mhSelNL?'nl:'+mhSelNL:cur;
+  let h='<option value="">— Chọn mẫu —</option>';
+  h+='<optgroup label="Mẫu Ngọc Long – đầy đủ tính năng">'+(nl.length?nl.map(n=>'<option value="nl:'+esc(n)+'"'+(sv==='nl:'+n?' selected':'')+'>'+esc(n)+'</option>').join(''):'<option disabled>(chưa có — bấm “Tạo mẫu từ hợp đồng hiện tại”)</option>')+'</optgroup>';
+  h+='<optgroup label="Mẫu từ Word – nguyên văn">'+(lib.items.length?lib.items.map(t=>'<option value="'+esc(t.id)+'"'+(t.id===sv?' selected':'')+'>'+esc(t.name)+'</option>').join(''):'<option disabled>(chưa có — bấm “Nhập mẫu từ Word”)</option>')+'</optgroup>';
+  sel.innerHTML=h;
+  const isNL=!!mhSelNL,t=isNL?null:mhCur();
+  document.querySelectorAll('.mh-nl').forEach(e=>e.style.display=isNL?'':'none');
+  document.querySelectorAll('.mh-w').forEach(e=>e.style.display=(!isNL&&t)?'':'none');
+  const info=document.getElementById('mhInfo');
+  if(info)info.innerHTML=isNL?'<b>Mẫu Ngọc Long</b> — giữ nguyên toàn bộ điều khoản, định dạng và tính năng của hợp đồng (bảng thanh toán tự tính, bằng chữ, phụ lục thiết bị, Bên A/B, chữ ký). Bấm <b>Dùng mẫu</b> để áp vào hợp đồng đang mở, rồi lập và xuất ở tab Hợp đồng.'
+    :t?'<b>Mẫu từ Word</b> — giữ nguyên văn và định dạng file Word; điền thông tin bên dưới, xem trước và xuất ngay tại tab này.':'Chọn một mẫu, hoặc tạo mẫu mới bằng các nút bên dưới.';
+  try{schedChk();}catch(e){}
+  const box=document.getElementById('mhFields');if(!box)return;
+  if(!t){box.innerHTML='';return;}
   if(!t.fields.length){box.innerHTML='<p class="hint">Mẫu này không có trường điền — dùng nguyên văn.</p>';return;}
   box.innerHTML=t.fields.map(k=>{const f=mhField(k),auto=f?String(f[2]()||''):'';
     return '<div><label>'+esc(mhLabel(t,k))+(f?' <span class="muted" style="font-weight:400">(tự lấy từ hồ sơ)</span>':'')+'</label><input data-k="'+esc(k)+'" value="'+esc(mhVals[k]||'')+'" placeholder="'+esc(auto||'nhập…')+'"></div>';}).join('');
 }
-function mhPick(id){const hid=document.querySelector('[data-f="mh_id"]');if(hid)hid.value=id;mhVals={};mhRender();renderMHPreview();hsMark();}
-function mhInput(inp){mhVals[inp.dataset.k]=inp.value;renderMHPreview();hsMark();}
-async function mhRename(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}const n=prompt('Tên mẫu mới:',t.name);if(!n||!n.trim())return;t.name=n.trim();if(mhPersist())mhRender();}
-async function mhDup(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}const c=JSON.parse(JSON.stringify(t));c.id='m'+Date.now().toString(36);c.name=t.name+' (bản sao)';mhLoad().items.push(c);if(mhPersist())mhPick(c.id);}
-async function mhDel(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}if(!await uiConfirm('Xoá mẫu “'+t.name+'”? (Hợp đồng đã lập từ mẫu này sẽ không còn nội dung)'))return;
+function mhPick(v){
+  if(String(v).indexOf('nl:')===0){mhSelNL=v.slice(3);}
+  else{mhSelNL='';const hid=document.querySelector('[data-f="mh_id"]');if(hid&&hid.value!==v){hid.value=v;mhVals={};hsMark();}}
+  mhRender();renderMHPreview();dockSync();if(typeof schedChk==='function')schedChk();}
+function mhInput(inp){mhVals[inp.dataset.k]=inp.value;renderMHPreview();hsMark();try{schedChk();}catch(e){}}
+async function mhRename(){
+  if(mhSelNL){const t=getTemplates(),o=mhSelNL;const n=(prompt('Tên mẫu mới:',o)||'').trim();if(!n||n===o)return;
+    if(t[n]&&!await uiConfirm('Đã có mẫu “'+n+'”. Ghi đè?'))return;t[n]=t[o];delete t[o];if(mhNLSave(t)){mhSelNL=n;refreshTplList();}return;}
+  const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}const n=prompt('Tên mẫu mới:',t.name);if(!n||!n.trim())return;t.name=n.trim();if(mhPersist())mhRender();}
+async function mhDup(){
+  if(mhSelNL){const t=getTemplates();let n=mhSelNL+' (bản sao)',i=2;while(t[n])n=mhSelNL+' (bản sao '+(i++)+')';
+    t[n]=JSON.parse(JSON.stringify(t[mhSelNL]));if(mhNLSave(t)){mhSelNL=n;refreshTplList();}return;}
+  const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}const c=JSON.parse(JSON.stringify(t));c.id='m'+Date.now().toString(36);c.name=mhUniqueName(t.name+' (bản sao)');mhLoad().items.push(c);if(mhPersist())mhPick(c.id);}
+async function mhDel(){
+  if(mhSelNL){if(!await uiConfirm('Xoá mẫu “'+mhSelNL+'”?'))return;const t=getTemplates();delete t[mhSelNL];if(mhNLSave(t)){if(mhNLEditing===mhSelNL)mhNLStop();mhSelNL='';refreshTplList();renderMHPreview();dockSync();}return;}
+  const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}if(!await uiConfirm('Xoá mẫu “'+t.name+'”? (Hợp đồng đã lập từ mẫu này sẽ không còn nội dung)'))return;
   const lib=mhLoad();lib.items=lib.items.filter(x=>x.id!==t.id);if(mhPersist())mhPick('');}
-function mhExportFile(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}
+function mhExportFile(){
+  if(mhSelNL){const d=mhNLGet();dlBlob(new Blob([JSON.stringify({_type:'HDNL_TEMPLATE',v:1,name:mhSelNL,data:tplPick(d)},null,2)],{type:'application/json'}),slug(mhSelNL)+'.mauhd.json');return;}
+  const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}
   dlBlob(new Blob([JSON.stringify({_type:'HDNL_MAU_WORD',v:1,tpl:t},null,2)],{type:'application/json'}),safeFn(t.name)+'.mauword.json');}
 function mhImportFile(inp){const f=inp.files&&inp.files[0];inp.value='';if(!f)return;const r=new FileReader();
-  r.onload=async e=>{try{const o=JSON.parse(e.target.result);const t=o&&o._type==='HDNL_MAU_WORD'&&o.tpl;
-    if(!t||!Array.isArray(t.blocks)){uiAlert('File không phải mẫu hợp đồng (.mauword.json).');return;}
+  r.onload=async e=>{try{const o=JSON.parse(e.target.result);
+    if(o&&o._type==='HDNL_TEMPLATE'&&o.data){const nm=String(o.name||'Mẫu nhập');const t=getTemplates();
+      if(t[nm]&&!await uiConfirm('Đã có mẫu “'+nm+'”. Ghi đè?'))return;t[nm]=tplPick(o.data);
+      if(mhNLSave(t)){mhSelNL=nm;refreshTplList();renderMHPreview();dockSync();uiAlert('✅ Đã nhập mẫu Ngọc Long “'+nm+'”.');}return;}
+    const t=o&&o._type==='HDNL_MAU_WORD'&&o.tpl;
+    if(!t||!Array.isArray(t.blocks)){uiAlert('File không phải mẫu hợp đồng (.mauhd.json hoặc .mauword.json).');return;}
     const lib=mhLoad();let ex=lib.items.find(x=>x.name===t.name);
     if(ex&&!await uiConfirm('Đã có mẫu “'+t.name+'”. Ghi đè?'))return;
     t.id=ex?ex.id:('m'+Date.now().toString(36));if(ex)Object.assign(ex,t);else lib.items.push(t);
     if(mhPersist()){mhPick(t.id);uiAlert('✅ Đã nhập mẫu “'+t.name+'”.');}
   }catch(err){uiAlert('Không đọc được file mẫu.');}};r.readAsText(f,'UTF-8');}
 /* ---- dựng văn bản ---- */
-function mhFill(txt){
+function mhFill(txt,next){
   const P=String(txt||'').split(/\{\{(\w+)\}\}/);
   return P.map((p,i)=>{
     if(i%2===0)return esc(p).replace(/\n/g,'<br>').replace(/\t/g,'&emsp;');
     let v=mhValue(p);
     // "Số: {{so_hd}}/2026/HĐ…" — mẫu đã có phần đuôi thì chỉ điền phần số đầu
-    if(p==='so_hd'&&v&&/^\s*\//.test(P[i+1]||''))v=v.split('/')[0].trim();
+    const after=P[i+1]||(i+1===P.length-1?(next||''):'');
+    if(p==='so_hd'&&v&&/^\s*\//.test(after))v=v.split('/')[0].trim();
     return v?esc(v):'……………';}).join('');
 }
+function mhRunHtml(r,pb,next){let h=mhFill(r.t,next);if(!h)return '';
+  if(r.sz&&r.sz!==26)h='<span style="font-size:'+(r.sz/2)+'pt">'+h+'</span>';
+  if(r.u)h='<u>'+h+'</u>';if(r.i)h='<i>'+h+'</i>';if(r.b||pb)h='<b>'+h+'</b>';return h;}
+function mhParaStyle(b){const st=[];
+  st.push('text-align:'+({c:'center',r:'right',j:'justify'}[b.al]||'left'));
+  if(b.fl!==undefined)st.push('text-indent:'+(b.fl/567).toFixed(2)+'cm');
+  if(b.il)st.push('margin-left:'+(b.il/567).toFixed(2)+'cm');
+  return st.join(';');}
 function buildMauHDBody(){
   const t=mhCur();
+  if(mhSelNL)return '<p style="text-align:center;text-indent:0;color:#16407a"><b>Mẫu Ngọc Long “'+esc(mhSelNL)+'”</b></p><p style="text-align:center;text-indent:0;color:#555">Mẫu này dùng toàn bộ tính năng của tab Hợp đồng.<br>Bấm <b>Dùng mẫu</b> để áp vào hợp đồng đang mở, rồi xem trước và xuất ở tab Hợp đồng.</p>';
   if(!t)return '<p class="ct" style="text-align:center;text-indent:0;color:#888">Chưa chọn mẫu hợp đồng</p>';
   let h='';
-  t.blocks.forEach((b,i)=>{
+  t.blocks.forEach(b=>{
     if(b.t==='tbl'){
-      h+='<table width="100%" style="width:100%;border-collapse:collapse;margin:4px 0">'+b.rows.map(r=>'<tr>'+r.map(c=>'<td style="border:1px solid #000;padding:3px 5px;vertical-align:top;text-indent:0;text-align:left">'+mhFill(c)+'</td>').join('')+'</tr>').join('')+'</table>';
+      const bd=b.bord===false?'border:none':'border:1px solid #000';
+      h+='<table width="100%" style="width:100%;border-collapse:collapse;margin:4px 0">'+b.rows.map(r=>'<tr>'+r.map(c=>'<td style="'+bd+';padding:3px 5px;vertical-align:top;text-indent:0;text-align:'+(b.bord===false?'center':'left')+'">'+mhFill(c)+'</td>').join('')+'</tr>').join('')+'</table>';
       return;}
+    if(b.runs){ // mẫu có định dạng
+      const R=b.runs;let inner='';R.forEach((r,i)=>{inner+=mhRunHtml(r,b.pb,R.slice(i+1).map(x=>x.t).join(''));});
+      h+='<p style="'+mhParaStyle(b)+'">'+(inner||'&nbsp;')+'</p>';return;}
     const raw=b.text||'',plain=raw.replace(/\{\{\w+\}\}/g,'').trim();
     const ctr=b.bold&&plain.length<95&&!/^(điều|dieu)\s*\d/i.test(plain)&&plain===plain.toUpperCase()&&/[A-ZÀ-Ỹ]/.test(plain);
     const art=b.bold&&/^(điều|dieu)\s*\d/i.test(plain);
@@ -4394,103 +4514,122 @@ function exportMH(){dlBlob(mhBlob(),mhName());}
 function shareMH(){shareFile(mhBlob(),mhName(),'Hợp đồng '+(khTenNow()||''),'mh');}
 function copyMH(){copyFrom('paperMH','hợp đồng');}
 function renderMHPreview(){const el=document.getElementById('paperMH');if(el)el.innerHTML=buildMauHDBody();}
-/* ---- tạo mẫu từ hợp đồng hiện tại ---- */
 function mhFieldsOf(blocks){
   const set=[];const f=t=>{String(t||'').replace(/\{\{(\w+)\}\}/g,(m,k)=>{if(!set.includes(k))set.push(k);return m;});};
-  blocks.forEach(b=>{if(b.t==='p')f(b.text);else b.rows.forEach(r=>r.forEach(f));});return set;
+  blocks.forEach(b=>{if(b.t==='p')f(b.runs?mhRunsText(b.runs):b.text);else b.rows.forEach(r=>r.forEach(f));});return set;
 }
-function mhMapBlocks(blocks,fn){blocks.forEach(b=>{if(b.t==='p')b.text=fn(b.text);else b.rows=b.rows.map(r=>r.map(fn));});}
 function mhUniqueName(n){const L=mhLoad().items;let x=n,i=2;while(L.some(t=>t.name===x))x=n+' ('+(i++)+')';return x;}
-function mhFromContract(){
-  if(isTG()){uiAlert('Hợp đồng trả góp do đối tác lập, không có văn bản để chuyển thành mẫu.');return;}
-  const MAP=[['a_ten','khach_ten'],['a_congty','khach_ten'],['a_daidien','khach_daidien'],['a_chucvu','khach_chucvu'],['a_diachi','khach_diachi'],['a_dn_diachi','khach_diachi'],
-    ['a_dt','khach_dt'],['a_dn_dt','khach_dt'],['a_mst','khach_mst'],['a_cccd','khach_cccd'],['a_stk','khach_stk'],
-    ['b_ten','nl_ten'],['b_daidien','nl_daidien'],['b_chucvu','nl_chucvu'],['b_diachi','nl_diachi'],['b_dt','nl_dt'],['b_mst','nl_mst'],['b_stk','nl_stk'],['soHD','so_hd']];
-  const SENT=[['tongGT','123456789'],['ngayKy','2088-07-27']];
-  const all=MAP.map(m=>m[0]).concat(SENT.map(s=>s[0]));
-  const els=all.map(f=>document.querySelector('[data-f="'+f+'"]')),old=els.map(e=>e?e.value:null);
-  const tok={};
-  MAP.forEach(([f,k],i)=>{if(els[i]){const t='ZZ'+(i+1)+'ZZ';tok[t]=k;els[i].value=t;}});
-  SENT.forEach(([f,v],j)=>{const e=els[MAP.length+j];if(e)e.value=v;});
-  let html='';
-  try{render();html=document.getElementById('paper').innerHTML;}
-  finally{els.forEach((e,i)=>{if(e&&old[i]!==null)e.value=old[i];});render();}
-  let blocks=htmlBlocks(html).filter(b=>b.t==='tbl'||(b.text&&b.text.trim()));
-  if(!blocks.length){uiAlert('Không đọc được nội dung hợp đồng hiện tại.');return;}
-  const gw=cap(readNumber(123456789))+' đồng';
-  mhMapBlocks(blocks,t=>String(t)
-    .replace(/ZZ(\d+)ZZ/g,(m,n)=>{const k=tok[m];return k?'{{'+k+'}}':m;})
-    .split(gw).join('{{gia_chu}}').split('123.456.789').join('{{gia_tri}}')
-    .replace(/27\/07\/2088/g,'{{ngay}}/{{thang}}/{{nam}}')
-    .replace(/(ngày\s+)27(?=\s+tháng)/gi,'$1{{ngay}}').replace(/(tháng\s+)07\b/gi,'$1{{thang}}').replace(/(năm\s+)2088/gi,'$1{{nam}}').replace(/2088/g,'{{nam}}'));
-  const it={id:'m'+Date.now().toString(36),name:mhUniqueName('Hợp đồng Ngọc Long (từ mẫu hiện tại)'),at:Date.now(),blocks,fields:mhFieldsOf(blocks),custom:{}};
-  mhLoad().items.push(it);if(!mhPersist())return;
-  const hid=document.querySelector('[data-f="mh_id"]');if(hid)hid.value=it.id;
-  mhVals={};mhRender();renderMHPreview();hsMark();
-  uiAlert('✅ Đã tạo mẫu “'+it.name+'”.\nLưu ý: bảng thiết bị, lịch thanh toán… đang có trong hợp đồng cũng được giữ nguyên trong mẫu — bấm “Sửa nội dung mẫu” để xoá hoặc đổi.');
-}
-/* ---- trình sửa nội dung mẫu ---- */
-let MHE=null,mhLastTa=null;
+/* ---- trình sửa nội dung mẫu Word (giữ định dạng) ---- */
+let MHE=null,mhLastTa=null,mhLastRange=null;
 function mhEdit(){
   const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}
-  MHE={id:t.id,name:t.name,blocks:JSON.parse(JSON.stringify(t.blocks)),custom:Object.assign({},t.custom||{})};
-  mhEditShow();
+  const blocks=JSON.parse(JSON.stringify(t.blocks)).map(b=>{
+    if(b.t!=='p'||b.runs)return b;
+    // đoạn kiểu cũ (chỉ có chữ) → chuyển sang có định dạng, giữ cách trình bày cũ
+    const plain=String(b.text||'').replace(/\{\{\w+\}\}/g,'').trim();
+    const ctr=b.bold&&plain.length<95&&!/^(điều|dieu)\s*\d/i.test(plain)&&plain===plain.toUpperCase()&&/[A-ZÀ-Ỹ]/.test(plain);
+    return {t:'p',text:b.text,bold:b.bold,runs:[{t:String(b.text||''),b:!!b.bold,i:false,u:false,sz:0}],al:ctr?'c':'j',fl:ctr?0:567};});
+  MHE={id:t.id,name:t.name,blocks,custom:Object.assign({},t.custom||{})};
+  mhEditShow(false);
 }
+function mhRunsToEd(R,pb){return R.map(r=>{let h=esc(r.t).replace(/\n/g,'<br>').replace(/\t/g,'&emsp;');
+  if(r.sz&&r.sz!==26)h='<span data-sz="'+r.sz+'" style="font-size:'+(r.sz/2)+'pt">'+h+'</span>';
+  if(r.u)h='<u>'+h+'</u>';if(r.i)h='<i>'+h+'</i>';if(r.b||pb)h='<b>'+h+'</b>';return h;}).join('');}
+function mhEdToRuns(el){const R=[];
+  const add=(t,f)=>{if(!t)return;const L=R[R.length-1];if(L&&L.b===f.b&&L.i===f.i&&L.u===f.u&&L.sz===f.sz)L.t+=t;else R.push({t,b:f.b,i:f.i,u:f.u,sz:f.sz});};
+  const walk=(n,f)=>{for(const c of n.childNodes){
+    if(c.nodeType===3){add(c.nodeValue.replace(/ /g,' ').replace(/ /g,'\t'),f);continue;}
+    if(c.nodeType!==1)continue;const tg=c.tagName,st=c.style||{};
+    if(tg==='BR'){add('\n',f);continue;}
+    const g=Object.assign({},f);
+    if(tg==='B'||tg==='STRONG'||/bold|^[6-9]00$/.test(st.fontWeight||''))g.b=true;
+    if(st.fontWeight==='normal'||st.fontWeight==='400')g.b=false;
+    if(tg==='I'||tg==='EM'||st.fontStyle==='italic')g.i=true;
+    if(tg==='U'||/underline/.test((st.textDecoration||'')+(st.textDecorationLine||'')))g.u=true;
+    if(c.dataset&&c.dataset.sz)g.sz=+c.dataset.sz;
+    if((tg==='DIV'||tg==='P')&&R.length&&!/\n$/.test(R[R.length-1].t))add('\n',f);
+    walk(c,g);}};
+  walk(el,{b:false,i:false,u:false,sz:0});
+  const L=R[R.length-1];if(L)L.t=L.t.replace(/\n+$/,'');
+  return R.filter(r=>r.t!=='');}
 function mhEditShow(keepScroll){
   const old=document.getElementById('mheOv');const st=old?old.querySelector('.mhe-body').scrollTop:0;if(old)old.remove();
   const ov=document.createElement('div');ov.className='zl-ov no-print';ov.id='mheOv';ov.style.zIndex=10005;
   const customOpts=Object.keys(MHE.custom).map(k=>'<option value="'+esc(k)+'">'+esc(MHE.custom[k])+'</option>').join('');
-  const ta=(b,r,c,txt)=>'<textarea data-b="'+b+'"'+(r!==undefined?' data-r="'+r+'" data-c="'+c+'"':'')+' rows="'+Math.min(14,Math.max(1,String(txt).split('\n').length+Math.floor(String(txt).length/70)))+'">'+esc(txt)+'</textarea>';
+  const ta=(b,r,c,txt)=>'<textarea data-b="'+b+'" data-r="'+r+'" data-c="'+c+'" rows="'+Math.min(8,Math.max(1,String(txt).split('\n').length))+'">'+esc(txt)+'</textarea>';
+  const AL=[['l','Trái'],['c','Giữa'],['r','Phải'],['j','Đều']];
   let h='<div class="zl-card mhe-card"><div class="mhe-top"><b><i class="fa-solid fa-pen-to-square"></i> Sửa nội dung mẫu</b>'
    +'<input id="mheName" value="'+esc(MHE.name)+'">'
    +'<select id="mheIns"><option value="">＋ Chèn trường vào chỗ con trỏ…</option><optgroup label="Lấy từ hồ sơ">'+MH_FIELDS.map(f=>'<option value="'+f[0]+'">'+esc(f[1])+'</option>').join('')+'</optgroup>'+(customOpts?'<optgroup label="Trường riêng">'+customOpts+'</optgroup>':'')+'<option value="_new">➕ Trường riêng mới…</option></select>'
-   +'<button class="zl-big" data-a="save">💾 Lưu</button><button class="secondary" data-a="x">Đóng</button></div><div class="mhe-body">';
+   +'<button class="zl-big" data-a="save">💾 Lưu</button><button class="secondary" data-a="x">Đóng</button></div>'
+   +'<div class="mhe-hint">Bôi đen chữ rồi bấm <b>B</b> / <i>I</i> / <u>U</u> để in đậm, nghiêng, gạch chân. Chữ dạng {{…}} là chỗ app tự điền.</div><div class="mhe-body">';
   MHE.blocks.forEach((b,i)=>{
+    const mv='<button data-a="up" data-i="'+i+'">↑</button><button data-a="down" data-i="'+i+'">↓</button><button data-a="add" data-i="'+i+'">＋ đoạn</button>';
     if(b.t==='tbl'){
-      h+='<div class="mhe-blk tbl"><div class="mhe-bar"><span>Bảng</span><button data-a="addrow" data-i="'+i+'">+ dòng</button><button data-a="up" data-i="'+i+'">↑</button><button data-a="down" data-i="'+i+'">↓</button><button data-a="del" data-i="'+i+'">✖ Xoá bảng</button></div>'
+      h+='<div class="mhe-blk tbl"><div class="mhe-bar"><span>Bảng</span><label><input type="checkbox" data-a="bord" data-i="'+i+'"'+(b.bord===false?'':' checked')+'> Có viền</label><button data-a="addrow" data-i="'+i+'">+ dòng</button>'+mv+'<button data-a="del" data-i="'+i+'">✖ Xoá bảng</button></div>'
        +'<table>'+b.rows.map((r,ri)=>'<tr>'+r.map((c,ci)=>'<td>'+ta(i,ri,ci,c)+'</td>').join('')+'<td class="x"><button data-a="delrow" data-i="'+i+'" data-r="'+ri+'">✖</button></td></tr>').join('')+'</table></div>';
     }else{
-      h+='<div class="mhe-blk"><div class="mhe-bar"><label><input type="checkbox" data-a="bold" data-i="'+i+'"'+(b.bold?' checked':'')+'> Đậm</label><button data-a="up" data-i="'+i+'">↑</button><button data-a="down" data-i="'+i+'">↓</button><button data-a="add" data-i="'+i+'">＋ đoạn dưới</button><button data-a="del" data-i="'+i+'">✖</button></div>'+ta(i,undefined,undefined,b.text)+'</div>';
+      h+='<div class="mhe-blk"><div class="mhe-bar"><button data-fmt="bold" title="Đậm"><b>B</b></button><button data-fmt="italic" title="Nghiêng"><i>I</i></button><button data-fmt="underline" title="Gạch chân"><u>U</u></button>'
+        +'<select data-al="'+i+'">'+AL.map(([v,l])=>'<option value="'+v+'"'+((b.al||'l')===v?' selected':'')+'>'+l+'</option>').join('')+'</select>'+mv+'<button data-a="del" data-i="'+i+'">✖</button></div>'
+        +'<div class="mhe-ed" contenteditable="true" data-p="'+i+'" style="text-align:'+({c:'center',r:'right',j:'justify'}[b.al]||'left')+'">'+mhRunsToEd(mhRunsOf(b),b.pb)+'</div></div>';
     }});
   h+='<button class="ghost" data-a="addend">＋ Thêm đoạn ở cuối</button></div></div>';
   ov.innerHTML=h;document.body.appendChild(ov);
   ov.querySelector('.mhe-body').scrollTop=keepScroll===false?0:st;
-  ov.addEventListener('focusin',e=>{if(e.target.tagName==='TEXTAREA')mhLastTa=e.target;});
+  const syncP=el=>{const b=MHE.blocks[+el.dataset.p];b.runs=mhEdToRuns(el);b.text=mhRunsText(b.runs);b.pb=false;};
+  const saveRange=()=>{const s=window.getSelection();if(s&&s.rangeCount){const r=s.getRangeAt(0);const ed=r.startContainer.nodeType===1?r.startContainer.closest&&r.startContainer.closest('.mhe-ed'):r.startContainer.parentElement&&r.startContainer.parentElement.closest('.mhe-ed');if(ed&&ov.contains(ed)){mhLastRange=r.cloneRange();mhLastTa=ed;}}};
+  ov.addEventListener('keyup',saveRange);ov.addEventListener('mouseup',saveRange);ov.addEventListener('touchend',()=>setTimeout(saveRange,0));
+  ov.addEventListener('focusin',e=>{if(e.target.tagName==='TEXTAREA'){mhLastTa=e.target;mhLastRange=null;}});
+  // giữ vùng chọn khi bấm nút B/I/U
+  ov.addEventListener('mousedown',e=>{if(e.target.closest('button[data-fmt]'))e.preventDefault();});
   ov.addEventListener('input',e=>{const x=e.target;
-    if(x.tagName==='TEXTAREA'){const b=MHE.blocks[+x.dataset.b];if(x.dataset.r!==undefined)b.rows[+x.dataset.r][+x.dataset.c]=x.value;else b.text=x.value;}
+    if(x.classList&&x.classList.contains('mhe-ed')){syncP(x);return;}
+    if(x.tagName==='TEXTAREA'){const b=MHE.blocks[+x.dataset.b];b.rows[+x.dataset.r][+x.dataset.c]=x.value;}
     else if(x.id==='mheName')MHE.name=x.value;});
   ov.addEventListener('change',e=>{const x=e.target;
-    if(x.dataset.a==='bold'){MHE.blocks[+x.dataset.i].bold=x.checked;return;}
+    if(x.dataset.a==='bord'){MHE.blocks[+x.dataset.i].bord=x.checked;return;}
+    if(x.dataset.al!==undefined){const i=+x.dataset.al;MHE.blocks[i].al=x.value;const ed=ov.querySelector('.mhe-ed[data-p="'+i+'"]');if(ed)ed.style.textAlign={c:'center',r:'right',j:'justify'}[x.value]||'left';return;}
     if(x.id==='mheIns'){let k=x.value;x.value='';if(!k)return;
       if(!mhLastTa){uiAlert('Bấm vào đoạn văn cần chèn trước, rồi chọn trường.');return;}
       if(k==='_new'){const lb=(prompt('Tên trường riêng (vd: Thời gian bảo hành):')||'').trim();if(!lb)return;k='c_'+mhSlug(lb);MHE.custom[k]=lb;}
-      const ta=mhLastTa,p=ta.selectionStart==null?ta.value.length:ta.selectionStart,q=ta.selectionEnd==null?p:ta.selectionEnd;
-      ta.value=ta.value.slice(0,p)+'{{'+k+'}}'+ta.value.slice(q);ta.dispatchEvent(new Event('input',{bubbles:true}));
-      ta.focus();const np=p+k.length+4;try{ta.setSelectionRange(np,np);}catch(_){}}});
-  ov.addEventListener('click',e=>{const b=e.target.closest('button[data-a]');if(!b)return;const a=b.dataset.a,i=+b.dataset.i,B=MHE.blocks;
-    if(a==='x'){ov.remove();MHE=null;mhLastTa=null;return;}
+      const tok='{{'+k+'}}';
+      if(mhLastTa.tagName==='TEXTAREA'){const ta=mhLastTa,p=ta.selectionStart==null?ta.value.length:ta.selectionStart,q=ta.selectionEnd==null?p:ta.selectionEnd;
+        ta.value=ta.value.slice(0,p)+tok+ta.value.slice(q);ta.dispatchEvent(new Event('input',{bubbles:true}));ta.focus();try{ta.setSelectionRange(p+tok.length,p+tok.length);}catch(_){}}
+      else{const ed=mhLastTa;ed.focus();const s=window.getSelection();
+        if(mhLastRange&&ed.contains(mhLastRange.startContainer)){s.removeAllRanges();s.addRange(mhLastRange);}
+        else{const r=document.createRange();r.selectNodeContents(ed);r.collapse(false);s.removeAllRanges();s.addRange(r);}
+        const r=s.getRangeAt(0);r.deleteContents();const tn=document.createTextNode(tok);r.insertNode(tn);r.setStartAfter(tn);r.collapse(true);s.removeAllRanges();s.addRange(r);
+        mhLastRange=r.cloneRange();syncP(ed);}}});
+  ov.addEventListener('click',e=>{
+    const f=e.target.closest('button[data-fmt]');if(f){try{document.execCommand(f.dataset.fmt);}catch(_){}const ed=f.closest('.mhe-blk').querySelector('.mhe-ed');if(ed)syncP(ed);return;}
+    const b=e.target.closest('button[data-a]');if(!b)return;const a=b.dataset.a,i=+b.dataset.i,B=MHE.blocks;
+    if(a==='x'){ov.remove();MHE=null;mhLastTa=null;mhLastRange=null;return;}
     if(a==='save'){mhEditSave();return;}
     if(a==='up'&&i>0){[B[i-1],B[i]]=[B[i],B[i-1]];}
     else if(a==='down'&&i<B.length-1){[B[i+1],B[i]]=[B[i],B[i+1]];}
     else if(a==='del'){B.splice(i,1);}
-    else if(a==='add'){B.splice(i+1,0,{t:'p',text:'',bold:false});}
-    else if(a==='addend'){B.push({t:'p',text:'',bold:false});}
+    else if(a==='add'){const src=B[i];B.splice(i+1,0,{t:'p',text:'',runs:[],al:src&&src.t==='p'?(src.al||'l'):'j',fl:src&&src.fl!==undefined?src.fl:0,il:src&&src.il||0});}
+    else if(a==='addend'){B.push({t:'p',text:'',runs:[],al:'j',fl:0});}
     else if(a==='addrow'){const n=(B[i].rows[0]||['']).length;B[i].rows.push(Array(n).fill(''));}
     else if(a==='delrow'){B[i].rows.splice(+b.dataset.r,1);if(!B[i].rows.length)B.splice(i,1);}
     else return;
-    mhLastTa=null;mhEditShow();});
+    mhLastTa=null;mhLastRange=null;mhEditShow();});
 }
 function mhEditSave(){
   const t=mhLoad().items.find(x=>x.id===MHE.id);if(!t){uiAlert('Không tìm thấy mẫu.');return;}
   const nm=(MHE.name||'').trim();if(!nm){uiAlert('Tên mẫu không được trống.');return;}
   if(mhLoad().items.some(x=>x.id!==t.id&&x.name===nm)){uiAlert('Đã có mẫu khác tên “'+nm+'”.');return;}
-  const blocks=MHE.blocks.filter(b=>b.t==='tbl'||String(b.text||'').trim());
-  t.name=nm;t.blocks=blocks;t.fields=mhFieldsOf(blocks);
+  let blocks=MHE.blocks.slice();
+  while(blocks.length&&blocks[blocks.length-1].t==='p'&&!String(blocks[blocks.length-1].text||'').trim())blocks.pop();
+  t.name=nm;t.blocks=blocks;t.v=2;t.fields=mhFieldsOf(blocks);
   t.custom={};t.fields.forEach(k=>{if(!mhField(k)&&MHE.custom[k])t.custom[k]=MHE.custom[k];});
   if(!mhPersist())return;
-  const ov=document.getElementById('mheOv');if(ov)ov.remove();MHE=null;mhLastTa=null;
+  const ov=document.getElementById('mheOv');if(ov)ov.remove();MHE=null;mhLastTa=null;mhLastRange=null;
   mhRender();renderMHPreview();hsMark();uiAlert('✅ Đã lưu nội dung mẫu.');
 }
+/* danh sách mẫu tab Hợp đồng đổi → cập nhật luôn tab Mẫu HĐ */
+{const _rtl=refreshTplList;refreshTplList=function(){_rtl();try{mhRender();}catch(e){}};}
+
 
 
 renderPayForm();renderWhForm();renderPlForm();renderExForm();applyCss();applyJustify();toggleBenA();refreshTplList();syncLoaiHD();render();
