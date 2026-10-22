@@ -442,6 +442,30 @@
   .upd-bar .ux{background:transparent;color:#fff;padding:4px 6px;font-size:1.1rem;}
   .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom));z-index:10050;background:#0b2e59;color:#fff;padding:11px 16px;border-radius:10px;
     font-size:.88rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);max-width:calc(100% - 24px);text-align:center;}
+  /* ---- Bảng giá & báo giá ---- */
+  .bqres{display:flex;gap:8px;align-items:center;border:1px solid #e3e9f2;border-radius:10px;padding:7px 9px;margin:5px 0;font-size:.86rem}
+  .bqres .t{flex:1;min-width:0} .bqres .s{color:#6b7c95;font-size:.76rem;font-weight:400}
+  .bqres .p{font-weight:700;color:var(--brand-navy);white-space:nowrap}
+  .bqres button{flex:0 0 auto;min-width:0;min-height:0;padding:6px 14px}
+  .bqi{border:1px dashed #cbd2dc;border-radius:10px;padding:8px;margin-bottom:8px}
+  .bqi .tt{font-weight:700;white-space:nowrap;color:var(--brand-navy);font-size:.84rem}
+  .bqi .flag{display:inline-block;margin-top:4px;font-size:.74rem;color:#92400e;background:#fef3c7;border-radius:8px;padding:2px 8px}
+  .bg-tbl{width:100%;border-collapse:collapse;font-size:.82rem}
+  .bg-tbl th,.bg-tbl td{border:1px solid #e3e9f2;padding:4px 6px;text-align:left;vertical-align:top}
+  .bg-tbl th{background:var(--bg-soft)} .bg-tbl td.n{text-align:right;white-space:nowrap}
+  .bg-sc{max-height:55vh;overflow:auto}
+  .mhe-card{width:min(960px,96vw);max-height:94vh;display:flex;flex-direction:column;padding:10px}
+  .mhe-top{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:6px}
+  .mhe-top input{flex:1 1 180px;min-width:120px} .mhe-top select{flex:1 1 200px} .mhe-top button{width:auto;min-height:0;padding:6px 12px}
+  .mhe-body{overflow:auto;flex:1}
+  .mhe-blk{border:1px solid #e3e9f2;border-radius:8px;padding:5px;margin-bottom:6px}
+  .mhe-blk textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.9rem;resize:vertical}
+  .mhe-bar{display:flex;gap:4px;align-items:center;margin-bottom:3px;font-size:.78rem;flex-wrap:wrap}
+  .mhe-bar button,.mhe-blk td.x button{flex:0 0 auto!important;width:auto!important;min-width:0!important;min-height:0!important;height:auto!important;padding:2px 9px!important;font-size:.76rem!important;margin:0!important;background:#eef2f7!important;color:#16407a!important;border:1px solid #cbd5e1!important;border-radius:6px!important;box-shadow:none!important}
+  .mhe-bar label{display:inline-flex;align-items:center;gap:3px;margin:0 4px 0 0;font-weight:600;flex-direction:row} .mhe-bar input[type=checkbox]{width:auto;margin:0}
+  .mhe-top button{flex:0 0 auto!important;width:auto!important;margin:0!important}
+  .mhe-blk table{width:100%;border-collapse:collapse} .mhe-blk td{border:1px solid #e3e9f2;padding:2px;vertical-align:top} .mhe-blk td.x{width:30px}
+  .zl-card .bg-tbl button{display:inline-block;width:auto;margin:0;padding:2px 8px;font-size:.74rem;min-height:0}
 </style>
 </head>
 <body>
@@ -457,6 +481,8 @@
       <button type="button" class="home-tile" onclick="homeGo('bb')"><span class="ti">✅</span>Biên Bản</button>
       <button type="button" class="home-tile" onclick="homeGo('vv')"><span class="ti">💰</span>Vay Vốn</button>
       <button type="button" class="home-tile" onclick="homeGo('dh')"><span class="ti">🛒</span>Đặt Hàng</button>
+      <button type="button" class="home-tile" onclick="homeGo('bq')"><span class="ti">🧾</span>Báo Giá</button>
+      <button type="button" class="home-tile" onclick="homeGo('bg')"><span class="ti">🏷️</span>Bảng Giá</button>
       <button type="button" class="home-tile" onclick="homeGo('pack')"><span class="ti">📦</span>Đóng Gói</button>
       <button type="button" class="home-tile" onclick="homeGo('list')"><span class="ti">📁</span>Hồ Sơ</button>
       <button type="button" class="home-tile" onclick="homeGo('guide')"><span class="ti">📖</span>Hướng Dẫn</button>
@@ -496,6 +522,9 @@
       <button type="button" class="tab" data-tab="bb" onclick="switchTab('bb')"><i class="fa-solid fa-clipboard-check"></i>Biên bản</button>
       <button type="button" class="tab" data-tab="vv" onclick="switchTab('vv')"><i class="fa-solid fa-hand-holding-dollar"></i>Vay vốn</button>
       <button type="button" class="tab" data-tab="dh" onclick="switchTab('dh')"><i class="fa-solid fa-cart-flatbed"></i>Đặt hàng</button>
+      <button type="button" class="tab" data-tab="bq" onclick="switchTab('bq')"><i class="fa-solid fa-file-invoice-dollar"></i>Báo giá</button>
+      <button type="button" class="tab" data-tab="mh" onclick="switchTab('mh')"><i class="fa-solid fa-file-circle-plus"></i>Mẫu HĐ</button>
+      <button type="button" class="tab" data-tab="bg" onclick="switchTab('bg')"><i class="fa-solid fa-tags"></i>Bảng giá</button>
       <button type="button" class="tab" data-tab="pack" onclick="switchTab('pack')"><i class="fa-solid fa-box-archive"></i>Đóng gói</button>
       <button type="button" class="tab" data-tab="guide" onclick="switchTab('guide')"><i class="fa-solid fa-book"></i>Hướng dẫn</button>
     </div>
@@ -574,6 +603,8 @@
         <p style="margin:6px 0"><b>14. Hình thức hợp đồng (trực tiếp / trả góp).</b> Chọn ở đầu tab Hợp đồng. <b>Trực tiếp</b>: Ngọc Long lập hợp đồng tại đây. <b>Trả góp</b>: hợp đồng do đối tác lập (chọn quỹ <b>Stride</b> hoặc <b>Quỹ khác</b> rồi nhập tên quỹ), tab chuyển thành “Dự án (trả góp)” và chỉ giữ đối tác, số HĐ + ngày ký của đối tác, chủ đầu tư, địa điểm, công suất, bảng thiết bị, và ô đính kèm PDF hợp đồng đối tác. Điều khoản, thanh toán, bảo hành và nút xuất Word được ẩn. Biên bản đổi câu căn cứ thành “giữa [đối tác] và Ngọc Long”; tab Vay vốn tự lấy số HĐ và tên đối tác.</p>
 
         <p style="margin:6px 0"><b>15. Quy trình gợi ý.</b> Hợp đồng → Khai báo điện lực → Biên bản (001, 002) → Vay vốn (khi cần vốn thi công) → Đặt hàng nội bộ → Đóng gói. Mỗi tab đều có nút Gửi Zalo / In / Tải Word / Copy riêng cho tài liệu của tab đó.</p>
+        <p style="margin:6px 0"><b>20. Tab 🏷️ Bảng giá.</b> Giám đốc gửi file Excel giá bán theo từng nhóm (tấm pin, biến tần, pin lưu trữ, cáp &amp; phụ kiện…). Chọn nhóm, bấm <b>Chọn tệp</b> (hoặc dán từ Excel), app kiểm tra mã trùng / thiếu giá / giá âm và cho xem <b>giá nào thay đổi</b> trước khi lưu. Mỗi lần nhập là một bản lịch sử; bấm <b>Lịch sử giá</b> để xem lại hoặc dùng lại bản cũ, bấm 🕘 cạnh một thiết bị để xem giá của riêng nó qua các lần. Thêm nhóm mới ngay trong tab. <b>Tải file mẫu / Copy mẫu</b> để giám đốc điền đúng 7 cột. Bảng giá nằm trong máy này — máy khác phải nhập lại file (hoặc dùng Sao lưu / Khôi phục).</p>
+        <p style="margin:6px 0"><b>21. Tab 🧾 Báo giá.</b> Chọn nhóm, gõ tên/mã để tìm, bấm ＋ để thêm thiết bị; đơn giá tự điền từ bảng giá và sửa được từng dòng. Thông tin khách lấy từ tab Hợp đồng. Chọn giá đã gồm VAT, cộng thêm VAT hoặc không ghi VAT. Giá được lưu riêng trong báo giá nên khi bảng giá đổi, báo giá cũ không đổi theo; dòng nào lệch bảng giá mới sẽ có nhãn vàng, bấm <b>Cập nhật giá mới nhất</b> nếu muốn lấy giá mới. Có đủ Xem trước, PDF, Word, Gửi Zalo, và báo giá được gói vào hồ sơ ở tab Đóng gói.</p>
         <p style="margin:6px 0"><b>18. Gửi PDF hay Word.</b> Hộp “Gửi Zalo” có 2 lựa chọn: <b>PDF</b> (mặc định — khách mở xem ngay trên điện thoại, không bị lệch định dạng) và <b>Word</b> (khi người nhận cần sửa). App tự tạo PDF ngay trên máy, không cần mạng.</p>
         <p style="margin:6px 0"><b>19. Tự cấp số hợp đồng.</b> Bấm <b>🔢 Cấp số</b> cạnh ô Số hợp đồng. Mở “⚙ Quy tắc tự cấp số” để đặt mẫu số theo quy định công ty (VD <code>{so3}/{yyyy}/HĐ-NLE</code> → 001/2026/HĐ-NLE) và số bắt đầu. App không cấp trùng số đã dùng, và chặn in/gửi nếu hai hồ sơ trùng số hợp đồng.</p>
         <p style="margin:6px 0"><b>17. Kiểm tra trước khi in/gửi.</b> Thanh màu dưới các tab cho biết văn bản đang mở đã đủ thông tin chưa: <span style="color:#166534">xanh</span> = sẵn sàng, <span style="color:#92400e">vàng</span> = có mục nên xem lại, <span style="color:#991b1b">đỏ</span> = còn lỗi. Khi còn lỗi (thiếu thông tin bắt buộc, sai số CCCD/MST/điện thoại, tổng % thanh toán khác 100%, Phụ lục lệch tổng tiền, đặt hàng vượt số lượng, ngày tháng ngược…) app <b>không cho In, Tải Word, Gửi Zalo, Copy hay Đóng gói</b>. Bấm vào từng lỗi để nhảy tới ô cần sửa. Mục màu vàng không chặn — các ô để trống đó sẽ in dòng chấm để viết tay.</p>
@@ -931,7 +962,7 @@ Hao mòn tự nhiên; yếu tố môi trường phát sinh sau lắp đặt (bó
         <legend>Nội dung sẽ gói vào folder</legend>
         <div id="packList" class="hint" style="line-height:1.95;font-style:normal"></div>
       </fieldset>
-      <p class="hint">Tạo 1 thư mục theo tên khách và ghi vào đó từng file tách riêng. Cần Chrome/Edge trên <b>máy tính</b>. Nếu mở bằng nháy đúp file (file://) mà không tạo được folder → app tự tải lần lượt từng file về Downloads.</p>
+      <p class="hint">Lưu các tài liệu Word (sửa được, không lưu PDF) vào thư mục bạn chọn, mỗi loại một thư mục con riêng (Báo giá, Hợp đồng, Nghiệm thu…). Cần Chrome/Edge trên <b>máy tính</b>. Nếu mở bằng nháy đúp file (file://) mà không tạo được folder → app tự tải lần lượt từng file về Downloads.</p>
     </div><!-- /tabpane pack -->
 
     <!-- ============ TAB: BIÊN BẢN NGHIỆM THU ============ -->
@@ -1143,11 +1174,115 @@ Hao mòn tự nhiên; yếu tố môi trường phát sinh sau lắp đặt (bó
         </div>
       </fieldset>
     </div><!-- /tabpane dh -->
+
+    <!-- ============ TAB: BÁO GIÁ ============ -->
+    <div class="tabpane" data-tab="mh">
+      <div class="pane-title"><div class="pi"><i class="fa-solid fa-file-circle-plus"></i></div><div><h2>Mẫu hợp đồng</h2><p class="sub">Tạo mẫu mới từ file Word — giữ nguyên văn, điền thông tin khách khi lập</p></div></div>
+      <input type="hidden" data-f="mh_id" value="">
+      <p class="hint">🔗 Thông tin khách, số HĐ, ngày ký, giá trị tự lấy từ tab Hợp đồng. Ô nào để trống sẽ in dòng chấm.</p>
+      <fieldset>
+        <legend>Mẫu hợp đồng</legend>
+        <select id="mhSel" onchange="mhPick(this.value)"></select>
+        <div class="toolbar no-print" style="margin-top:8px">
+          <button type="button" class="wi-btn" onclick="document.getElementById('mhFile').click()"><i class="fa-solid fa-file-word"></i>Nhập mẫu từ Word (.docx)</button>
+          <input type="file" id="mhFile" accept=".docx,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" onchange="mhImport(this)" style="display:none">
+          <button type="button" class="wi-btn" onclick="mhFromContract()"><i class="fa-solid fa-copy"></i>Tạo mẫu từ hợp đồng hiện tại</button>
+          <button type="button" class="wi-btn" onclick="mhEdit()"><i class="fa-solid fa-pen-to-square"></i>Sửa nội dung mẫu</button>
+          <button type="button" class="ghost" onclick="mhRename()">✏️ Đổi tên</button>
+          <button type="button" class="ghost" onclick="mhDup()">📄 Nhân bản</button>
+          <button type="button" class="ghost" onclick="mhDel()">🗑️ Xoá</button>
+          <button type="button" class="ghost" onclick="mhExportFile()">⬆️ Xuất mẫu ra file</button>
+          <button type="button" class="ghost" onclick="document.getElementById('mhJson').click()">⬇️ Nhập mẫu từ file</button>
+          <input type="file" id="mhJson" accept=".json,application/json" onchange="mhImportFile(this)" style="display:none">
+        </div>
+        <p class="hint">Chỉ đọc được <b>.docx</b>. Nếu file là .doc đời cũ, mở bằng Word → Lưu thành .docx. Ảnh, đầu/cuối trang, khung chữ có thể không giữ lại.</p>
+      </fieldset>
+      <fieldset>
+        <legend>Thông tin điền vào hợp đồng</legend>
+        <div class="row2" id="mhFields" oninput="if(event.target.dataset.k)mhInput(event.target)"></div>
+      </fieldset>
+    </div>
+    <div class="tabpane" data-tab="bq">
+<div class="pane-title"><div class="pi"><i class="fa-solid fa-file-invoice-dollar"></i></div><div><h2>Báo giá</h2><p class="sub">Chọn thiết bị từ bảng giá — đơn giá tự điền, sửa được từng dòng</p></div></div>
+      <p class="hint">🔗 Tên khách hàng, địa chỉ, điện thoại, công trình tự lấy từ tab Hợp đồng. Đơn giá được lưu riêng trong báo giá: khi bảng giá đổi, báo giá cũ <b>không</b> bị đổi theo.</p>
+      <fieldset>
+        <legend>Thông tin báo giá</legend>
+        <div class="row2">
+          <div><label>Số báo giá</label><div style="display:flex;gap:6px"><input data-f="bq_so" style="flex:1;min-width:0"><button type="button" class="ghost no-print" style="flex:0 0 auto;min-width:0;padding:6px 10px" onclick="bqCapSo()">🔢 Cấp số</button></div></div>
+          <div><label>Ngày báo giá</label><input type="date" data-f="bq_ngay"></div>
+        </div>
+        <div class="row2">
+          <div><label>Hiệu lực</label><input data-f="bq_hieuluc" placeholder="VD: 15 ngày kể từ ngày báo giá"></div>
+          <div><label>Người lập báo giá</label><input data-f="bq_nguoilap"></div>
+        </div>
+        <label>Thuế GTGT</label>
+        <div class="row2">
+          <div><select data-f="bq_vatmode"><option value="inc">Giá đã bao gồm VAT</option><option value="add">Chưa gồm VAT — cộng thêm</option><option value="none">Không ghi VAT</option></select></div>
+          <div style="flex:0 0 90px"><input data-f="bq_vatpct" type="number" step="0.5" value="10" placeholder="%"></div>
+        </div>
+        <p class="hint">Ô bên phải là thuế suất (%). Kiểm tra thuế suất đang áp dụng trước khi gửi khách.</p>
+        <label>Ghi chú / điều kiện (mỗi dòng 1 ý)</label>
+        <textarea data-f="bq_ghichu" placeholder="VD: Giá chưa gồm chi phí…"></textarea>
+      </fieldset>
+      <fieldset>
+        <legend>Thêm thiết bị từ bảng giá</legend>
+        <div class="row2">
+          <div><label>Nhóm</label><select id="bqGroup" onchange="bqSearch()"></select></div>
+          <div><label>Tìm</label><input id="bqQ" oninput="bqSearch()" placeholder="mã, tên, hãng…"></div>
+        </div>
+        <div id="bqRes"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Thiết bị trong báo giá</legend>
+        <div id="bqBox"></div>
+        <div class="toolbar no-print" style="margin-top:6px">
+          <button class="add-item" onclick="bqAddMan()">＋ Dòng nhập tay</button>
+          <button class="add-item" style="background:#0891b2" onclick="bqFromPl()">↻ Nạp từ Phụ lục hợp đồng</button>
+          <button class="ghost" onclick="bqRefreshPrices()">⟳ Cập nhật giá mới nhất</button>
+        </div>
+        <div id="bqTotal" class="hint" style="font-style:normal;font-weight:600;color:#16407a"></div>
+      </fieldset>
+    </div><!-- /tabpane bq -->
+
+    <!-- ============ TAB: BẢNG GIÁ ============ -->
+    <div class="tabpane" data-tab="bg">
+<div class="pane-title"><div class="pi"><i class="fa-solid fa-tags"></i></div><div><h2>Bảng giá thiết bị</h2><p class="sub">Nhập file Excel giá bán do giám đốc gửi — mỗi lần nhập lưu thành một bản lịch sử</p></div></div>
+      <fieldset>
+        <legend>Nhóm vật tư</legend>
+        <label>Nhóm</label><select id="bgGroup" onchange="bgRender()"></select>
+        <div class="hint" id="bgInfo" style="font-style:normal"></div>
+        <div class="toolbar no-print" style="margin-top:6px">
+          <button class="ghost" onclick="bgView()"><i class="fa-regular fa-eye"></i>Xem bảng giá</button>
+          <button class="ghost" onclick="bgHistory()"><i class="fa-solid fa-clock-rotate-left"></i>Lịch sử giá</button>
+        </div>
+        <label>Thêm nhóm mới</label>
+        <div class="row2"><div><input id="bgNewGroup" placeholder="VD: Thang lồng"></div><div style="flex:0 0 auto"><button class="add-item no-print" style="margin-top:0" onclick="bgAddGroup()">＋ Thêm nhóm</button></div></div>
+        <button class="ghost no-print" style="margin-top:8px" onclick="bgDelGroup()"><i class="fa-regular fa-trash-can"></i>Xoá nhóm đang chọn</button>
+      </fieldset>
+      <fieldset>
+        <legend>Nhập bảng giá mới</legend>
+        <input type="file" id="bgFile" accept=".xlsx,.xls,.csv,.tsv,.txt,.html,.htm" onchange="bgImportFile(this)">
+        <p class="hint">Chọn file Excel giám đốc gửi (.xlsx). Tên sheet là tên nhóm; nếu chưa có nhóm đó, app hỏi để tạo. Trước khi lưu app báo mã trùng, thiếu giá, giá âm và cho xem giá nào thay đổi.</p>
+        <label>Hoặc dán từ Excel (dùng nhóm đang chọn ở trên)</label>
+        <textarea id="bgPaste" style="min-height:70px" placeholder="Bôi đen cả bảng trong Excel (gồm dòng tiêu đề), Copy rồi dán vào đây."></textarea>
+        <button class="ghost no-print" style="margin-top:6px" onclick="bgImportPaste()">⬇︎ Nạp từ ô dán</button>
+      </fieldset>
+      <fieldset>
+        <legend>File mẫu cho giám đốc</legend>
+        <p class="hint">Mẫu có đúng 7 cột: <b>Mã · Tên thiết bị · Hãng · Thông số · ĐVT · Giá bán · Bảo hành</b>. Tên sheet là tên nhóm đang chọn. Chỉ điền giá bán (số nguyên, VNĐ); khi gửi nên dán giá trị, không gửi công thức hay giá gốc.</p>
+        <div class="toolbar no-print">
+          <button class="ghost" onclick="bgDownloadTemplate()">⬇️ Tải file mẫu</button>
+          <button class="ghost" onclick="bgCopyTemplate()">📋 Copy mẫu (dán vào Excel)</button>
+        </div>
+        <p class="hint">File tải về có đuôi .xls; Excel có thể hiện cảnh báo định dạng — bấm “Yes/Có” để mở. Dùng “Copy mẫu” thì không có cảnh báo; nhớ lưu lại thành .xlsx.</p>
+      </fieldset>
+    </div><!-- /tabpane bg -->
+
   </div>
   <div class="dock no-print" id="dock" data-mode="doc">
     <div class="d1">
       <button type="button" class="b-pv" onclick="dockAct('preview')"><i class="fa-solid fa-eye"></i>Xem trước</button>
-      <button type="button" class="b-pack" onclick="dockAct('pack')"><i class="fa-solid fa-folder-tree"></i>Đóng gói thư mục</button>
+      <button type="button" class="b-pack" onclick="dockAct('pack')"><i class="fa-solid fa-folder-tree"></i>Lưu tài liệu (Word)</button>
       <button type="button" class="b-zl" onclick="dockAct('zalo')"><i class="fa-solid fa-paper-plane"></i><span id="dockZl">Gửi Zalo</span></button>
     </div>
     <div class="d2">
@@ -1166,6 +1301,8 @@ Hao mòn tự nhiên; yếu tố môi trường phát sinh sau lắp đặt (bó
     <div class="previewbox" id="previewBB" style="display:none"><div class="paper" id="paperBB"></div></div>
     <div class="previewbox" id="previewVV" style="display:none"><div class="paper" id="paperVV"></div></div>
     <div class="previewbox" id="previewDH" style="display:none"><div class="paper" id="paperDH"></div></div>
+    <div class="previewbox" id="previewBQ" style="display:none"><div class="paper m-doc" id="paperBQ"></div></div>
+    <div class="previewbox" id="previewMH" style="display:none"><div class="paper" id="paperMH"></div></div>
     <div class="previewbox no-print" id="previewInfo" style="display:none">
       <div class="paper"><div id="previewInfoTxt" style="color:#374151;font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;line-height:1.7"></div></div>
     </div>
@@ -1511,14 +1648,14 @@ const TPL_SKIP_EXACT=new Set(["soHD","ngayKy","tenFile","ngayKhoiCong","ngayBanG
   "bb_noingay","bb_batdau","bb_ketthuc","bb_ht_noingay","bb_ht_batdau","bb_ht_ketthuc",
   "vv_so","vv_noingay","vv_thoigian","vv_diadiem","vv_hdvay_so","vv_hdvay_ngay","vv_hdtc_so","vv_hdtc_doitac","vv_khach","vv_diadiem_tc",
   "vv_batdau","vv_ketthuc","vv_tong","vv_tamung","vv_tien_vay","vv_stk_nhan","vv_nh_nhan","vv_ngay_vay","vv_ngay_tt","vv_tien_tt","vv_stk_tt",
-  "_pls","_imgs","_dhp","_dhcur","_dhs","_whs"]);
+  "_pls","_imgs","_dhp","_dhcur","_dhs","_whs","_bqs","_mhv","mh_id"]);
 function tplPick(o){const r={};Object.keys(o||{}).forEach(k=>{
   if(TPL_SKIP_EXACT.has(k))return;
   if(/^a_/.test(k)&&k!=='a_loai')return;
-  if(/^(pl_|dh_|dt_)/.test(k))return;
+  if(/^(pl_|dh_|dt_|bq_)/.test(k))return;
   if(/^m01_/.test(k)&&k!=='m01_loai')return;
   r[k]=o[k];});return r;}
-function collect(){const o={_pays:pays,_whs:whs,_pls:pls,_imgs:imgs,_extras:extras,_dhp:dhP,_dhcur:dhCur,_justify:document.getElementById("justifyToggle").checked};
+function collect(){const o={_pays:pays,_whs:whs,_pls:pls,_imgs:imgs,_extras:extras,_dhp:dhP,_dhcur:dhCur,_bqs:bqs,_mhv:mhVals,_justify:document.getElementById("justifyToggle").checked};
   document.querySelectorAll("[data-f]").forEach(el=>o[el.dataset.f]=el.value);
   document.querySelectorAll("[data-css]").forEach(el=>o["css_"+el.dataset.css]=el.value);return o;}
 function syncLoaiHD(){const arr=[...document.querySelectorAll('.loai-ck:checked')].map(c=>c.value);const el=document.querySelector('[data-f="loaihd"]');if(el)el.value=arr.join(', ');render();}
@@ -1529,7 +1666,7 @@ function applyData(o){
     if(o.vv_b_cty&&OLDN.test(o.vv_b_cty.trim()))o.vv_b_cty='Công ty Cổ phần Ngọc Long Energy';
     if(o.b_diachi&&/Số nhà 386/.test(o.b_diachi))o.b_diachi='Số 114, Tổ dân phố Đình Ngọ, Phường An Phong, Thành phố Hải Phòng, Việt Nam';
     if(/nguy[eễ]n v[aă]n th[uư][oờ]ng/i.test(String(o.b_daidien||'').normalize('NFC'))&&/^gi[aá]m [dđ][oố]c$/i.test(String(o.b_chucvu||'').trim()))o.b_chucvu='Tổng giám đốc';}
-  if(o._pays)pays=o._pays;if(o._whs)whs=o._whs.filter(w=>!OLD_WH.includes((w.ten||"")+"|"+(w.noi||"")));if(o._pls)pls=o._pls;if(o._imgs)imgs=o._imgs;if(o._extras)extras=o._extras;if(o._dhp&&o._dhp.length){dhP=o._dhp;dhCur=o._dhcur||0;}else if(o._dhs){const q=dhNewPhieu(1);const mm=o._dhs.filter(x=>(x.ten||'').trim());if(mm.length)q.man=mm;q.ngay=o.dh_ngay||'';q.nguoilap=o.dh_nguoilap||'';q.pheduyet=o.dh_pheduyet||'';q.yeucau=o.dh_yeucau||'';dhP=[q];dhCur=0;}
+  if(o._pays)pays=o._pays;if(o._whs)whs=o._whs.filter(w=>!OLD_WH.includes((w.ten||"")+"|"+(w.noi||"")));if(o._pls)pls=o._pls;if(o._imgs)imgs=o._imgs;if(o._extras)extras=o._extras;if("_mhv" in o)mhVals=(o._mhv&&typeof o._mhv==="object")?o._mhv:{};if("_bqs" in o)bqs=Array.isArray(o._bqs)?o._bqs:[];if(o._dhp&&o._dhp.length){dhP=o._dhp;dhCur=o._dhcur||0;}else if(o._dhs){const q=dhNewPhieu(1);const mm=o._dhs.filter(x=>(x.ten||'').trim());if(mm.length)q.man=mm;q.ngay=o.dh_ngay||'';q.nguoilap=o.dh_nguoilap||'';q.pheduyet=o.dh_pheduyet||'';q.yeucau=o.dh_yeucau||'';dhP=[q];dhCur=0;}
   ensurePlIds();dhP.forEach(q=>{if(!q.pl)return;const n={};Object.keys(q.pl).forEach(k=>{if(/^\d+$/.test(k)){if(pls[+k])n[pls[+k].id]=q.pl[k];}else n[k]=q.pl[k];});q.pl=n;});
   document.querySelectorAll("[data-f]").forEach(el=>{if(o[el.dataset.f]!==undefined)el.value=o[el.dataset.f];});
   if(o.dt_quy===undefined){const q=document.querySelector('[data-f="dt_quy"]');if(q)q.value=(o.dt_doitac&&String(o.dt_doitac).trim()&&String(o.dt_doitac).trim()!=='Stride')?'khac':'stride';}
@@ -1537,7 +1674,7 @@ function applyData(o){
   document.querySelectorAll("[data-css]").forEach(el=>{const v=o["css_"+el.dataset.css];if(v!==undefined)el.value=v;});
   if(o._justify!==undefined)document.getElementById("justifyToggle").checked=o._justify;
   if(o.nl_vaitro===undefined)setF('nl_vaitro','B');
-  renderPayForm();renderWhForm();renderPlForm();renderExForm();renderDhForm();applyCss();applyJustify();toggleBenA();restoreLoaiHD();applyHinhThuc();applyVaiTro();render();renderImgList();renderDHPreview();}
+  renderPayForm();renderWhForm();renderPlForm();renderExForm();renderDhForm();applyCss();applyJustify();toggleBenA();restoreLoaiHD();applyHinhThuc();applyVaiTro();render();renderImgList();renderDHPreview();renderBqForm();renderBQPreview();}
 function legacySaveData(){const o=collect();
   try{localStorage.setItem(KEY,JSON.stringify(o));uiAlert("✅ Đã lưu.");return;}catch(e){}
   try{localStorage.setItem(KEY,JSON.stringify(Object.assign({},o,{_imgs:[]})));
@@ -1635,7 +1772,8 @@ async function fontsReady(){try{if(document.fonts){await document.fonts.ready;
 function docSource(key){
   render();
   if(key==='hd'){const pp=document.getElementById('paper');return {html:pp.innerHTML,cls:'paper'+(pp.classList.contains('no-justify')?' no-justify':'')};}
-  const m={m01:buildMau01Body,bb_vt:buildBienBanBody,bb_ht:buildBBhtBody,vv:buildVayVonBody};
+  const m={m01:buildMau01Body,bb_vt:buildBienBanBody,bb_ht:buildBBhtBody,vv:buildVayVonBody,bq:buildBaoGiaBody};
+  if(key==='mh')return {html:buildMauHDBody(),cls:'paper'};
   if(m[key])return {html:m[key](),cls:'paper m-doc'};
   if(/^dh_\d+$/.test(key))return {html:buildDatHangBody(+key.slice(3)),cls:'paper m-doc'};
   throw new Error('Không rõ văn bản '+key);
@@ -1761,7 +1899,7 @@ async function openPreviewA4(){
   document.body.appendChild(ov);document.body.style.overflow='hidden';
   const close=()=>{ov.remove();document.body.style.overflow='';};
   ov.querySelector('#pvX').onclick=close;
-  ov.querySelector('#pvZalo').onclick=()=>{close();const f={hd:shareWord,m01:shareM01,vv:shareVV}[key]||(key.indexOf('bb_')===0?shareBB:shareDH);f();};
+  ov.querySelector('#pvZalo').onclick=()=>{close();const f={hd:shareWord,m01:shareM01,vv:shareVV,bq:shareBQ,mh:shareMH}[key]||(key.indexOf('bb_')===0?shareBB:shareDH);f();};
   try{const cvs=await renderPages(key,1.5);const body=ov.querySelector('#pvBody');if(!body)return;
     body.innerHTML='';cvs.forEach((c,i)=>{const im=new Image();im.src=c.toDataURL('image/jpeg',0.85);im.alt='Trang '+(i+1);body.appendChild(im);
       const pg=document.createElement('div');pg.className='pg';pg.textContent='Trang '+(i+1)+' / '+cvs.length;body.appendChild(pg);});}
@@ -1778,7 +1916,7 @@ function zaloPhone(x){let d=String(x||'').replace(/\D/g,'');if(d.startsWith('84'
 function fmtSize(n){n=n||0;return n>=1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';}
 function toFiles(list){return list.map(f=>new File([f.blob],f.name,{type:f.blob.type||'application/octet-stream'}));}
 function canShareFiles(files){try{return !!(window.isSecureContext&&navigator.canShare&&navigator.canShare({files}));}catch(e){return false;}}
-function copyIdForTab(){return {hd:'paper',m01:'paperM01',bb:'paperBB',vv:'paperVV',dh:'paperDH'}[curTab]||null;}
+function copyIdForTab(){return {hd:'paper',m01:'paperM01',bb:'paperBB',vv:'paperVV',dh:'paperDH',bq:'paperBQ',mh:'paperMH'}[curTab]||null;}
 function zlClose(){const o=document.getElementById('zlOv');if(o)o.remove();zlState=null;}
 function zlCurList(){if(!zlState)return [];return zlState.list.map(it=>(zlFmt==='pdf'&&it.doc)?it._pdf:it).filter(Boolean);}
 function zlPending(){return !!zlState&&zlFmt==='pdf'&&zlState.list.some(it=>it.doc&&!it._pdf&&!it._err);}
@@ -1860,6 +1998,8 @@ function printTitleFor(){
   if(curTab==='m01') return m01Name().replace(/\.doc$/,'');
   if(curTab==='bb')  return bbNameFor(curBBType()).replace(/\.doc$/,'');
   if(curTab==='vv')  return vvName().replace(/\.doc$/,'');
+  if(curTab==='bq')  return bqName().replace(/\.doc$/,'');
+  if(curTab==='mh')  return mhName().replace(/\.doc$/,'');
   if(curTab==='dh')  return dhName().replace(/\.doc$/,'');
   return fileBase();
 }
@@ -2014,35 +2154,39 @@ function projStem(){
   return parts.join(' - ');
 }
 function projFolderName(){return safeFn('Ho so du an - '+projStem());}
+const DIR_HD='02 Hop dong';
 function packFiles(){
   const stem=projStem();
   const files=[];
-  if(isTG()){ if(hdDtFile) files.push({name:safeFn('HD doi tac - '+stem)+extOf(hdDtFile.name), blob:hdDtFile}); }
-  else files.push({name:safeFn('Hop dong - '+stem)+'.doc', blob:docBlob(), doc:'hd'});
-  files.push({name:m01Name(), blob:m01Blob(), doc:'m01'});
-  files.push({name:bbNameFor('vt'), blob:bbBlobFor('vt'), doc:'bb_vt'});
-  files.push({name:bbNameFor('ht'), blob:bbBlobFor('ht'), doc:'bb_ht'});
-  if(vvHas()) files.push({name:vvName(), blob:vvBlob(), doc:'vv'});
-  dhP.forEach((q,i)=>{ if(dhHas(q)) files.push({name:dhNameFor(i), blob:dhBlobFor(i), doc:'dh_'+i}); });
-  if(coFile)  files.push({name:safeFn('CO - '+stem)+extOf(coFile.name), blob:coFile});
-  if(cqFile)  files.push({name:safeFn('CQ - '+stem)+extOf(cqFile.name), blob:cqFile});
-  if(sodoFile)files.push({name:safeFn('So do dien - '+stem)+extOf(sodoFile.name), blob:sodoFile});
-  refFiles.forEach(f=>files.push({name:safeFn('TLTK - '+f.name), blob:f}));
+  if(isTG()){ if(hdDtFile) files.push({name:safeFn('HD doi tac - '+stem)+extOf(hdDtFile.name), blob:hdDtFile, dir:DIR_HD}); }
+  else files.push({name:safeFn('Hop dong - '+stem)+'.doc', blob:docBlob(), doc:'hd', dir:DIR_HD});
+  files.push({name:m01Name(), blob:m01Blob(), doc:'m01', dir:'03 Khai bao dien luc'});
+  files.push({name:bbNameFor('vt'), blob:bbBlobFor('vt'), doc:'bb_vt', dir:'04 Nghiem thu'});
+  files.push({name:bbNameFor('ht'), blob:bbBlobFor('ht'), doc:'bb_ht', dir:'04 Nghiem thu'});
+  if(vvHas()) files.push({name:vvName(), blob:vvBlob(), doc:'vv', dir:'05 Vay von'});
+  if(bqHas()) files.push({name:bqName(), blob:bqBlob(), doc:'bq', dir:'01 Bao gia'});
+  if(mhHas()) files.push({name:mhName(), blob:mhBlob(), doc:'mh', dir:DIR_HD});
+  dhP.forEach((q,i)=>{ if(dhHas(q)) files.push({name:dhNameFor(i), blob:dhBlobFor(i), doc:'dh_'+i, dir:'06 Dat hang'}); });
+  if(coFile)  files.push({name:safeFn('CO - '+stem)+extOf(coFile.name), blob:coFile, dir:'07 CO-CQ-So do'});
+  if(cqFile)  files.push({name:safeFn('CQ - '+stem)+extOf(cqFile.name), blob:cqFile, dir:'07 CO-CQ-So do'});
+  if(sodoFile)files.push({name:safeFn('So do dien - '+stem)+extOf(sodoFile.name), blob:sodoFile, dir:'07 CO-CQ-So do'});
+  refFiles.forEach(f=>files.push({name:safeFn('TLTK - '+f.name), blob:f, dir:'08 Tai lieu tham khao'}));
 
   return files;
 }
+function saveList(){return packFiles().filter(f=>f.doc||/\.docx?$/i.test(f.name));}
 async function packProject(){
-  const files=packFiles();
-  const folder=projFolderName();
+  const files=saveList();
+  if(!files.length){alert('Chưa có tài liệu Word nào để lưu.');return;}
   if(window.showDirectoryPicker){
     try{
       const parent=await window.showDirectoryPicker({mode:'readwrite'});
-      const dir=await parent.getDirectoryHandle(folder,{create:true});
       for(const f of files){
+        const dir=await parent.getDirectoryHandle(f.dir,{create:true});
         const fh=await dir.getFileHandle(f.name,{create:true});
         const w=await fh.createWritable(); await w.write(f.blob); await w.close();
       }
-      alert('✅ Đã tạo thư mục "'+folder+'" và lưu '+files.length+' file vào trong đó.');
+      alert('✅ Đã lưu '+files.length+' tài liệu Word (sửa được) vào các thư mục theo từng loại trong thư mục bạn chọn.');
       return;
     }catch(e){
       if(e && e.name==='AbortError') return;
@@ -2052,7 +2196,7 @@ async function packProject(){
     alert('Trình duyệt/ngữ cảnh này không hỗ trợ tạo thư mục trực tiếp (cần Chrome/Edge máy tính, mở qua http/https hoặc localhost).\nApp sẽ tải lần lượt từng file về Downloads.');
   }
   for(const f of files){
-    const a=document.createElement('a');a.href=URL.createObjectURL(f.blob);a.download=folder+' - '+f.name;a.click();
+    const a=document.createElement('a');a.href=URL.createObjectURL(f.blob);a.download=f.dir+' - '+f.name;a.click();
     await new Promise(r=>setTimeout(r,500));URL.revokeObjectURL(a.href);
   }
 }
@@ -2214,16 +2358,22 @@ function switchTab(name){
   document.getElementById('previewBB').style.display  = (name==='bb') ?'':'none';
   document.getElementById('previewVV').style.display  = (name==='vv') ?'':'none';
   document.getElementById('previewDH').style.display  = (name==='dh') ?'':'none';
+  document.getElementById('previewBQ').style.display  = (name==='bq') ?'':'none';
+  document.getElementById('previewMH').style.display  = (name==='mh') ?'':'none';
   const info=document.getElementById('previewInfo');
-  if(name==='hd'||name==='m01'||name==='bb'||name==='vv'||name==='dh'){ info.style.display='none'; }
+  if(name==='hd'||name==='m01'||name==='bb'||name==='vv'||name==='dh'||name==='bq'||name==='mh'){ info.style.display='none'; }
   else { info.style.display=''; document.getElementById('previewInfoTxt').innerHTML=infoFor(name); }
   if(name==='m01') renderM01Preview();
   if(name==='bb') renderBBPreview();
   if(name==='vv') renderVVPreview();
   if(name==='dh'){ renderDhForm(); renderDHPreview(); }
+  if(name==='bq'){ renderBqForm(); renderBQPreview(); }
+  if(name==='bg'){ bgRender(); }
+  if(name==='mh'){ mhRender(); renderMHPreview(); }
   if(name==='pack') updatePackList();
 }
 function infoFor(name){
+  if(name==='bg')return bgInfoHtml();
   if(name==='pack') return '<h3 style="margin:0 0 10px;color:#6d28d9">📦 Đóng gói dự án</h3>'
     +'Chọn CO / CQ / sơ đồ điện ở cột trái, xem lại “Nội dung sẽ gói”, rồi bấm <b>Đóng gói dự án</b>.<br><br>'
     +'App tạo 1 thư mục theo tên khách và ghi vào đó từng file tách riêng: Hợp đồng, Khai báo điện lực, 2 biên bản nghiệm thu, đề xuất vay vốn, các phiếu đặt hàng, CO, CQ, sơ đồ điện và tài liệu tham khảo.<br><br>Hoặc bấm <b>💬 Gửi cả bộ hồ sơ qua Zalo</b>.<br><br>App kiểm tra toàn bộ hồ sơ trước — còn lỗi thì chưa đóng gói/gửi được.';
@@ -2244,20 +2394,12 @@ function toggleM01Type(){const loai02=val('m01_loai')==='02';
   if(curTab==='m01') renderM01Preview();}
 function updatePackList(){
   const el=document.getElementById('packList');if(!el)return;
-  const stem=projStem(), folder=projFolderName();
-  const Y='✅', N='⬜';
-  let h='📁 <b>'+esc(folder)+'</b><br>';
-  if(isTG()) h+='&nbsp;&nbsp;'+(hdDtFile?Y+' '+esc('HD doi tac - '+stem+extOf(hdDtFile.name)):N+' Hợp đồng đối tác (chưa đính kèm PDF)')+'<br>';
-  else h+='&nbsp;&nbsp;'+Y+' '+esc('Hop dong - '+stem+'.doc')+'<br>';
-  h+='&nbsp;&nbsp;'+Y+' '+esc(m01Name())+'<br>';
-  h+='&nbsp;&nbsp;'+(coFile?Y:N)+' '+(coFile?esc('CO - '+stem+extOf(coFile.name)):'CO (chưa chọn)')+'<br>';
-  h+='&nbsp;&nbsp;'+(cqFile?Y:N)+' '+(cqFile?esc('CQ - '+stem+extOf(cqFile.name)):'CQ (chưa chọn)')+'<br>';
-  h+='&nbsp;&nbsp;'+(sodoFile?Y:N)+' '+(sodoFile?esc('So do dien - '+stem+extOf(sodoFile.name)):'Sơ đồ điện (chưa chọn)')+'<br>';
-  h+='&nbsp;&nbsp;'+Y+' '+esc('Bien ban nghiem thu vat tu - '+stem+'.doc')+'<br>';
-  h+='&nbsp;&nbsp;'+Y+' '+esc('Bien ban nghiem thu hoan thanh - '+stem+'.doc');
-  h+='<br>&nbsp;&nbsp;'+(vvHas()?Y+' '+esc(vvName()):N+' Đề xuất vay vốn (chưa nhập số tiền vay, sẽ không gói)');
-  dhP.forEach((q,i)=>{h+='<br>&nbsp;&nbsp;'+(dhHas(q)?Y+' '+esc(dhNameFor(i)):N+' Phiếu đặt hàng đợt '+esc(q.dot||(i+1))+' (chưa có vật tư, sẽ không gói)');});
-  refFiles.forEach(f=>{h+='<br>&nbsp;&nbsp;'+Y+' '+esc('TLTK - '+f.name);});
+  const l=saveList(), by={};
+  l.forEach(f=>{(by[f.dir]=by[f.dir]||[]).push(f.name);});
+  let h='';
+  Object.keys(by).sort().forEach(d=>{h+='📁 <b>'+esc(d)+'</b><br>';by[d].forEach(n=>{h+='&nbsp;&nbsp;✅ '+esc(n)+'<br>';});});
+  if(isTG()&&!hdDtFile) h+='⬜ Hợp đồng đối tác (chưa đính kèm Word, sẽ không lưu)<br>';
+  h+='<span style="color:#6b7c95;font-size:.8rem">Chỉ lưu file Word sửa được; không lưu PDF. Mỗi loại một thư mục riêng.</span>';
   el.innerHTML=h;
 }
 
@@ -2636,7 +2778,7 @@ function setFileLabels(){
 }
 function hsApply(o,files){
   hsSilent=true;
-  try{applyData(JSON.parse(JSON.stringify(o)));
+  try{const d0=JSON.parse(JSON.stringify(o));if(!("_bqs" in d0))d0._bqs=[];if(!("_mhv" in d0))d0._mhv={};if(d0.mh_id===undefined)d0.mh_id="";if(DEFAULT_SNAP)Object.keys(DEFAULT_SNAP).forEach(k=>{if(/^bq_/.test(k)&&d0[k]===undefined)d0[k]=DEFAULT_SNAP[k];});applyData(d0);
     coFile=files&&files.co||null;cqFile=files&&files.cq||null;sodoFile=files&&files.sodo||null;hdDtFile=files&&files.hdDt||null;refFiles=(files&&files.refs||[]).filter(Boolean);
     setFileLabels();render();}
   finally{hsSilent=false;hsDirty=false;clearTimeout(hsTimer);}
@@ -2759,7 +2901,7 @@ async function makeBackup(withFiles){
   const hoso=[];
   if(IDB_OK){const metas=await hsMetaAll();for(const m of metas){const r=await hsGet(m.id);if(!r)continue;hoso.push({meta:m,data:r.data,files:withFiles?await packFilesObj(r.files):null});}}
   else{const now=Date.now();hoso.push({meta:{id:newHsId(),ten:khTenNow()||'(bản nháp)',soHD:val('soHD')||'',created:now,updated:now},data:collect(),files:null});}
-  return new Blob([JSON.stringify({_type:'NLHD_BACKUP',v:1,created:new Date().toISOString(),hoso,templates:getTemplates(),soCfg:soCfg()})],{type:'application/json'});
+  return new Blob([JSON.stringify({_type:'NLHD_BACKUP',v:1,created:new Date().toISOString(),hoso,templates:getTemplates(),soCfg:soCfg(),bangGia:bgLoad(),mauHD:mhLoad()})],{type:'application/json'});
 }
 async function openBackup(){
   if(hsDirty)await hsSave(false);
@@ -2795,7 +2937,7 @@ async function restoreBackup(file){
     if(ex&&ex.updated>=x.meta.updated){skip++;continue;}
     await hsPut(x.meta,{id:x.meta.id,data:x.data,files:unpackFilesObj(x.files)});if(ex)upd++;else add++;}
   const t=getTemplates();let ta=0;Object.keys(o.templates||{}).forEach(k=>{if(!t[k]){t[k]=tplPick(o.templates[k]);ta++;}});
-  try{localStorage.setItem(TPL_KEY,JSON.stringify(t));}catch(e){}refreshTplList();
+  try{localStorage.setItem(TPL_KEY,JSON.stringify(t));}catch(e){}refreshTplList();bgMerge(o.bangGia);if(o.mauHD&&Array.isArray(o.mauHD.items)){const L=mhLoad();o.mauHD.items.forEach(t=>{if(!L.items.some(x=>x.id===t.id))L.items.push(t);});mhPersist();}bgRender();renderBqForm();
   if(o.soCfg){const c=soCfg();if(o.soCfg.pat===c.pat&&(+o.soCfg.next||0)>(+c.next||0)){c.next=o.soCfg.next;c.year=o.soCfg.year;soCfgSave(c);}}
   await hsMetaAll();
   if(curId&&hs.some(x=>x.meta.id===curId))await hsOpen(curId,true);
@@ -2821,7 +2963,7 @@ async function homeGo(t){homeHide();
 document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('mainTabs');if(!b)return;const f=()=>b.classList.toggle('at-end',b.scrollLeft+b.clientWidth>=b.scrollWidth-4);b.addEventListener('scroll',f,{passive:true});window.addEventListener('resize',f);setTimeout(f,300);});
 function dockSync(){
   const d=document.getElementById('dock');if(!d)return;
-  const mode=curTab==='guide'?'none':curTab==='pack'?'pack':(curTab==='hd'&&isTG())?'none':'doc';
+  const mode=(curTab==='guide'||curTab==='bg')?'none':curTab==='pack'?'pack':(curTab==='hd'&&isTG())?'none':'doc';
   d.dataset.mode=mode;
   const z=document.getElementById('dockZl');if(z)z.textContent=mode==='pack'?'Gửi cả bộ':'Gửi Zalo';
   const t=document.querySelector('.tabs .tab.active'),bar=document.getElementById('mainTabs');
@@ -2830,16 +2972,16 @@ function dockSync(){
 function dockAct(a){
   const t=curTab;
   const M={
-    zalo:{hd:()=>shareWord(),m01:()=>shareM01(),bb:()=>shareBB(),vv:()=>shareVV(),dh:()=>shareDH(),pack:()=>sharePack()},
-    word:{hd:()=>exportWord(),m01:()=>exportM01(),bb:()=>exportBB(),vv:()=>exportVV(),dh:()=>exportDH()},
-    copy:{hd:()=>copyText(),m01:()=>copyM01(),bb:()=>copyBB(),vv:()=>copyVV(),dh:()=>copyDH()}};
+    zalo:{hd:()=>shareWord(),m01:()=>shareM01(),bb:()=>shareBB(),vv:()=>shareVV(),dh:()=>shareDH(),bq:()=>shareBQ(),mh:()=>shareMH(),pack:()=>sharePack()},
+    word:{hd:()=>exportWord(),m01:()=>exportM01(),bb:()=>exportBB(),vv:()=>exportVV(),dh:()=>exportDH(),bq:()=>exportBQ(),mh:()=>exportMH()},
+    copy:{hd:()=>copyText(),m01:()=>copyM01(),bb:()=>copyBB(),vv:()=>copyVV(),dh:()=>copyDH(),bq:()=>copyBQ(),mh:()=>copyMH()}};
   if(a==='preview')return openPreviewA4();
   if(a==='print')return printDoc();
   if(a==='pdf')return downloadPdf();
   if(a==='pack')return packProject();
   const f=M[a]&&M[a][t];if(f)f();
 }
-function pdfNameFor(k){const n=k==='hd'?fileBase()+'.doc':k==='m01'?m01Name():k.indexOf('bb_')===0?bbNameFor(k.slice(3)):k==='vv'?vvName():dhNameFor(+k.slice(3));return n.replace(/\.doc$/i,'')+'.pdf';}
+function pdfNameFor(k){const n=k==='hd'?fileBase()+'.doc':k==='m01'?m01Name():k.indexOf('bb_')===0?bbNameFor(k.slice(3)):k==='vv'?vvName():k==='bq'?bqName():k==='mh'?mhName():dhNameFor(+k.slice(3));return n.replace(/\.doc$/i,'')+'.pdf';}
 async function downloadPdf(){
   const k=docKeyNow();if(!k||k==='pack')return;
   const ov=document.createElement('div');ov.className='zl-ov no-print';ov.innerHTML='<div class="zl-card"><div class="zl-wait"><div class="spin"></div>Đang tạo PDF…</div></div>';document.body.appendChild(ov);
@@ -2851,9 +2993,9 @@ function hsNameSync(){const e=document.getElementById('hsName');if(!e)return;con
 
 
 /* ================= ỨNG DỤNG: CÀI ĐẶT, CHIA SẺ, CẬP NHẬT ================= */
-const APP_VERSION='2.3.3';
-const APP_BUILD='14/10/2026';
-const APP_NOTES=['Logo trên bản in (phiếu đặt hàng) nhỏ gọn hơn','Logo mới Ngọc Long Energy (màn hình chính, đầu trang, phiếu đặt hàng)','Chỗ ký cuối hợp đồng ghi chức danh (VD: TỔNG GIÁM ĐỐC) theo ô Chức vụ đã nhập; khách cá nhân giữ “(Ký & ghi rõ họ tên)”','Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
+const APP_VERSION='2.5.2';
+const APP_BUILD='22/10/2026';
+const APP_NOTES=['Sửa lỗi: số hợp đồng bị lặp đuôi trong mẫu Word, nút trình sửa mẫu hiển thị sai trên điện thoại','Mẫu HĐ: tạo mẫu từ hợp đồng hiện tại và sửa nội dung mẫu ngay trong app (đoạn, bảng, chèn trường điền)','Tab Mẫu HĐ: nhập hợp đồng Word (.docx) làm mẫu mới, giữ nguyên văn, app tự nhận chỗ điền để bạn xác nhận','Tab Bảng giá: nhập file Excel giá bán theo nhóm, kiểm tra lỗi, xem giá thay đổi, lưu lịch sử, tải file mẫu cho giám đốc','Tab Báo giá: chọn thiết bị từ bảng giá, xuất A4/PDF/Word/Zalo, giữ giá đã báo khi bảng giá đổi, gói vào hồ sơ','Logo trên bản in (phiếu đặt hàng) nhỏ gọn hơn','Logo mới Ngọc Long Energy (màn hình chính, đầu trang, phiếu đặt hàng)','Chỗ ký cuối hợp đồng ghi chức danh (VD: TỔNG GIÁM ĐỐC) theo ô Chức vụ đã nhập; khách cá nhân giữ “(Ký & ghi rõ họ tên)”','Chọn Ngọc Long đứng Bên A hoặc Bên B trong hợp đồng (thuê thầu phụ, mua thiết bị…); nhập Word tự nhận vai trò','Chức vụ ông Nguyễn Văn Thường: Tổng giám đốc (tự cập nhật cả hồ sơ, mẫu cũ)','Nhập mẫu hợp đồng từ file Word (.docx): tự tách căn cứ, Bên B, các điều khoản, đợt thanh toán; có bảng đối chiếu trước khi lưu','Cài ứng dụng lên màn hình điện thoại/máy tính, có hướng dẫn cho từng loại máy',
   'Chia sẻ ứng dụng qua Zalo bằng 1 nút','Mở được khi mất mạng; tự báo khi có phiên bản mới',
   'Giao diện đồng bộ NL Office; thanh nút Xem trước / Gửi Zalo / PDF / Word','Tự lưu & danh sách hồ sơ, sao lưu, tự cấp số hợp đồng, kiểm tra chặn trước khi in/gửi'];
 const UA=navigator.userAgent||'';
@@ -3484,6 +3626,24 @@ function checkDoc(key){
     const c=dIso('vv_batdau'),d=dIso('vv_ketthuc');if(c&&d&&d<c)r.e('Ngày kết thúc thi công trước ngày bắt đầu','vv_ketthuc');
     need(r,'vv_so','số đề xuất',true);need(r,'vv_stk_nhan','số tài khoản nhận tiền vay',true);need(r,'vv_ngay_vay','thời gian vay vốn',true);need(r,'vv_ngay_tt','ngày thanh toán gốc + lãi',true);
   }
+  else if(key==='mh'){
+    const t=mhCur();
+    if(!t)r.e('Chưa chọn mẫu hợp đồng','#mhSel');
+    else{t.fields.forEach(k=>{if(!mhValue(k).trim())r.w('Chưa có "'+mhLabel(t,k)+'" (sẽ in dòng chấm để viết tay)','[data-k="'+k+'"]');});}
+  }
+  else if(key==='bq'){
+    if(!bqs.length)r.e('Chưa có thiết bị nào trong báo giá','#bqBox');
+    bqs.forEach((x,k)=>{const n='Dòng '+(k+1)+(x.ten?' ('+String(x.ten).trim().slice(0,35)+')':'');
+      if(!String(x.ten||'').trim())r.e(n+': thiếu tên thiết bị','#bqBox');
+      if(!String(x.dvt||'').trim())r.e(n+': thiếu ĐVT','#bqBox');
+      if(!(numVN(x.sl)>0))r.e(n+': thiếu số lượng','#bqBox');
+      if(!(numVN(x.dg)>0))r.e(n+': thiếu đơn giá','#bqBox');});
+    if(!bqKhach())r.e('Thiếu tên khách hàng (nhập ở tab Hợp đồng)',val('a_loai')==='doanhnghiep'?'a_congty':'a_ten');
+    if((val('bq_vatmode')||'inc')==='add'&&!(numVN(val('bq_vatpct'))>0))r.e('Chọn cộng thêm VAT nhưng chưa nhập thuế suất','bq_vatpct');
+    need(r,'bq_so','số báo giá',true);need(r,'bq_ngay','ngày báo giá',true);need(r,'bq_hieuluc','thời hạn hiệu lực',true);
+    const st=bqs.filter(x=>{const c=bqCur(x);return c&&c.gia!==numVN(x.dg);}).length;
+    if(st)r.w(st+' dòng có đơn giá khác bảng giá hiện tại (bấm "Cập nhật giá mới nhất" nếu muốn lấy giá mới)','#bqBox');
+  }
   else if(/^dh_\d+$/.test(key)){
     const i=+key.slice(3),p=dhP[i];if(!p)return r;
     const dot=' (đợt '+(p.dot||i+1)+')';
@@ -3508,6 +3668,8 @@ function checkDoc(key){
     if(!isTG())docs.push(['hd','Hợp đồng']);
     docs.push(['m01','Khai báo điện lực'],['bb_vt','Biên bản 001'],['bb_ht','Biên bản 002']);
     if(vvHas())docs.push(['vv','Vay vốn']);
+    if(bqHas())docs.push(['bq','Báo giá']);
+    if(mhHas())docs.push(['mh','Hợp đồng theo mẫu']);
     dhP.forEach((q,i)=>{if(dhHas(q))docs.push(['dh_'+i,'Đặt hàng đợt '+(q.dot||i+1)]);});
     const agg={err:new Map(),warn:new Map()};
     docs.forEach(([k,lb])=>{const x=checkDoc(k);
@@ -3518,8 +3680,8 @@ function checkDoc(key){
   }
   return r;
 }
-function docKeyNow(){if(curTab==='bb')return 'bb_'+curBBType();if(curTab==='dh')return 'dh_'+dhCur;if(curTab==='hd'||curTab==='m01'||curTab==='vv'||curTab==='pack')return curTab;return null;}
-const DOC_NAME={hd:'hợp đồng',m01:'khai báo điện lực',bb_vt:'biên bản 001',bb_ht:'biên bản 002',vv:'đề xuất vay vốn',pack:'hồ sơ'};
+function docKeyNow(){if(curTab==='bb')return 'bb_'+curBBType();if(curTab==='dh')return 'dh_'+dhCur;if(curTab==='hd'||curTab==='m01'||curTab==='vv'||curTab==='pack'||curTab==='bq'||curTab==='mh')return curTab;return null;}
+const DOC_NAME={hd:'hợp đồng',m01:'khai báo điện lực',bb_vt:'biên bản 001',bb_ht:'biên bản 002',vv:'đề xuất vay vốn',bq:'báo giá',mh:'hợp đồng theo mẫu',pack:'hồ sơ'};
 function docName(k){return DOC_NAME[k]||(/^dh_/.test(k)?'phiếu đặt hàng':'văn bản');}
 function jumpTo(f){
   if(!f)return;let el=f.charAt(0)==='#'?document.querySelector(f):document.querySelector('[data-f="'+f+'"]');
@@ -3567,8 +3729,772 @@ function updChkBar(){
   else{bar.className='chkbar no-print ok';bar.textContent='✅ '+cap(docName(k))+': đủ thông tin, sẵn sàng in/gửi.';}
 }
 
+/* ================= BẢNG GIÁ THIẾT BỊ (nhập từ file Excel giám đốc gửi) ================= */
+const BG_KEY='nlhd_bang_gia';
+const BG_DEF_GROUPS=['Tấm pin','Biến tần','Pin lưu trữ','Cáp & phụ kiện'];
+const BG_COLS=['Mã','Tên thiết bị','Hãng','Thông số','ĐVT','Giá bán','Bảo hành'];
+let bgCache=null,BGP=null,bqs=[],bqLast=[];
+function bgLoad(){
+  if(bgCache)return bgCache;
+  let o=null,raw=null;
+  try{raw=localStorage.getItem(BG_KEY);o=raw?JSON.parse(raw):null;}catch(e){o=null;}
+  if(!o||!Array.isArray(o.groups))o={v:1,groups:BG_DEF_GROUPS.map(n=>({name:n,versions:[]}))};
+  bgCache=o;return o;
+}
+function bgSave(o){
+  try{localStorage.setItem(BG_KEY,JSON.stringify(o));bgCache=o;return true;}
+  catch(e){uiAlert('❌ Không lưu được bảng giá: bộ nhớ trình duyệt đã đầy.\nHãy sao lưu rồi xoá bớt hồ sơ/ảnh cũ.');return false;}
+}
+function bgGroupObj(name){return bgLoad().groups.find(g=>g.name===name)||null;}
+function bgLatest(name){const g=bgGroupObj(name);return g&&g.versions.length?g.versions[g.versions.length-1]:null;}
+function bgFmt(ts){return dmy(ts)+' '+hhmm(ts);}
+function bgMerge(remote){
+  if(!remote||!Array.isArray(remote.groups))return;
+  const o=bgLoad();
+  remote.groups.forEach(rg=>{
+    if(!rg||!rg.name||!Array.isArray(rg.versions))return;
+    let g=o.groups.find(x=>noDau(x.name)===noDau(rg.name));
+    if(!g){g={name:rg.name,versions:[]};o.groups.push(g);}
+    const have=new Set(g.versions.map(v=>v.id));
+    rg.versions.forEach(v=>{if(v&&v.id&&!have.has(v.id)&&Array.isArray(v.rows))g.versions.push(v);});
+    g.versions.sort((a,b)=>a.at-b.at);
+  });
+  bgSave(o);
+}
+
+/* ---------- đọc file ---------- */
+function bgCsv(text){
+  const sep=text.indexOf('\t')>=0?'\t':(text.split(';').length>text.split(',').length?';':',');
+  const rows=[];let row=[],cur='',q=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+    if(q){if(c==='"'){if(text[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}
+    else if(c==='"')q=true;
+    else if(c===sep){row.push(cur);cur='';}
+    else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';}
+    else if(c!=='\r')cur+=c;}
+  if(cur!==''||row.length){row.push(cur);rows.push(row);}
+  return rows;
+}
+async function bgReadXlsx(buf){
+  const z=await zipEntries(buf);
+  const wb=await z._get('xl/workbook.xml');
+  if(!wb)throw new Error('Không đọc được file Excel (.xlsx).');
+  const P=x=>new DOMParser().parseFromString(x,'application/xml');
+  const ssx=await z._get('xl/sharedStrings.xml'),rels=await z._get('xl/_rels/workbook.xml.rels');
+  const strs=[];
+  if(ssx){for(const si of P(ssx).getElementsByTagNameNS('*','si')){let t='';
+    for(const x of si.getElementsByTagNameNS('*','t')){if(x.parentNode&&x.parentNode.localName==='rPh')continue;t+=x.textContent;}strs.push(t);}}
+  const relMap={};
+  if(rels){for(const r of P(rels).getElementsByTagNameNS('*','Relationship'))relMap[r.getAttribute('Id')]=r.getAttribute('Target');}
+  const sheets=[];
+  for(const s of P(wb).getElementsByTagNameNS('*','sheet')){
+    const name=s.getAttribute('name')||'';
+    const rid=s.getAttribute('r:id')||s.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id');
+    let tgt=relMap[rid]||('worksheets/sheet'+(sheets.length+1)+'.xml');
+    tgt=tgt.replace(/^\//,'');if(!/^xl\//.test(tgt))tgt='xl/'+tgt;
+    const x=await z._get(tgt);if(!x)continue;
+    const rows=[];
+    for(const r of P(x).getElementsByTagNameNS('*','row')){
+      const arr=[];
+      for(const c of r.getElementsByTagNameNS('*','c')){
+        const ref=c.getAttribute('r')||'',m=/^([A-Z]+)/.exec(ref);let ci=arr.length;
+        if(m){ci=0;for(const ch of m[1])ci=ci*26+(ch.charCodeAt(0)-64);ci-=1;}
+        const t=c.getAttribute('t'),ve=c.getElementsByTagNameNS('*','v')[0];let v='';
+        if(t==='s'&&ve)v=strs[+ve.textContent]||'';
+        else if(t==='inlineStr')v=[...c.getElementsByTagNameNS('*','t')].map(e=>e.textContent).join('');
+        else if(ve){v=ve.textContent;if(!t||t==='n'){const n=Number(v);if(v!==''&&isFinite(n))v=String(n);}}
+        arr[ci]=v;}
+      rows.push(Array.from(arr,x=>x===undefined?'':x));}
+    sheets.push({name,rows});}
+  return sheets;
+}
+function bgReadHtml(text){
+  const d=new DOMParser().parseFromString(text,'text/html');
+  const nm=/<x:Name>([^<]*)<\/x:Name>/i.exec(text);
+  const sheets=[];
+  d.querySelectorAll('table').forEach((t,i)=>{
+    const rows=[...t.rows].map(r=>[...r.cells].map(c=>c.textContent.replace(/\u00a0/g,' ').trim()));
+    sheets.push({name:(i===0&&nm)?nm[1]:'',rows});});
+  return sheets;
+}
+function bgMapHeader(row){
+  const R=[['ma',/^ma(\s|$)|^ma (sp|hang|vt|thiet bi)|^code$|^sku$/],['dvt',/^dvt$|^don vi/],['bh',/bao hanh/],['gia',/gia ban|don gia|^gia\b/],
+    ['ts',/thong so|quy cach|mo ta|dac tinh/],['hang',/^hang$|nha san xuat|thuong hieu|xuat xu|^nsx$/],['ten',/^ten|thiet bi|vat tu|san pham|hang hoa/]];
+  const m={};let n=0;
+  (row||[]).forEach((c,i)=>{const t=noDau(String(c==null?'':c).trim());if(!t)return;
+    for(const[k,re]of R){if(m[k]===undefined&&re.test(t)){m[k]=i;n++;break;}}});
+  return n>=3?m:null;
+}
+function bgExtract(rawRows){
+  let map=null,start=0;
+  for(let i=0;i<Math.min(rawRows.length,15);i++){const m=bgMapHeader(rawRows[i]);if(m&&m.ten!==undefined&&m.gia!==undefined){map=m;start=i+1;break;}}
+  if(!map){map={ma:0,ten:1,hang:2,ts:3,dvt:4,gia:5,bh:6};start=0;
+    if(rawRows.length&&!(numVN((rawRows[0]||[])[5])>0))start=1;}
+  const rows=[],errs=[],warns=[],seen={};
+  for(let i=start;i<rawRows.length;i++){
+    const r=rawRows[i]||[];
+    const g=k=>map[k]===undefined||r[map[k]]==null?'':String(r[map[k]]).trim();
+    const ma=g('ma'),ten=g('ten'),hang=g('hang'),dvt=g('dvt'),gs=g('gia');
+    if(!ma&&!ten&&!gs&&!hang&&!dvt)continue;
+    const line=i+1,bad=[];
+    if(!ma)bad.push('thiếu Mã');
+    if(!ten)bad.push('thiếu Tên thiết bị');
+    if(!hang)bad.push('thiếu Hãng');
+    if(!dvt)bad.push('thiếu ĐVT');
+    let gia=0;
+    if(!gs)bad.push('thiếu Giá bán');
+    else if(!/\d/.test(gs))bad.push('Giá bán không phải số ("'+gs.slice(0,20)+'")');
+    else{gia=numVN(gs);if(gia<0)bad.push('Giá bán âm');else if(gia===0)bad.push('Giá bán bằng 0');
+      else if(Math.abs(gia-Math.round(gia))>0.0001)warns.push('Dòng '+line+': giá '+gia+' được làm tròn '+Math.round(gia));}
+    if(ma){const key=noDau(ma);if(seen[key]!==undefined)bad.push('trùng Mã "'+ma+'" với dòng '+seen[key]);else seen[key]=line;}
+    if(bad.length){errs.push('Dòng '+line+(ma?' ('+ma+')':'')+': '+bad.join('; '));continue;}
+    rows.push({ma,ten,hang,ts:g('ts'),dvt,gia:Math.round(gia),bh:g('bh')});
+  }
+  return {rows,errs,warns};
+}
+function bgDiff(oldRows,newRows){
+  const om={},nm={};(oldRows||[]).forEach(r=>{om[r.ma]=r;});newRows.forEach(r=>{nm[r.ma]=r;});
+  const ch=[],add=[],del=[];let same=0;
+  newRows.forEach(r=>{const o=om[r.ma];
+    if(!o)add.push(r);
+    else if(o.gia!==r.gia)ch.push({r,old:o.gia});
+    else if(['ten','hang','ts','dvt','bh'].some(k=>(o[k]||'')!==(r[k]||'')))ch.push({r,old:o.gia,meta:true});
+    else same++;});
+  (oldRows||[]).forEach(r=>{if(!nm[r.ma])del.push(r);});
+  return {ch,add,del,same,identical:!ch.length&&!add.length&&!del.length};
+}
+
+/* ---------- nhập file / dán ---------- */
+async function bgImportFile(inp){
+  const f=inp.files&&inp.files[0];inp.value='';if(!f)return;
+  let sheets;
+  try{
+    const buf=await f.arrayBuffer(),h=new Uint8Array(buf.slice(0,4));
+    if(h[0]===0x50&&h[1]===0x4B)sheets=await bgReadXlsx(buf);
+    else if(h[0]===0xD0&&h[1]===0xCF)throw new Error('OLD_XLS');
+    else{const txt=new TextDecoder('utf-8').decode(buf);
+      sheets=/<table/i.test(txt)?bgReadHtml(txt):[{name:'',rows:bgCsv(txt)}];}
+  }catch(e){
+    if(e.message==='OLD_XLS')uiAlert('File “'+f.name+'” là Excel đời cũ (.xls nhị phân).\nHãy mở bằng Excel → Lưu thành → “Excel Workbook (*.xlsx)”, hoặc bôi đen bảng giá, Copy rồi dán vào ô “Hoặc dán từ Excel”.');
+    else uiAlert('Không đọc được file: '+(e.message||e));
+    return;}
+  bgPlan(sheets,f.name);
+}
+function bgImportPaste(){
+  const t=(document.getElementById('bgPaste')||{}).value||'';
+  if(!t.trim()){uiAlert('Chưa có dữ liệu dán. Mở file Excel, bôi đen cả bảng (gồm dòng tiêu đề), Copy rồi dán vào ô này.');return;}
+  bgPlan([{name:'',rows:bgCsv(t)}],'(dán từ Excel)');
+}
+function bgPlan(sheets,fname){
+  const sel=document.getElementById('bgGroup'),selG=sel?sel.value:'',o=bgLoad(),plans=[];
+  sheets.forEach(s=>{
+    const ex=bgExtract(s.rows);
+    if(!ex.rows.length&&!ex.errs.length)return;
+    const nm=(s.name||'').trim(),m=o.groups.find(g=>noDau(g.name)===noDau(nm));
+    const generic=!nm||/^(sheet|table|trang tinh|bang tinh)\s*\d*$/.test(noDau(nm));
+    let pick,newName='';
+    if(m)pick=m.name;
+    else if(generic){if(!selG){return;}pick=selG;}
+    else{pick='__new';newName=nm;}
+    plans.push({sheet:nm,rows:ex.rows,errs:ex.errs,warns:ex.warns,sel:pick,newName});
+  });
+  if(!plans.length){uiAlert('Không tìm thấy bảng giá trong file.\nFile cần có dòng tiêu đề: Mã, Tên thiết bị, Hãng, Thông số, ĐVT, Giá bán, Bảo hành.\nBấm “Tải file mẫu” để lấy mẫu đúng định dạng. (Nếu file không có tên sheet, hãy chọn hoặc thêm nhóm trước.)');return;}
+  BGP={plans,fname};bgPlanShow();
+}
+function bgModal(html,handler,wide){
+  const ov=document.createElement('div');ov.className='zl-ov no-print';ov.style.zIndex=10004;
+  ov.innerHTML='<div class="zl-card" style="max-width:'+(wide||640)+'px">'+html+'</div>';
+  ov.addEventListener('click',e=>{if(e.target===ov){ov.remove();return;}if(handler)handler(e,ov);});
+  document.body.appendChild(ov);return ov;
+}
+function bgPlanShow(){
+  const old=document.getElementById('bgpOv'),y=old?old.querySelector('.zl-card').scrollTop:0;if(old)old.remove();
+  const o=bgLoad();let canSave=0,h='<h3><i class="fa-solid fa-tags" style="color:#0d6efd"></i> Nhập bảng giá</h3><p class="zl-note">Đã đọc <b>'+esc(BGP.fname)+'</b>. Kiểm tra từng bảng rồi bấm lưu. Bảng có lỗi sẽ không được lưu.</p>';
+  BGP.plans.forEach((p,i)=>{
+    const target=p.sel==='__new'?p.newName:p.sel,g=o.groups.find(x=>x.name===target),last=g&&g.versions.length?g.versions[g.versions.length-1]:null;
+    h+='<div class="wi-row"><b>'+(p.sheet?'Sheet “'+esc(p.sheet)+'”':'Dữ liệu dán')+'</b> · '+p.rows.length+' dòng hợp lệ'
+      +'<div class="wi-sel"><span>Nhóm</span><select data-p="'+i+'">'
+      +o.groups.map(x=>'<option value="'+esc(x.name)+'"'+(x.name===p.sel?' selected':'')+'>'+esc(x.name)+'</option>').join('')
+      +(p.newName?'<option value="__new"'+(p.sel==='__new'?' selected':'')+'>＋ Tạo nhóm mới “'+esc(p.newName)+'”</option>':'')+'</select></div>';
+    if(p.errs.length){
+      h+='<div class="wi-sum wn">❌ Có '+p.errs.length+' lỗi — bảng này sẽ không được lưu:<br>'+p.errs.slice(0,12).map(esc).join('<br>')+(p.errs.length>12?'<br>… và '+(p.errs.length-12)+' lỗi khác':'')+'</div>';
+    }else{
+      const d=bgDiff(last?last.rows:null,p.rows);
+      if(last&&d.identical)h+='<div class="wi-sum">Không thay đổi so với bản hiện tại ('+bgFmt(last.at)+') — sẽ bỏ qua.</div>';
+      else{canSave++;
+        h+='<div class="wi-sum">'+(last?'So với bản '+bgFmt(last.at)+': ':'Nhóm chưa có bảng giá: ')+'<b>'+d.add.length+'</b> mới · <b>'+d.ch.length+'</b> đổi · <b>'+d.del.length+'</b> bị bỏ · '+d.same+' giữ nguyên</div>';
+        if(d.ch.length||d.add.length||d.del.length){
+          h+='<details><summary style="cursor:pointer;font-size:.8rem;color:#0d6efd">Xem chi tiết thay đổi</summary><div class="wi-pv" style="font-family:inherit;font-size:.8rem">'
+            +d.ch.slice(0,40).map(c=>esc(c.r.ma)+' — '+esc(c.r.ten.slice(0,40))+': '+(c.meta&&c.old===c.r.gia?'đổi thông tin':fmt(c.old)+' → <b>'+fmt(c.r.gia)+'</b>')).join('<br>')
+            +d.add.slice(0,20).map(r=>'<br>＋ '+esc(r.ma)+' — '+esc(r.ten.slice(0,40))+': '+fmt(r.gia)).join('')
+            +d.del.slice(0,20).map(r=>'<br>− '+esc(r.ma)+' — '+esc(r.ten.slice(0,40))).join('')+'</div></details>';}
+      }
+      if(p.warns.length)h+='<div class="wi-sum wn">⚠ '+p.warns.slice(0,5).map(esc).join('<br>⚠ ')+'</div>';
+    }
+    h+='</div>';});
+  h+=(canSave?'<button class="zl-big" data-b="save"><i class="fa-solid fa-floppy-disk"></i>Lưu bảng giá ('+canSave+' nhóm)</button>':'<div class="ig-note">Không có bảng nào để lưu. Sửa file rồi nhập lại.</div>')+'<button class="secondary" data-b="x">Huỷ</button>';
+  const ov=bgModal(h,(e,ov)=>{const b=e.target.closest('button[data-b]');if(!b)return;if(b.dataset.b==='x'){ov.remove();return;}bgPlanApply();});
+  ov.id='bgpOv';
+  ov.addEventListener('change',e=>{const s=e.target.closest('select[data-p]');if(s){BGP.plans[+s.dataset.p].sel=s.value;bgPlanShow();}});
+  ov.querySelector('.zl-card').scrollTop=y;
+}
+function bgPlanApply(){
+  const o=bgLoad(),saved=[];
+  BGP.plans.forEach(p=>{
+    if(p.errs.length)return;
+    const name=p.sel==='__new'?p.newName:p.sel;let g=o.groups.find(x=>x.name===name);
+    const last=g&&g.versions.length?g.versions[g.versions.length-1]:null;
+    if(last&&bgDiff(last.rows,p.rows).identical)return;
+    if(!g){g={name,versions:[]};o.groups.push(g);}
+    g.versions.push({id:newRid(),at:Date.now(),file:BGP.fname||'',rows:p.rows});
+    saved.push(name+' ('+p.rows.length+' dòng)');});
+  if(!saved.length){uiAlert('Không có gì để lưu.');return;}
+  if(!bgSave(o))return;
+  const ov=document.getElementById('bgpOv');if(ov)ov.remove();
+  const pa=document.getElementById('bgPaste');if(pa)pa.value='';
+  bgRender();renderBqForm();
+  uiAlert('✅ Đã lưu bảng giá:\n• '+saved.join('\n• ')+'\n\nLịch sử các bản giá cũ vẫn được giữ.');
+}
+
+/* ---------- xem / lịch sử ---------- */
+function bgViewVer(gname,verId){
+  const g=bgGroupObj(gname);if(!g)return;
+  const v=verId?g.versions.find(x=>x.id===verId):g.versions[g.versions.length-1];
+  if(!v){uiAlert('Nhóm “'+gname+'” chưa có bảng giá.\nHãy nhập file Excel giá ở mục “Nhập bảng giá mới”.');return;}
+  let shown=[];
+  const ov=bgModal('<h3>🏷️ '+esc(gname)+'</h3><div class="zl-note">Bản ngày '+bgFmt(v.at)+' · '+v.rows.length+' dòng'+(v.file?' · '+esc(v.file):'')+'</div>'
+    +'<input id="bgvQ" placeholder="Tìm mã, tên, hãng…" style="margin:4px 0 6px"><div class="bg-sc"><table class="bg-tbl"><thead><tr><th>Mã</th><th>Tên thiết bị</th><th>Hãng</th><th>ĐVT</th><th>Giá bán</th><th></th></tr></thead><tbody id="bgvB"></tbody></table></div><button class="secondary" data-a="x">Đóng</button>',
+    (e,ov)=>{const b=e.target.closest('button[data-a],button[data-i]');if(!b)return;if(b.dataset.a==='x'){ov.remove();return;}
+      if(b.dataset.i!==undefined){const r=shown[+b.dataset.i];if(r)bgItemHist(gname,r.ma);}},820);
+  const paint=()=>{const q=noDau(ov.querySelector('#bgvQ').value.trim()).split(/\s+/).filter(Boolean);
+    shown=v.rows.filter(r=>{const s=noDau([r.ma,r.ten,r.hang,r.ts].join(' '));return q.every(w=>s.indexOf(w)>=0);}).slice(0,300);
+    ov.querySelector('#bgvB').innerHTML=shown.map((r,i)=>'<tr><td>'+esc(r.ma)+'</td><td>'+esc(r.ten)+(r.ts?'<br><span style="color:#6b7c95">'+esc(r.ts)+'</span>':'')+'</td><td>'+esc(r.hang)+'</td><td>'+esc(r.dvt)+'</td><td class="n">'+fmt(r.gia)+'</td><td><button class="ghost" data-i="'+i+'" title="Lịch sử giá">🕘</button></td></tr>').join('')
+      ||'<tr><td colspan="6">Không có dòng khớp.</td></tr>';};
+  ov.querySelector('#bgvQ').addEventListener('input',paint);paint();
+}
+function bgView(){const s=document.getElementById('bgGroup');if(s&&s.value)bgViewVer(s.value);}
+function bgItemHist(gname,ma){
+  const g=bgGroupObj(gname);if(!g)return;
+  const rows=[];g.versions.forEach(v=>{const r=v.rows.find(x=>x.ma===ma);if(r)rows.push({at:v.at,gia:r.gia,ten:r.ten});});
+  rows.reverse();
+  const body=rows.map((r,i)=>{const prev=rows[i+1];const d=prev?r.gia-prev.gia:0;
+    return '<tr><td>'+bgFmt(r.at)+'</td><td class="n">'+fmt(r.gia)+'</td><td class="n">'+(prev?(d===0?'—':(d>0?'+':'')+fmt(d)):'bản đầu')+'</td></tr>';}).join('');
+  bgModal('<h3>🕘 Lịch sử giá</h3><div class="zl-note"><b>'+esc(ma)+'</b>'+(rows[0]?' — '+esc(rows[0].ten):'')+' · nhóm '+esc(gname)+'</div><div class="bg-sc"><table class="bg-tbl"><thead><tr><th>Ngày bản giá</th><th>Giá bán</th><th>Thay đổi</th></tr></thead><tbody>'+(body||'<tr><td colspan="3">Chưa có dữ liệu.</td></tr>')+'</tbody></table></div><button class="secondary" data-a="x">Đóng</button>',
+    (e,ov)=>{if(e.target.closest('button[data-a="x"]'))ov.remove();});
+}
+function bgHistory(){
+  const s=document.getElementById('bgGroup'),gname=s?s.value:'',g=bgGroupObj(gname);if(!g)return;
+  if(!g.versions.length){uiAlert('Nhóm “'+gname+'” chưa có bản giá nào.');return;}
+  const vs=g.versions.slice().reverse();
+  const h='<h3>🕘 Lịch sử giá — '+esc(gname)+'</h3><div id="bghL">'+vs.map((v,i)=>'<div class="hs-it'+(i===0?' cur':'')+'"><div><b>'+bgFmt(v.at)+'</b>'+(i===0?'<span class="hs-tag">hiện hành</span>':'')+'</div><div class="hs-s">'+v.rows.length+' dòng'+(v.file?' · '+esc(v.file):'')+'</div>'
+    +'<div class="hs-b"><button data-a="view" data-v="'+v.id+'">👁 Xem</button>'+(i===0?'':'<button class="ghost" data-a="restore" data-v="'+v.id+'">↩ Dùng lại bản này</button>')+'</div></div>').join('')+'</div><button class="secondary" data-a="x">Đóng</button>';
+  bgModal(h,async(e,ov)=>{const b=e.target.closest('button[data-a]');if(!b)return;
+    if(b.dataset.a==='x'){ov.remove();return;}
+    if(b.dataset.a==='view'){bgViewVer(gname,b.dataset.v);return;}
+    if(b.dataset.a==='restore'){const v=g.versions.find(x=>x.id===b.dataset.v);if(!v)return;
+      if(!await uiConfirm('Dùng lại bản giá ngày '+bgFmt(v.at)+' làm bản hiện hành?\nApp tạo thêm một bản mới từ bản này, không xoá bản nào.'))return;
+      const o=bgLoad(),gg=o.groups.find(x=>x.name===gname);
+      gg.versions.push({id:newRid(),at:Date.now(),file:'Dùng lại bản '+bgFmt(v.at),rows:JSON.parse(JSON.stringify(v.rows))});
+      if(bgSave(o)){ov.remove();bgRender();renderBqForm();uiAlert('✅ Đã dùng lại bản giá ngày '+bgFmt(v.at)+'.');}}});
+}
+
+/* ---------- quản lý nhóm, giao diện tab ---------- */
+function bgRender(){
+  const sel=document.getElementById('bgGroup');if(!sel)return;
+  const o=bgLoad(),cur=sel.value;
+  sel.innerHTML=o.groups.map(g=>'<option value="'+esc(g.name)+'">'+esc(g.name)+(g.versions.length?'':' (chưa có giá)')+'</option>').join('');
+  if(o.groups.some(g=>g.name===cur))sel.value=cur;
+  const info=document.getElementById('bgInfo'),v=bgLatest(sel.value);
+  if(info){
+    if(!o.groups.length)info.textContent='Chưa có nhóm nào. Hãy thêm nhóm.';
+    else if(!v)info.innerHTML='Nhóm này <b>chưa có bảng giá</b>. Nhập file Excel giám đốc gửi ở mục bên dưới.';
+    else{const days=Math.floor((Date.now()-v.at)/864e5),g=bgGroupObj(sel.value);
+      info.innerHTML='Bản hiện hành: <b>'+bgFmt(v.at)+'</b> · '+v.rows.length+' dòng'+(v.file?' · '+esc(v.file):'')+' · '+g.versions.length+' bản lịch sử'
+        +(days>=30?'<br><span style="color:#b45309">⚠ Đã '+days+' ngày chưa cập nhật — nên hỏi giám đốc bảng giá mới.</span>':'');}
+  }
+  if(curTab==='bg'){const p=document.getElementById('previewInfoTxt');if(p)p.innerHTML=bgInfoHtml();}
+}
+function bgInfoHtml(){
+  const o=bgLoad();
+  return '<h3 style="margin:0 0 10px;color:#0d6efd">🏷️ Bảng giá thiết bị</h3>Mỗi nhóm dùng bản giá mới nhất. Mỗi lần nhập file là một bản mới — các bản cũ vẫn được giữ để tra cứu.<br><br>'
+    +'<table class="bg-tbl"><thead><tr><th>Nhóm</th><th>Bản hiện hành</th><th>Số dòng</th></tr></thead><tbody>'
+    +o.groups.map(g=>{const v=g.versions[g.versions.length-1];return '<tr><td>'+esc(g.name)+'</td><td>'+(v?bgFmt(v.at):'<i>chưa có</i>')+'</td><td class="n">'+(v?v.rows.length:0)+'</td></tr>';}).join('')+'</tbody></table>'
+    +'<br>Bảng giá lưu trên máy này. Để đồng bộ sang máy khác: nhập lại file giá, hoặc dùng <b>⚙ Cài đặt → Sao lưu / Khôi phục</b> (đã gồm bảng giá).';
+}
+function bgAddGroup(){
+  const inp=document.getElementById('bgNewGroup'),n=(inp.value||'').trim();
+  if(!n){uiAlert('Nhập tên nhóm mới.');return;}
+  const o=bgLoad();
+  if(o.groups.some(g=>noDau(g.name)===noDau(n))){uiAlert('Nhóm “'+n+'” đã có.');return;}
+  o.groups.push({name:n,versions:[]});if(!bgSave(o))return;
+  inp.value='';bgRender();document.getElementById('bgGroup').value=n;bgRender();renderBqForm();
+}
+async function bgDelGroup(){
+  const s=document.getElementById('bgGroup'),n=s?s.value:'',g=bgGroupObj(n);if(!g)return;
+  if(!await uiConfirm('Xoá nhóm “'+n+'” cùng '+g.versions.length+' bản lịch sử giá?\nBáo giá đã lập không bị ảnh hưởng (đã lưu giá riêng).\nKhông khôi phục được nếu chưa sao lưu.'))return;
+  const o=bgLoad();o.groups=o.groups.filter(x=>x.name!==n);if(bgSave(o)){bgRender();renderBqForm();}
+}
+
+/* ---------- file mẫu cho giám đốc ---------- */
+function bgGroupSel(){const s=document.getElementById('bgGroup');return (s&&s.value)||'Bảng giá';}
+function bgTsv(){const blank=BG_COLS.map(()=>'').join('\t');return [BG_COLS.join('\t'),blank,blank,blank].join('\r\n');}
+function bgXls(group){
+  const e=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const head='<tr>'+BG_COLS.map(c=>'<th style="background:#dbe7f6;font-weight:bold">'+e(c)+'</th>').join('')+'</tr>';
+  const blank='<tr>'+BG_COLS.map(()=>'<td></td>').join('')+'</tr>';
+  return '\ufeff<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>'+e(group)+'</x:Name></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table border="1">'+head+blank+blank+blank+'</table></body></html>';
+}
+function bgDownloadTemplate(){
+  const g=bgGroupSel(),name='BG_'+noDau(g).replace(/[^a-z0-9]+/g,'')+'_'+todayISO()+'.xls';
+  dlBlob(new Blob([bgXls(g)],{type:'application/vnd.ms-excel'}),name);
+}
+async function bgCopyTemplate(){
+  const t=bgTsv(),ok=()=>uiAlert('Đã copy mẫu. Mở Excel, chọn ô A1 rồi bấm Ctrl+V.\nĐổi tên sheet thành “'+bgGroupSel()+'” trước khi lưu và gửi.');
+  try{await navigator.clipboard.writeText(t);ok();}
+  catch(e){const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(_){uiAlert('Không copy được tự động. Hãy dùng nút “Tải file mẫu”.');}
+    ta.remove();}
+}
+
+/* ================= BÁO GIÁ ================= */
+function bqCur(it){if(!it.ma||!it.nhom)return null;const v=bgLatest(it.nhom);return v?(v.rows.find(r=>r.ma===it.ma)||null):null;}
+function bqHas(){return bqs.some(x=>String(x.ten||'').trim()&&numVN(x.sl)>0);}
+function bqKhach(){return (khTenNow()||'').trim();}
+function bqTotals(){
+  let sum=0;bqs.forEach(x=>{sum+=numVN(x.sl)*numVN(x.dg);});
+  const mode=val('bq_vatmode')||'inc',pct=numVN(val('bq_vatpct'))||0;
+  let vat=0,total=sum;
+  if(mode==='add'){vat=Math.round(sum*pct/100);total=sum+vat;}
+  return {sum,mode,pct,vat,total};
+}
+function renderBqForm(){
+  const gs=document.getElementById('bqGroup');
+  if(gs){const o=bgLoad(),cur=gs.value;
+    gs.innerHTML=o.groups.map(g=>'<option value="'+esc(g.name)+'">'+esc(g.name)+(g.versions.length?'':' (chưa có giá)')+'</option>').join('');
+    if(o.groups.some(g=>g.name===cur))gs.value=cur;}
+  bqSearch();bqRenderItems();
+}
+function bqSearch(){
+  const box=document.getElementById('bqRes');if(!box)return;
+  const gs=document.getElementById('bqGroup'),g=gs?gs.value:'',v=bgLatest(g);
+  if(!v){box.innerHTML='<p class="hint">'+(g?'Nhóm “'+esc(g)+'” chưa có bảng giá.':'Chưa có nhóm.')+' Nhập file giá ở tab <b>Bảng giá</b>.</p>';bqLast=[];return;}
+  const q=noDau(((document.getElementById('bqQ')||{}).value||'').trim()).split(/\s+/).filter(Boolean);
+  bqLast=v.rows.filter(r=>{const s=noDau([r.ma,r.ten,r.hang,r.ts].join(' '));return q.every(w=>s.indexOf(w)>=0);}).slice(0,25);
+  box.innerHTML=(bqLast.length?bqLast.map((r,i)=>'<div class="bqres"><div class="t"><b>'+esc(r.ten)+'</b><div class="s">'+esc([r.ma,r.hang,r.ts].filter(Boolean).join(' · '))+'</div></div><div class="p">'+fmt(r.gia)+'<span class="s"> /'+esc(r.dvt)+'</span></div><button type="button" onclick="bqAdd('+i+')">＋</button></div>').join('')
+    :'<p class="hint">Không có thiết bị khớp.</p>')+'<p class="hint">Giá theo bản ngày '+bgFmt(v.at)+(q.length?'':' · hiện 25 dòng đầu, gõ để tìm')+'.</p>';
+}
+function bqAdd(i){
+  const r=bqLast[i];if(!r)return;
+  const g=(document.getElementById('bqGroup')||{}).value,v=bgLatest(g);
+  const ex=bqs.find(x=>x.ma===r.ma&&x.nhom===g);
+  if(ex){ex.sl=String((numVN(ex.sl)||0)+1);toast('Đã tăng số lượng: '+r.ten.slice(0,30));}
+  else{bqs.push({ma:r.ma,ten:r.ten,hang:r.hang,ts:r.ts,dvt:r.dvt,sl:'1',dg:String(r.gia),bh:r.bh||'',nhom:g,ver:v?v.at:0});toast('Đã thêm: '+r.ten.slice(0,30));}
+  bqRenderItems();renderBQPreview();hsMark();schedChk();
+}
+function bqAddMan(){bqs.push({ma:'',ten:'',hang:'',ts:'',dvt:'',sl:'',dg:'',bh:'',nhom:'',ver:0});bqRenderItems();renderBQPreview();hsMark();}
+function bqDel(i){bqs.splice(i,1);bqRenderItems();renderBQPreview();hsMark();schedChk();}
+function bqSet(i,k,v){if(bqs[i]){bqs[i][k]=v;if(k==='dg'||k==='sl')bqUpdTotals();}}
+async function bqFromPl(){
+  const rows=pls.filter(p=>String(p.ten||'').trim());
+  if(!rows.length){uiAlert('Bảng thiết bị ở tab Hợp đồng đang trống.');return;}
+  if(!await uiConfirm('Nạp '+rows.length+' dòng từ Phụ lục hợp đồng vào báo giá?\n(Nạp thêm vào danh sách hiện có.)'))return;
+  rows.forEach(p=>bqs.push({ma:'',ten:p.ten,hang:'',ts:'',dvt:p.dvt||'',sl:String(p.sl||''),dg:String(p.dg||''),bh:p.bh||'',nhom:'',ver:0}));
+  bqRenderItems();renderBQPreview();hsMark();schedChk();
+}
+async function bqRefreshPrices(){
+  const ch=[];bqs.forEach(x=>{const c=bqCur(x);if(c&&c.gia!==numVN(x.dg))ch.push({x,c});});
+  if(!ch.length){uiAlert('Không có dòng nào lệch với bảng giá hiện tại.\n(Chỉ các dòng chọn từ bảng giá mới được so sánh.)');return;}
+  if(!await uiConfirm('Cập nhật đơn giá '+ch.length+' dòng theo bảng giá mới nhất?\n'+ch.slice(0,6).map(o=>'• '+o.x.ten.slice(0,34)+': '+fmt(numVN(o.x.dg))+' → '+fmt(o.c.gia)).join('\n')+(ch.length>6?'\n…':'')))return;
+  ch.forEach(o=>{o.x.dg=String(o.c.gia);const v=bgLatest(o.x.nhom);if(v)o.x.ver=v.at;});
+  bqRenderItems();renderBQPreview();hsMark();schedChk();
+}
+function bqRenderItems(){
+  const b=document.getElementById('bqBox');if(!b)return;
+  b.innerHTML=bqs.length?bqs.map((it,i)=>'<div class="bqi"><div class="item-row"><input value="'+esc(it.ten)+'" oninput="bqSet('+i+',\'ten\',this.value)" placeholder="Tên thiết bị"><button class="del" onclick="bqDel('+i+')">✕</button></div>'
+    +(it.ma||it.hang||it.ts?'<div class="hint" style="margin:2px 0">'+esc([it.ma,it.hang,it.ts].filter(Boolean).join(' · '))+'</div>':'')
+    +'<div class="item-row"><input style="flex:0 0 54px" value="'+esc(it.dvt)+'" oninput="bqSet('+i+',\'dvt\',this.value)" placeholder="ĐVT">'
+    +'<input style="flex:0 0 60px" type="number" value="'+esc(it.sl)+'" oninput="bqSet('+i+',\'sl\',this.value)" placeholder="SL">'
+    +'<input style="flex:1;min-width:0" type="number" value="'+esc(it.dg)+'" oninput="bqSet('+i+',\'dg\',this.value)" placeholder="Đơn giá"><span class="tt" id="bqt-'+i+'"></span></div><div id="bqf-'+i+'"></div></div>').join('')
+    :'<p class="hint">Chưa có thiết bị. Tìm ở mục trên rồi bấm ＋, hoặc thêm dòng nhập tay.</p>';
+  bqUpdTotals();
+}
+function bqUpdTotals(){
+  bqs.forEach((it,i)=>{
+    const t=document.getElementById('bqt-'+i);if(t)t.textContent=fmt(numVN(it.sl)*numVN(it.dg));
+    const f=document.getElementById('bqf-'+i);
+    if(f){const c=bqCur(it);f.innerHTML=(c&&c.gia!==numVN(it.dg))?'<span class="flag">Bảng giá hiện tại: '+fmt(c.gia)+' đ (báo giá đang dùng '+fmt(numVN(it.dg))+' đ)</span>':'';}});
+  const el=document.getElementById('bqTotal');
+  if(el){const T=bqTotals();
+    el.innerHTML=bqs.length?('Cộng: '+fmt(T.sum)+' đ'+(T.mode==='add'?' · VAT '+T.pct+'%: '+fmt(T.vat)+' đ':'')+' → <b>Tổng: '+fmt(T.total)+' đ</b>'+(T.mode==='inc'?' (đã gồm VAT)':'')):'';}
+}
+function bqCapSo(){
+  const d=dIso('bq_ngay')||new Date(),y=d.getFullYear();let c={};
+  try{c=JSON.parse(localStorage.getItem('nlhd_bq_cnt')||'{}')||{};}catch(e){}
+  const n=(c[y]||0)+1,so='BG-'+y+'-'+String(n).padStart(3,'0'),cur=(val('bq_so')||'').trim();
+  const go=()=>{setF('bq_so',so);c[y]=n;try{localStorage.setItem('nlhd_bq_cnt',JSON.stringify(c));}catch(e){}renderBQPreview();hsMark();schedChk();};
+  if(cur&&cur!==so){uiConfirm('Thay số báo giá "'+cur+'" bằng số mới "'+so+'"?').then(ok=>{if(ok)go();});}else go();
+}
+function bqName(){const so=(val('bq_so')||'').trim();return safeFn('Bao gia - '+(so?so+' - ':'')+(bqKhach()||'Khach hang')+' - '+todayISO())+'.doc';}
+function bqBlob(){return new Blob(['\ufeff'+wordWrap(buildBaoGiaBody())],{type:'application/msword'});}
+function exportBQ(){dlBlob(bqBlob(),bqName());}
+function shareBQ(){shareFile(bqBlob(),bqName(),'Báo giá '+bqKhach(),'bq');}
+function copyBQ(){copyFrom('paperBQ','báo giá');}
+function renderBQPreview(){const el=document.getElementById('paperBQ');if(el)el.innerHTML=buildBaoGiaBody();}
+function buildBaoGiaBody(){
+  const T=bqTotals(),so=(val('bq_so')||'').trim(),m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(val('bq_ngay')||'');
+  const dstr=m?('Ngày '+m[3]+' tháng '+m[2]+' năm '+m[1]):'Ngày …… tháng …… năm ……';
+  const isDN=val('a_loai')==='doanhnghiep',khach=bqKhach();
+  const dc=(isDN?val('a_dn_diachi'):val('a_diachi'))||'',dt=(isDN?val('a_dn_dt'):val('a_dt'))||'';
+  const cty=val('b_ten')||'CÔNG TY CỔ PHẦN NGỌC LONG ENERGY';
+  const L0='style="margin:2px 0;text-indent:0;text-align:left"';
+  const TH='style="border:1px solid #000;padding:4px 5px;text-align:center;font-weight:bold;font-size:12pt"';
+  const TD=a=>'style="border:1px solid #000;padding:4px 5px;font-size:12pt;vertical-align:top;text-align:'+(a||'left')+'"';
+  let h='<table class="m-hdr" width="100%" style="width:100%"><tr><td style="width:50%;vertical-align:top"><img src="'+DH_LOGO+'" width="78" style="width:78px;height:auto;display:block" alt="Ngọc Long Energy"></td>'
+    +'<td style="width:50%;text-align:right;vertical-align:top">'+esc(dstr)+'</td></tr></table>';
+  h+='<p class="ct b" style="font-size:14pt;font-weight:bold;text-align:center;margin:8px 0 0;text-indent:0">BÁO GIÁ</p>';
+  h+='<p class="ct" style="text-align:center;margin:0 0 6px;text-indent:0">Số: '+(so?esc(so):'……………')+'</p>';
+  h+='<p '+L0+'><b>Đơn vị báo giá:</b> '+esc(cty)+'</p>';
+  if(val('b_diachi'))h+='<p '+L0+'>Địa chỉ: '+esc(val('b_diachi'))+'</p>';
+  h+='<p '+L0+'>'+[val('b_dt')?'Điện thoại: '+esc(val('b_dt')):'',val('b_mst')?'Mã số thuế: '+esc(val('b_mst')):''].filter(Boolean).join(' &nbsp;&nbsp; ')+'</p>';
+  h+='<p '+L0.replace('margin:2px 0','margin:8px 0 2px')+'><b>Kính gửi:</b> '+(khach?esc(khach):'……………………………')+'</p>';
+  if(dc)h+='<p '+L0+'>Địa chỉ: '+esc(dc)+'</p>';
+  if(dt)h+='<p '+L0+'>Điện thoại: '+esc(dt)+'</p>';
+  const pj=[val('pl_duan'),val('pl_congsuat')?val('pl_congsuat')+' kWp':''].filter(Boolean).join(' – ');
+  if(pj)h+='<p '+L0+'>Công trình: '+esc(pj)+'</p>';
+  if(val('pl_diadiem'))h+='<p '+L0+'>Địa điểm: '+esc(val('pl_diadiem'))+'</p>';
+  h+='<p '+L0.replace('margin:2px 0','margin:6px 0')+'>'+noOrphan('Công ty chúng tôi xin gửi tới Quý khách bảng báo giá thiết bị, vật tư như sau:')+'</p>';
+  const rows=bqs.filter(x=>String(x.ten||'').trim()||numVN(x.sl)||numVN(x.dg));
+  h+='<table class="m-tbl" width="100%" style="width:100%;border-collapse:collapse"><tr><th '+TH+' width="5%">STT</th><th '+TH+' width="34%">Tên thiết bị / vật tư</th><th '+TH+' width="7%">ĐVT</th><th '+TH+' width="7%">SL</th><th '+TH+' width="15%">Đơn giá (đ)</th><th '+TH+' width="17%">Thành tiền (đ)</th><th '+TH+' width="15%">Bảo hành</th></tr>';
+  if(!rows.length)h+='<tr><td '+TD('center')+'>&nbsp;</td><td '+TD()+'>&nbsp;</td><td '+TD()+'>&nbsp;</td><td '+TD()+'>&nbsp;</td><td '+TD()+'>&nbsp;</td><td '+TD()+'>&nbsp;</td><td '+TD()+'>&nbsp;</td></tr>';
+  rows.forEach((x,i)=>{const sub=[x.hang?'Hãng: '+x.hang:'',x.ts].filter(Boolean).join(' · ');
+    h+='<tr><td '+TD('center')+'>'+(i+1)+'</td><td '+TD()+'>'+esc(x.ten)+(sub?'<br><span style="font-size:10.5pt"><i>'+esc(sub)+'</i></span>':'')+'</td><td '+TD('center')+'>'+(esc(x.dvt)||'&nbsp;')+'</td><td '+TD('center')+'>'+esc(dhQty(x.sl))+'</td><td '+TD('right')+'>'+fmt(numVN(x.dg))+'</td><td '+TD('right')+'>'+fmt(numVN(x.sl)*numVN(x.dg))+'</td><td '+TD()+'>'+(esc(x.bh)||'&nbsp;')+'</td></tr>';});
+  const foot=(lb,v,b)=>'<tr><td colspan="5" '+TD('right')+'>'+(b?'<b>'+lb+'</b>':lb)+'</td><td '+TD('right')+'>'+(b?'<b>'+fmt(v)+'</b>':fmt(v))+'</td><td '+TD()+'>&nbsp;</td></tr>';
+  if(T.mode==='add'){h+=foot('Cộng tiền hàng',T.sum)+foot('Thuế GTGT ('+T.pct+'%)',T.vat)+foot('Tổng cộng',T.total,true);}
+  else h+=foot('Tổng cộng'+(T.mode==='inc'?(T.pct>0?' (đã bao gồm VAT '+T.pct+'%)':' (đã bao gồm VAT)'):''),T.total,true);
+  h+='</table>';
+  if(T.total>0)h+='<p '+L0.replace('margin:2px 0','margin:6px 0')+'>Bằng chữ: <i>'+esc(cap(readNumber(T.total)))+' đồng.</i></p>';
+  const hl=(val('bq_hieuluc')||'').trim();
+  if(hl)h+='<p '+L0+'>Báo giá có hiệu lực: '+esc(hl)+'.</p>';
+  const gc=lines(val('bq_ghichu'));
+  if(gc.length){h+='<p '+L0.replace('margin:2px 0','margin:6px 0 2px')+'><b>Ghi chú:</b></p>'+gc.map(l=>'<p style="margin:2px 0 2px 0.6cm;text-indent:0;text-align:left">- '+noOrphan(l)+'</p>').join('');}
+  const gap='<br><br><br><br><br>';
+  h+='<table class="m-sign" width="100%" style="width:100%;border-collapse:collapse;margin-top:12px"><tr>'
+    +'<td class="ct" style="width:50%;vertical-align:top;text-align:center"><span class="b">NGƯỜI LẬP BÁO GIÁ</span><br><span class="it">(Ký, ghi rõ họ tên)</span>'+gap+'<span class="b">'+esc(val('bq_nguoilap')||'')+'&nbsp;</span></td>'
+    +'<td class="ct" style="width:50%;vertical-align:top;text-align:center"><span class="b">ĐẠI DIỆN CÔNG TY</span><br><span class="b">'+esc((val('b_chucvu')||'').toUpperCase())+'&nbsp;</span><span class="it">(Ký, ghi rõ họ tên, đóng dấu)</span>'+gap+'<span class="b">'+esc((val('b_daidien')||'').replace(/^(Ông|Bà)\s+/i,''))+'</span></td>'
+    +'</tr></table>';
+  return h;
+}
+
+/* ================= MẪU HỢP ĐỒNG TỰ NHẬP TỪ WORD ================= */
+const MH_KEY='nlhd_mau_hd';
+let mhLib=null,mhVals={},MHD=null;
+const MH_FIELDS=[
+  ['khach_ten','Khách – Tên (cá nhân/công ty)',()=>khTenNow()],
+  ['khach_daidien','Khách – Người đại diện',()=>val('a_daidien')],
+  ['khach_chucvu','Khách – Chức vụ',()=>val('a_chucvu')],
+  ['khach_diachi','Khách – Địa chỉ',()=>val('a_loai')==='doanhnghiep'?val('a_dn_diachi'):val('a_diachi')],
+  ['khach_dt','Khách – Điện thoại',()=>val('a_loai')==='doanhnghiep'?val('a_dn_dt'):val('a_dt')],
+  ['khach_mst','Khách – Mã số thuế',()=>val('a_mst')],
+  ['khach_cccd','Khách – CCCD',()=>val('a_cccd')],
+  ['khach_stk','Khách – Số tài khoản',()=>val('a_stk')],
+  ['nl_ten','Ngọc Long – Tên công ty',()=>val('b_ten')],
+  ['nl_daidien','Ngọc Long – Người đại diện',()=>val('b_daidien')],
+  ['nl_chucvu','Ngọc Long – Chức vụ',()=>val('b_chucvu')],
+  ['nl_diachi','Ngọc Long – Địa chỉ',()=>val('b_diachi')],
+  ['nl_dt','Ngọc Long – Điện thoại',()=>val('b_dt')],
+  ['nl_mst','Ngọc Long – Mã số thuế',()=>val('b_mst')],
+  ['nl_stk','Ngọc Long – Số tài khoản',()=>val('b_stk')],
+  ['so_hd','Số hợp đồng',()=>val('soHD')],
+  ['ngay','Ngày ký – ngày',()=>mhDate(0)],
+  ['thang','Ngày ký – tháng',()=>mhDate(1)],
+  ['nam','Ngày ký – năm',()=>mhDate(2)],
+  ['gia_tri','Giá trị hợp đồng (số)',()=>{const n=numVN(val('tongGT'));return n?fmt(n):'';}],
+  ['gia_chu','Giá trị hợp đồng (bằng chữ)',()=>{const n=numVN(val('tongGT'));return n?cap(readNumber(n))+' đồng':'';}],
+  ['dia_diem','Địa điểm công trình',()=>val('pl_diadiem')],
+  ['cong_suat','Công suất (kWp)',()=>val('pl_congsuat')]
+];
+function mhDate(i){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(val('ngayKy')||'');return m?[String(+m[3]),String(+m[2]),m[1]][i]:'';}
+function mhField(k){return MH_FIELDS.find(f=>f[0]===k);}
+function mhLoad(){if(mhLib)return mhLib;try{const o=JSON.parse(localStorage.getItem(MH_KEY));mhLib=(o&&Array.isArray(o.items))?o:{v:1,items:[]};}catch(e){mhLib={v:1,items:[]};}return mhLib;}
+function mhPersist(){try{localStorage.setItem(MH_KEY,JSON.stringify(mhLib));return true;}catch(e){uiAlert('❌ Không lưu được: bộ nhớ trình duyệt đã đầy. Hãy xoá bớt mẫu cũ.');return false;}}
+function mhCur(){const id=val('mh_id');return mhLoad().items.find(t=>t.id===id)||null;}
+function mhHas(){return !!mhCur();}
+function mhLabel(t,k){const f=mhField(k);return f?f[1]:((t&&t.custom&&t.custom[k])||k);}
+function mhValue(k){const v=mhVals[k];if(v!==undefined&&String(v).trim()!=='')return String(v);const f=mhField(k);return f?String(f[2]()||''):'';}
+/* ---- nhận diện chỗ điền ---- */
+const MH_SLOT=/(…{2,}|\.{4,}|_{3,}|\[[^\]\n]{1,40}\]|\(\s*[.…]{3,}\s*\))/g;
+function mhGuess(ctx,party,nlSide){
+  const c=nd(ctx).replace(/[\s:;,\-–]+$/,'').trim();
+  if(/(^|\s)ngay$/.test(c))return 'ngay';
+  if(/(^|\s)thang$/.test(c))return 'thang';
+  if(/(^|\s)nam$/.test(c))return 'nam';
+  const nl=party&&party===nlSide, p=nl?'nl_':'khach_';
+  if(/bang chu/.test(c))return 'gia_chu';
+  if(/(gia tri|so tien|tong gia)/.test(c))return 'gia_tri';
+  if(/hop dong so$|(^|\s)so$|so hop dong|so hd/.test(c))return 'so_hd';
+  if(/cong suat/.test(c))return 'cong_suat';
+  if(/(dia diem|cong trinh)/.test(c)&&!/dia chi/.test(c))return 'dia_diem';
+  if(/dai dien/.test(c))return p+'daidien';
+  if(/(^|\s)(ong|ba|ong \(ba\)|ong\/ba|ong ba)$/.test(c))return nl?'nl_daidien':'khach_ten';
+  if(/chuc vu/.test(c))return p+'chucvu';
+  if(/dia chi|tru so/.test(c))return p+'diachi';
+  if(/(dien thoai|sdt|so dt|(^|\s)dt$|hotline)/.test(c))return p+'dt';
+  if(/(ma so thue|(^|\s)mst$)/.test(c))return p+'mst';
+  if(/(cccd|cmnd|can cuoc)/.test(c))return nl?'':'khach_cccd';
+  if(/(tai khoan|(^|\s)stk$)/.test(c))return p+'stk';
+  if(/(ten cong ty|cong ty|khach hang|^ten$|^ben [ab]$|don vi)/.test(c))return nl?'nl_ten':'khach_ten';
+  return '';
+}
+function mhDetect(blocks){
+  const slots=[];let party='',nlSide='';
+  const flat=[];
+  blocks.forEach((b,bi)=>{if(b.t==='p')flat.push({bi,txt:b.text});else b.rows.forEach((r,ri)=>r.forEach((c,ci)=>flat.push({bi,ri,ci,txt:c})));});
+  // bên nào là Ngọc Long
+  for(let i=0;i<flat.length&&!nlSide;i++){const m=/^\s*(?:bên|ben)\s+([AB])\b/i.exec(flat[i].txt);
+    if(m){const seg=flat.slice(i,i+7).map(x=>nd(x.txt)).join(' ');if(/ngoc long/.test(seg))nlSide=m[1].toUpperCase();}}
+  if(!nlSide)nlSide='B';
+  flat.forEach(f=>{
+    const pm=/^\s*(?:bên|ben)\s+([AB])\b/i.exec(f.txt);if(pm)party=pm[1].toUpperCase();
+    const re=new RegExp(MH_SLOT.source,'g');let m;
+    while((m=re.exec(f.txt))){
+      const before=f.txt.slice(0,m.index),ctx=before.slice(-45).replace(/\n/g,' ');
+      slots.push({bi:f.bi,ri:f.ri,ci:f.ci,at:m.index,len:m[0].length,txt:m[0],ctx,after:f.txt.slice(m.index+m[0].length,m.index+m[0].length+25).replace(/\n/g,' '),party,key:mhGuess(ctx,party,nlSide),label:''});
+    }});
+  return {slots,nlSide};
+}
+function mhSlug(s){return nd(s).toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,24)||'truong';}
+/* ---- nhập từ Word ---- */
+async function mhImport(inp){
+  const f=inp.files&&inp.files[0];inp.value='';if(!f)return;
+  let blocks;
+  try{blocks=await readWordFile(f);}
+  catch(e){if(e.message==='OLD_DOC')uiAlert('File “'+f.name+'” là Word đời cũ (.doc).\nHãy mở bằng Word → Tệp → Lưu thành → chọn “Word Document (*.docx)”, rồi nhập file .docx vừa lưu.');
+    else uiAlert('Không đọc được file Word: '+(e.message||e));return;}
+  blocks=blocks.filter(b=>b.t==='tbl'||(b.text&&b.text.trim()));
+  if(!blocks.length){uiAlert('File Word không có nội dung văn bản.');return;}
+  const D=mhDetect(blocks);
+  MHD={name:f.name.replace(/\.(docx?|html?)$/i,''),blocks,slots:D.slots,nlSide:D.nlSide};
+  mhShow();
+}
+function mhOpts(sel){
+  let h='<option value="">— Giữ nguyên dấu chấm (điền tay) —</option><optgroup label="Lấy từ hồ sơ">';
+  MH_FIELDS.forEach(([k,l])=>{h+='<option value="'+k+'"'+(sel===k?' selected':'')+'>'+esc(l)+'</option>';});
+  h+='</optgroup><option value="_new"'+(sel==='_new'?' selected':'')+'>➕ Trường riêng (nhập khi lập HĐ)…</option>';
+  return h;
+}
+function mhShow(){
+  const old=document.getElementById('mhOv');if(old)old.remove();
+  const S=MHD.slots;
+  const ov=document.createElement('div');ov.className='zl-ov no-print';ov.id='mhOv';ov.style.zIndex=10004;
+  let h='<div class="zl-card wi-card"><h3><i class="fa-solid fa-file-word" style="color:#2b579a"></i> Tạo mẫu hợp đồng từ Word</h3>'
+   +'<p class="zl-note">App giữ <b>nguyên văn</b> file <b>'+esc(MHD.name)+'</b> ('+MHD.blocks.length+' đoạn/bảng) và tìm thấy <b>'+S.length+'</b> chỗ có thể điền. Kiểm tra từng chỗ rồi bấm lưu.</p>'
+   +'<label>Tên mẫu</label><input id="mhName" value="'+esc(MHD.name)+'">';
+  h+='<div class="wi-row"><div class="wi-sel"><span>Ngọc Long trong file là</span><select id="mhSide"><option value="A"'+(MHD.nlSide==='A'?' selected':'')+'>Bên A</option><option value="B"'+(MHD.nlSide==='B'?' selected':'')+'>Bên B</option></select></div><div class="wi-sum">Đổi nếu app đoán sai — các chỗ chưa chỉnh tay sẽ được nhận lại.</div></div>';
+  if(!S.length)h+='<div class="ig-note">Không thấy chỗ trống nào (dấu chấm …, [ ... ], ____). Vẫn có thể lưu mẫu để dùng nguyên văn.</div>';
+  S.forEach((s,i)=>{
+    h+='<div class="wi-row"><div class="wi-sum" style="margin:0 0 4px">…'+esc(s.ctx)+'<b style="background:#fde68a;padding:0 3px">'+esc(s.txt.length>14?s.txt.slice(0,14)+'…':s.txt)+'</b>'+esc(s.after)+'…'+(s.party?' <i>(Bên '+s.party+')</i>':'')+'</div>'
+      +'<div class="wi-sel"><span>Điền</span><select data-s="'+i+'">'+mhOpts(s.key==='_new'||(s.key&&!mhField(s.key))?'_new':s.key)+'</select></div>'
+      +'<input data-l="'+i+'" placeholder="Tên trường riêng (vd: Thời gian bảo hành)" value="'+esc(s.label||'')+'" style="'+((s.key==='_new')?'':'display:none')+'"></div>';});
+  h+='<button class="zl-big" data-b="save"><i class="fa-solid fa-floppy-disk"></i>Lưu mẫu</button><button class="secondary" data-b="x">Huỷ</button></div>';
+  ov.innerHTML=h;
+  ov.addEventListener('click',e=>{if(e.target===ov){ov.remove();return;}
+    const b=e.target.closest('button[data-b]');if(!b)return;if(b.dataset.b==='x'){ov.remove();return;}mhSaveNew();});
+  ov.addEventListener('change',e=>{
+    const sd=e.target.closest('#mhSide');if(sd){
+      MHD.nlSide=sd.value;const D=mhDetect(MHD.blocks);D.slots.forEach((n,i)=>{const o=MHD.slots[i];if(o&&!o.touched)o.key=mhGuessSide(o,MHD.nlSide);});mhKeep();return;}
+    const s=e.target.closest('select[data-s]');if(s){const i=+s.dataset.s;MHD.slots[i].key=s.value;MHD.slots[i].touched=true;
+      const li=ov.querySelector('input[data-l="'+i+'"]');if(li)li.style.display=s.value==='_new'?'':'none';}});
+  ov.addEventListener('input',e=>{const l=e.target.closest('input[data-l]');if(l)MHD.slots[+l.dataset.l].label=l.value;});
+  document.body.appendChild(ov);
+}
+function mhGuessSide(s,side){return mhGuess(s.ctx,s.party,side);}
+function mhKeep(){const y=document.querySelector('#mhOv .zl-card');const t=y?y.scrollTop:0;const n=(document.getElementById('mhName')||{}).value;if(n!==undefined)MHD.name=n;mhShow();const c=document.querySelector('#mhOv .zl-card');if(c)c.scrollTop=t;}
+function mhSaveNew(){
+  const nm=(document.getElementById('mhName').value||'').trim();
+  if(!nm){uiAlert('Hãy nhập tên mẫu.');return;}
+  const custom={},used=[];
+  const keyOf=s=>{
+    if(!s.key)return '';
+    if(s.key==='_new'){const lb=(s.label||'').trim();if(!lb)return '';const k='c_'+mhSlug(lb);custom[k]=lb;return k;}
+    return s.key;};
+  // thay từ cuối về đầu trong cùng đoạn để không lệch vị trí
+  const blocks=JSON.parse(JSON.stringify(MHD.blocks));
+  const order=MHD.slots.map((s,i)=>({s,i})).sort((a,b)=>b.s.at-a.s.at);
+  order.forEach(({s})=>{const k=keyOf(s);if(!k)return;if(!used.includes(k))used.push(k);
+    const put=t=>t.slice(0,s.at)+'{{'+k+'}}'+t.slice(s.at+s.len);
+    if(s.ri===undefined){blocks[s.bi].text=put(blocks[s.bi].text);}
+    else{blocks[s.bi].rows[s.ri][s.ci]=put(blocks[s.bi].rows[s.ri][s.ci]);}});
+  const lib=mhLoad();let ex=lib.items.find(t=>t.name===nm);
+  const doSave=()=>{
+    const it={id:ex?ex.id:('m'+Date.now().toString(36)),name:nm,at:Date.now(),blocks,fields:used,custom};
+    if(ex)Object.assign(ex,it);else lib.items.push(it);
+    if(!mhPersist())return;
+    const ov=document.getElementById('mhOv');if(ov)ov.remove();MHD=null;
+    const hid=document.querySelector('[data-f="mh_id"]');if(hid)hid.value=it.id;
+    mhVals={};mhRender();renderMHPreview();hsMark();
+    uiAlert('✅ Đã lưu mẫu “'+nm+'” với '+used.length+' trường điền.');};
+  if(ex){uiConfirm('Đã có mẫu “'+nm+'”. Ghi đè?').then(ok=>{if(ok)doSave();});}else doSave();
+}
+/* ---- giao diện tab ---- */
+function mhRender(){
+  const sel=document.getElementById('mhSel');if(!sel)return;
+  const lib=mhLoad(),cur=val('mh_id');
+  sel.innerHTML=lib.items.length?'<option value="">— Chọn mẫu —</option>'+lib.items.map(t=>'<option value="'+esc(t.id)+'"'+(t.id===cur?' selected':'')+'>'+esc(t.name)+'</option>').join(''):'<option value="">(chưa có mẫu – bấm Nhập từ Word)</option>';
+  const t=mhCur(),box=document.getElementById('mhFields');if(!box)return;
+  if(!t){box.innerHTML='<p class="hint">Chọn một mẫu, hoặc bấm <b>Nhập mẫu từ Word</b> để tạo mẫu mới.</p>';return;}
+  if(!t.fields.length){box.innerHTML='<p class="hint">Mẫu này không có trường điền — dùng nguyên văn.</p>';return;}
+  box.innerHTML=t.fields.map(k=>{const f=mhField(k),auto=f?String(f[2]()||''):'';
+    return '<div><label>'+esc(mhLabel(t,k))+(f?' <span class="muted" style="font-weight:400">(tự lấy từ hồ sơ)</span>':'')+'</label><input data-k="'+esc(k)+'" value="'+esc(mhVals[k]||'')+'" placeholder="'+esc(auto||'nhập…')+'"></div>';}).join('');
+}
+function mhPick(id){const hid=document.querySelector('[data-f="mh_id"]');if(hid)hid.value=id;mhVals={};mhRender();renderMHPreview();hsMark();}
+function mhInput(inp){mhVals[inp.dataset.k]=inp.value;renderMHPreview();hsMark();}
+async function mhRename(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}const n=prompt('Tên mẫu mới:',t.name);if(!n||!n.trim())return;t.name=n.trim();if(mhPersist())mhRender();}
+async function mhDup(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}const c=JSON.parse(JSON.stringify(t));c.id='m'+Date.now().toString(36);c.name=t.name+' (bản sao)';mhLoad().items.push(c);if(mhPersist())mhPick(c.id);}
+async function mhDel(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}if(!await uiConfirm('Xoá mẫu “'+t.name+'”? (Hợp đồng đã lập từ mẫu này sẽ không còn nội dung)'))return;
+  const lib=mhLoad();lib.items=lib.items.filter(x=>x.id!==t.id);if(mhPersist())mhPick('');}
+function mhExportFile(){const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}
+  dlBlob(new Blob([JSON.stringify({_type:'HDNL_MAU_WORD',v:1,tpl:t},null,2)],{type:'application/json'}),safeFn(t.name)+'.mauword.json');}
+function mhImportFile(inp){const f=inp.files&&inp.files[0];inp.value='';if(!f)return;const r=new FileReader();
+  r.onload=async e=>{try{const o=JSON.parse(e.target.result);const t=o&&o._type==='HDNL_MAU_WORD'&&o.tpl;
+    if(!t||!Array.isArray(t.blocks)){uiAlert('File không phải mẫu hợp đồng (.mauword.json).');return;}
+    const lib=mhLoad();let ex=lib.items.find(x=>x.name===t.name);
+    if(ex&&!await uiConfirm('Đã có mẫu “'+t.name+'”. Ghi đè?'))return;
+    t.id=ex?ex.id:('m'+Date.now().toString(36));if(ex)Object.assign(ex,t);else lib.items.push(t);
+    if(mhPersist()){mhPick(t.id);uiAlert('✅ Đã nhập mẫu “'+t.name+'”.');}
+  }catch(err){uiAlert('Không đọc được file mẫu.');}};r.readAsText(f,'UTF-8');}
+/* ---- dựng văn bản ---- */
+function mhFill(txt){
+  const P=String(txt||'').split(/\{\{(\w+)\}\}/);
+  return P.map((p,i)=>{
+    if(i%2===0)return esc(p).replace(/\n/g,'<br>').replace(/\t/g,'&emsp;');
+    let v=mhValue(p);
+    // "Số: {{so_hd}}/2026/HĐ…" — mẫu đã có phần đuôi thì chỉ điền phần số đầu
+    if(p==='so_hd'&&v&&/^\s*\//.test(P[i+1]||''))v=v.split('/')[0].trim();
+    return v?esc(v):'……………';}).join('');
+}
+function buildMauHDBody(){
+  const t=mhCur();
+  if(!t)return '<p class="ct" style="text-align:center;text-indent:0;color:#888">Chưa chọn mẫu hợp đồng</p>';
+  let h='';
+  t.blocks.forEach((b,i)=>{
+    if(b.t==='tbl'){
+      h+='<table width="100%" style="width:100%;border-collapse:collapse;margin:4px 0">'+b.rows.map(r=>'<tr>'+r.map(c=>'<td style="border:1px solid #000;padding:3px 5px;vertical-align:top;text-indent:0;text-align:left">'+mhFill(c)+'</td>').join('')+'</tr>').join('')+'</table>';
+      return;}
+    const raw=b.text||'',plain=raw.replace(/\{\{\w+\}\}/g,'').trim();
+    const ctr=b.bold&&plain.length<95&&!/^(điều|dieu)\s*\d/i.test(plain)&&plain===plain.toUpperCase()&&/[A-ZÀ-Ỹ]/.test(plain);
+    const art=b.bold&&/^(điều|dieu)\s*\d/i.test(plain);
+    h+='<p'+(ctr?' class="ct b" style="text-align:center;font-weight:bold;text-indent:0"':art?' class="b" style="font-weight:bold;margin-top:8pt"':(b.bold?' class="b" style="font-weight:bold"':''))+'>'+mhFill(raw)+'</p>';
+  });
+  return h;
+}
+function mhName(){const t=mhCur();const so=(mhValue('so_hd')||'').trim().split('/')[0].trim();
+  return safeFn((t?t.name:'Hop dong')+' - '+(so?so+' - ':'')+(khTenNow()||'Khach hang')+' - '+todayISO())+'.doc';}
+function mhBlob(){return new Blob(['﻿'+wordWrap(buildMauHDBody())],{type:'application/msword'});}
+function exportMH(){dlBlob(mhBlob(),mhName());}
+function shareMH(){shareFile(mhBlob(),mhName(),'Hợp đồng '+(khTenNow()||''),'mh');}
+function copyMH(){copyFrom('paperMH','hợp đồng');}
+function renderMHPreview(){const el=document.getElementById('paperMH');if(el)el.innerHTML=buildMauHDBody();}
+/* ---- tạo mẫu từ hợp đồng hiện tại ---- */
+function mhFieldsOf(blocks){
+  const set=[];const f=t=>{String(t||'').replace(/\{\{(\w+)\}\}/g,(m,k)=>{if(!set.includes(k))set.push(k);return m;});};
+  blocks.forEach(b=>{if(b.t==='p')f(b.text);else b.rows.forEach(r=>r.forEach(f));});return set;
+}
+function mhMapBlocks(blocks,fn){blocks.forEach(b=>{if(b.t==='p')b.text=fn(b.text);else b.rows=b.rows.map(r=>r.map(fn));});}
+function mhUniqueName(n){const L=mhLoad().items;let x=n,i=2;while(L.some(t=>t.name===x))x=n+' ('+(i++)+')';return x;}
+function mhFromContract(){
+  if(isTG()){uiAlert('Hợp đồng trả góp do đối tác lập, không có văn bản để chuyển thành mẫu.');return;}
+  const MAP=[['a_ten','khach_ten'],['a_congty','khach_ten'],['a_daidien','khach_daidien'],['a_chucvu','khach_chucvu'],['a_diachi','khach_diachi'],['a_dn_diachi','khach_diachi'],
+    ['a_dt','khach_dt'],['a_dn_dt','khach_dt'],['a_mst','khach_mst'],['a_cccd','khach_cccd'],['a_stk','khach_stk'],
+    ['b_ten','nl_ten'],['b_daidien','nl_daidien'],['b_chucvu','nl_chucvu'],['b_diachi','nl_diachi'],['b_dt','nl_dt'],['b_mst','nl_mst'],['b_stk','nl_stk'],['soHD','so_hd']];
+  const SENT=[['tongGT','123456789'],['ngayKy','2088-07-27']];
+  const all=MAP.map(m=>m[0]).concat(SENT.map(s=>s[0]));
+  const els=all.map(f=>document.querySelector('[data-f="'+f+'"]')),old=els.map(e=>e?e.value:null);
+  const tok={};
+  MAP.forEach(([f,k],i)=>{if(els[i]){const t='ZZ'+(i+1)+'ZZ';tok[t]=k;els[i].value=t;}});
+  SENT.forEach(([f,v],j)=>{const e=els[MAP.length+j];if(e)e.value=v;});
+  let html='';
+  try{render();html=document.getElementById('paper').innerHTML;}
+  finally{els.forEach((e,i)=>{if(e&&old[i]!==null)e.value=old[i];});render();}
+  let blocks=htmlBlocks(html).filter(b=>b.t==='tbl'||(b.text&&b.text.trim()));
+  if(!blocks.length){uiAlert('Không đọc được nội dung hợp đồng hiện tại.');return;}
+  const gw=cap(readNumber(123456789))+' đồng';
+  mhMapBlocks(blocks,t=>String(t)
+    .replace(/ZZ(\d+)ZZ/g,(m,n)=>{const k=tok[m];return k?'{{'+k+'}}':m;})
+    .split(gw).join('{{gia_chu}}').split('123.456.789').join('{{gia_tri}}')
+    .replace(/27\/07\/2088/g,'{{ngay}}/{{thang}}/{{nam}}')
+    .replace(/(ngày\s+)27(?=\s+tháng)/gi,'$1{{ngay}}').replace(/(tháng\s+)07\b/gi,'$1{{thang}}').replace(/(năm\s+)2088/gi,'$1{{nam}}').replace(/2088/g,'{{nam}}'));
+  const it={id:'m'+Date.now().toString(36),name:mhUniqueName('Hợp đồng Ngọc Long (từ mẫu hiện tại)'),at:Date.now(),blocks,fields:mhFieldsOf(blocks),custom:{}};
+  mhLoad().items.push(it);if(!mhPersist())return;
+  const hid=document.querySelector('[data-f="mh_id"]');if(hid)hid.value=it.id;
+  mhVals={};mhRender();renderMHPreview();hsMark();
+  uiAlert('✅ Đã tạo mẫu “'+it.name+'”.\nLưu ý: bảng thiết bị, lịch thanh toán… đang có trong hợp đồng cũng được giữ nguyên trong mẫu — bấm “Sửa nội dung mẫu” để xoá hoặc đổi.');
+}
+/* ---- trình sửa nội dung mẫu ---- */
+let MHE=null,mhLastTa=null;
+function mhEdit(){
+  const t=mhCur();if(!t){uiAlert('Chưa chọn mẫu.');return;}
+  MHE={id:t.id,name:t.name,blocks:JSON.parse(JSON.stringify(t.blocks)),custom:Object.assign({},t.custom||{})};
+  mhEditShow();
+}
+function mhEditShow(keepScroll){
+  const old=document.getElementById('mheOv');const st=old?old.querySelector('.mhe-body').scrollTop:0;if(old)old.remove();
+  const ov=document.createElement('div');ov.className='zl-ov no-print';ov.id='mheOv';ov.style.zIndex=10005;
+  const customOpts=Object.keys(MHE.custom).map(k=>'<option value="'+esc(k)+'">'+esc(MHE.custom[k])+'</option>').join('');
+  const ta=(b,r,c,txt)=>'<textarea data-b="'+b+'"'+(r!==undefined?' data-r="'+r+'" data-c="'+c+'"':'')+' rows="'+Math.min(14,Math.max(1,String(txt).split('\n').length+Math.floor(String(txt).length/70)))+'">'+esc(txt)+'</textarea>';
+  let h='<div class="zl-card mhe-card"><div class="mhe-top"><b><i class="fa-solid fa-pen-to-square"></i> Sửa nội dung mẫu</b>'
+   +'<input id="mheName" value="'+esc(MHE.name)+'">'
+   +'<select id="mheIns"><option value="">＋ Chèn trường vào chỗ con trỏ…</option><optgroup label="Lấy từ hồ sơ">'+MH_FIELDS.map(f=>'<option value="'+f[0]+'">'+esc(f[1])+'</option>').join('')+'</optgroup>'+(customOpts?'<optgroup label="Trường riêng">'+customOpts+'</optgroup>':'')+'<option value="_new">➕ Trường riêng mới…</option></select>'
+   +'<button class="zl-big" data-a="save">💾 Lưu</button><button class="secondary" data-a="x">Đóng</button></div><div class="mhe-body">';
+  MHE.blocks.forEach((b,i)=>{
+    if(b.t==='tbl'){
+      h+='<div class="mhe-blk tbl"><div class="mhe-bar"><span>Bảng</span><button data-a="addrow" data-i="'+i+'">+ dòng</button><button data-a="up" data-i="'+i+'">↑</button><button data-a="down" data-i="'+i+'">↓</button><button data-a="del" data-i="'+i+'">✖ Xoá bảng</button></div>'
+       +'<table>'+b.rows.map((r,ri)=>'<tr>'+r.map((c,ci)=>'<td>'+ta(i,ri,ci,c)+'</td>').join('')+'<td class="x"><button data-a="delrow" data-i="'+i+'" data-r="'+ri+'">✖</button></td></tr>').join('')+'</table></div>';
+    }else{
+      h+='<div class="mhe-blk"><div class="mhe-bar"><label><input type="checkbox" data-a="bold" data-i="'+i+'"'+(b.bold?' checked':'')+'> Đậm</label><button data-a="up" data-i="'+i+'">↑</button><button data-a="down" data-i="'+i+'">↓</button><button data-a="add" data-i="'+i+'">＋ đoạn dưới</button><button data-a="del" data-i="'+i+'">✖</button></div>'+ta(i,undefined,undefined,b.text)+'</div>';
+    }});
+  h+='<button class="ghost" data-a="addend">＋ Thêm đoạn ở cuối</button></div></div>';
+  ov.innerHTML=h;document.body.appendChild(ov);
+  ov.querySelector('.mhe-body').scrollTop=keepScroll===false?0:st;
+  ov.addEventListener('focusin',e=>{if(e.target.tagName==='TEXTAREA')mhLastTa=e.target;});
+  ov.addEventListener('input',e=>{const x=e.target;
+    if(x.tagName==='TEXTAREA'){const b=MHE.blocks[+x.dataset.b];if(x.dataset.r!==undefined)b.rows[+x.dataset.r][+x.dataset.c]=x.value;else b.text=x.value;}
+    else if(x.id==='mheName')MHE.name=x.value;});
+  ov.addEventListener('change',e=>{const x=e.target;
+    if(x.dataset.a==='bold'){MHE.blocks[+x.dataset.i].bold=x.checked;return;}
+    if(x.id==='mheIns'){let k=x.value;x.value='';if(!k)return;
+      if(!mhLastTa){uiAlert('Bấm vào đoạn văn cần chèn trước, rồi chọn trường.');return;}
+      if(k==='_new'){const lb=(prompt('Tên trường riêng (vd: Thời gian bảo hành):')||'').trim();if(!lb)return;k='c_'+mhSlug(lb);MHE.custom[k]=lb;}
+      const ta=mhLastTa,p=ta.selectionStart==null?ta.value.length:ta.selectionStart,q=ta.selectionEnd==null?p:ta.selectionEnd;
+      ta.value=ta.value.slice(0,p)+'{{'+k+'}}'+ta.value.slice(q);ta.dispatchEvent(new Event('input',{bubbles:true}));
+      ta.focus();const np=p+k.length+4;try{ta.setSelectionRange(np,np);}catch(_){}}});
+  ov.addEventListener('click',e=>{const b=e.target.closest('button[data-a]');if(!b)return;const a=b.dataset.a,i=+b.dataset.i,B=MHE.blocks;
+    if(a==='x'){ov.remove();MHE=null;mhLastTa=null;return;}
+    if(a==='save'){mhEditSave();return;}
+    if(a==='up'&&i>0){[B[i-1],B[i]]=[B[i],B[i-1]];}
+    else if(a==='down'&&i<B.length-1){[B[i+1],B[i]]=[B[i],B[i+1]];}
+    else if(a==='del'){B.splice(i,1);}
+    else if(a==='add'){B.splice(i+1,0,{t:'p',text:'',bold:false});}
+    else if(a==='addend'){B.push({t:'p',text:'',bold:false});}
+    else if(a==='addrow'){const n=(B[i].rows[0]||['']).length;B[i].rows.push(Array(n).fill(''));}
+    else if(a==='delrow'){B[i].rows.splice(+b.dataset.r,1);if(!B[i].rows.length)B.splice(i,1);}
+    else return;
+    mhLastTa=null;mhEditShow();});
+}
+function mhEditSave(){
+  const t=mhLoad().items.find(x=>x.id===MHE.id);if(!t){uiAlert('Không tìm thấy mẫu.');return;}
+  const nm=(MHE.name||'').trim();if(!nm){uiAlert('Tên mẫu không được trống.');return;}
+  if(mhLoad().items.some(x=>x.id!==t.id&&x.name===nm)){uiAlert('Đã có mẫu khác tên “'+nm+'”.');return;}
+  const blocks=MHE.blocks.filter(b=>b.t==='tbl'||String(b.text||'').trim());
+  t.name=nm;t.blocks=blocks;t.fields=mhFieldsOf(blocks);
+  t.custom={};t.fields.forEach(k=>{if(!mhField(k)&&MHE.custom[k])t.custom[k]=MHE.custom[k];});
+  if(!mhPersist())return;
+  const ov=document.getElementById('mheOv');if(ov)ov.remove();MHE=null;mhLastTa=null;
+  mhRender();renderMHPreview();hsMark();uiAlert('✅ Đã lưu nội dung mẫu.');
+}
+
+
 renderPayForm();renderWhForm();renderPlForm();renderExForm();applyCss();applyJustify();toggleBenA();refreshTplList();syncLoaiHD();render();
-document.querySelector('.form-panel').addEventListener('input',()=>{if(curTab==='m01')renderM01Preview();if(curTab==='bb')renderBBPreview();if(curTab==='vv')renderVVPreview();if(curTab==='dh')renderDHPreview();if(curTab==='pack')updatePackList();});
+document.querySelector('.form-panel').addEventListener('input',()=>{if(curTab==='m01')renderM01Preview();if(curTab==='bb')renderBBPreview();if(curTab==='vv')renderVVPreview();if(curTab==='dh')renderDHPreview();if(curTab==='bq'){bqUpdTotals();renderBQPreview();}if(curTab==='pack')updatePackList();});
 switchTab('hd');
 renderRefList();
 toggleBBType();
@@ -3579,6 +4505,11 @@ applyHinhThuc();
 applyVaiTro();
 renderDhForm();
 renderDHPreview();
+bgRender();
+renderBqForm();
+renderBQPreview();
+mhRender();
+renderMHPreview();
 
 /* ---------- gắn kiểm tra vào mọi nút xuất ---------- */
 (function(){
@@ -3590,6 +4521,8 @@ renderDHPreview();
   exportBB=gated(exportBB,bbK,'tải Word');shareBB=gated(shareBB,bbK,'gửi Zalo');copyBB=gated(copyBB,bbK,'copy');
   exportVV=gated(exportVV,()=>'vv','tải Word');shareVV=gated(shareVV,()=>'vv','gửi Zalo');copyVV=gated(copyVV,()=>'vv','copy');
   exportDH=gated(exportDH,dhK,'tải Word');shareDH=gated(shareDH,dhK,'gửi Zalo');copyDH=gated(copyDH,dhK,'copy');
+  exportMH=gated(exportMH,()=>'mh','tải Word');shareMH=gated(shareMH,()=>'mh','gửi Zalo');copyMH=gated(copyMH,()=>'mh','copy');
+  exportBQ=gated(exportBQ,()=>'bq','tải Word');shareBQ=gated(shareBQ,()=>'bq','gửi Zalo');copyBQ=gated(copyBQ,()=>'bq','copy');
   packProject=gated(packProject,()=>'pack','đóng gói');sharePack=gated(sharePack,()=>'pack','gửi');
   downloadPdf=gated(downloadPdf,docKeyNow,'xuất PDF');
   const _sw=switchTab;switchTab=function(n){_sw(n);schedChk();dockSync();};
